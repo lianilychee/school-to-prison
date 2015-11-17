@@ -2,7 +2,7 @@ $(document).ready(function() {
 	console.log('main.js loaded');
 
     var map = new Datamap({
-        element: document.getElementById('container'),
+        element: document.getElementById('map'),
         scope: 'usa',
         geographyConfig: {
             popupOnHover: false,
