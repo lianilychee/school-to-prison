@@ -2,6 +2,7 @@
 
 var MAP = {
 
+
 	/** draws a blank map of US
 	*/
 	onLoad: function(id) {
@@ -19,8 +20,8 @@ var MAP = {
 
 	/** on click selection, update map data.
 	 */
-	update: function() {
-
+	update: function(id) {
+		console.log(id);
 	},
 
 	/** render map, with updated data as necessary.

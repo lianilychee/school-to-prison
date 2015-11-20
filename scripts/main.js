@@ -1,81 +1,58 @@
 $(document).ready(function() {
 
+
+    // Click handlers
+    $('#sel-1').click(function() {
+        MAP.update('sel-1');
+    })
+
+    $('#sel-2').click(function() {
+        MAP.update('sel-2');
+    })
+
+    $('#sel-3').click(function() {
+        MAP.update('sel-3');
+    })
+
     // load CSVs
+    d3.csv("http://localhost:8000/DisabilityStateGap.csv", function(csv_data) {
 
-    d3.csv("http://localhost:8000/Are_We_Closing_Elementary.csv", function(csv_data) {
-        school_data = csv_data;
-        console.log("scjpp; done loading");
-        // drawGraph();
+        var color = d3.scale.linear()
+            .domain([100, 1000])
+            .range(["white", "black"]);
 
-        d3.csv("http://localhost:8000/Gaz_unsd_national.csv", function(csv_data) {
-                latlon_data = csv_data;
-                console.log("latlon done loading");
-                // drawGraph();
+        var state_fills = {}
 
-                for (var i = 0; i < latlon_data.length; i++) {
+        var fillKeys = {}
 
-                    for (var j = 0; i < school_data.length; j++) {
-                        console.log(i, j);
-                    }
-
-                    if (latlon_data[i]['GEOID'] == school_data)
-
-                }
-
-
-                // /**Draw one bubble per school district**/
-                // var districts = [];
-
-                // // draw one bubble per district
-                // for (var i = 0; i < latlon_data.length; i++) {
-
-                //     district_single = {
-                //         radius: 1,
-                //         latitude: parseFloat(latlon_data[i]['INTPTLAT']),
-                //         longitude: parseFloat(latlon_data[i]['INTPTLONG']),
-                //         fillKey: 'standard',
-                //         borderWidth: 0
-
-                //     }; 
-
-                //     districts.push(district_single);
-                // }
-
-                // // console.log(districts);
-
-                // map.bubbles(districts);
-
-                // console.log('done drawing');
-                // /****/
-
-            });
-
-    });
-
-
-
-    // draw blank map of US
-    var map = new Datamap({
-        element: document.getElementById('map'),
-        scope: 'usa',
-        geographyConfig: {
-            popupOnHover: false,
-            highlightOnHover: false
-        },
-        fills: {
-            'standard': '#FF530D'
+        for (var i = 0; i < csv_data.length; i++) {
+            fillKeys[csv_data[i]["State"]] = {fillKey: csv_data[i]["State"]}
+            state_fills[csv_data[i]["State"]] = color(parseFloat(csv_data[i]["Diff: B WD vs WOD"]))
         }
 
+        // draw map of US
+        var map = new Datamap({
+            element: document.getElementById('map'),
+            scope: 'usa',
+            geographyConfig: {
+                popupOnHover: false,
+                highlightOnHover: false
+            },
+            fills: state_fills,
+            data: fillKeys
+        });
     });
 
+        // if ($('.selector').attr('id') == 'sel-2') {
+        //     console.log('clicked: sel-2')
+        // }
+
+        // if ($('.selector').attr('id') == 'sel-3') {
+        //     console.log('clicked: sel-3')
+        // }
+    
 
 
 
-
-
-    // on click, show ID
-    $('.selector').click(function() {
-        console.log('clicked: ', $('.selector').attr('id'))
-    })
 
 })
