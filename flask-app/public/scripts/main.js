@@ -18,8 +18,8 @@ $(document).ready(function() {
     d3.csv("datasets/DisabilityStateGap.csv", function(csv_data) {
 
         var color = d3.scale.linear()
-            .domain([100, 1000])
-            .range(["white", "black"]);
+            .domain([0, 50])
+            .range(["white", "red"]);
 
         var state_fills = {}
 
@@ -27,7 +27,8 @@ $(document).ready(function() {
 
         for (var i = 0; i < csv_data.length; i++) {
             fillKeys[csv_data[i]["State"]] = {fillKey: csv_data[i]["State"]}
-            state_fills[csv_data[i]["State"]] = color(parseFloat(csv_data[i]["Diff: B WD vs WOD"]))
+            console.log(parseFloat(csv_data[i]["Norm Poverty Percent"]));
+		state_fills[csv_data[i]["State"]] = color(parseFloat(csv_data[i]["Norm Poverty Percent"]))
         }
 
         // draw map of US
