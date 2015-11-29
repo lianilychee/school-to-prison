@@ -21,14 +21,19 @@ $(document).ready(function() {
             .domain([0, 50])
             .range(["white", "red"]);
 
+        var color2 = d3.scale.linear()
+            .domain([100, 1000])
+            .range(["white", "blue"]);
+
         var state_fills = {}
+        var state_fills2 = {}
 
         var fillKeys = {}
 
         for (var i = 0; i < csv_data.length; i++) {
             fillKeys[csv_data[i]["State"]] = {fillKey: csv_data[i]["State"]}
-            console.log(parseFloat(csv_data[i]["Norm Poverty Percent"]));
-		state_fills[csv_data[i]["State"]] = color(parseFloat(csv_data[i]["Norm Poverty Percent"]))
+            state_fills[csv_data[i]["State"]] = color(parseFloat(csv_data[i]["Norm Poverty Percent"]))
+            state_fills2[csv_data[i]["State"]] = color2(parseFloat(csv_data[i]["Diff: B WD vs WOD"]))
         }
 
         // draw map of US
@@ -40,6 +45,17 @@ $(document).ready(function() {
                 highlightOnHover: false
             },
             fills: state_fills,
+            data: fillKeys
+        });
+
+        var map2 = new Datamap({
+            element: document.getElementById('map'),
+            scope: 'usa',
+            geographyConfig: {
+                popupOnHover: false,
+                highlightOnHover: false
+            },
+            fills: state_fills2,
             data: fillKeys
         });
     });
