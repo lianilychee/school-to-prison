@@ -1,52 +1,38 @@
 $(document).ready(function() {
 
-
     // Click handlers
     $('#sel-1').click(function() {
-        MAP.update('sel-1');
+        PERSON.update('sel-1');
     })
 
     $('#sel-2').click(function() {
-        MAP.update('sel-2');
+        PERSON.update('sel-2');
     })
 
     $('#sel-3').click(function() {
-        MAP.update('sel-3');
+        PERSON.update('sel-3');
     })
 
     // load CSVs
     d3.csv("http://localhost:8000/DisabilityStateGap.csv", function(csv_data) {
 
-        // var color = d3.scale.linear()
-        //     .domain([100, 1000])
-        //     .range(["white", "black"]);
+        var percentage = 0.50; // TWEAK THIS NUMBER
 
-        // var state_fills = {}
+        var containerHeight = $('#person-fill').height();
 
-        // var fillKeys = {}
+        var svgContainer = d3.select('#person-fill').append('svg')
+                                                    .attr('width', '100%')
+                                                    .attr('height', '100%')
 
-        // for (var i = 0; i < csv_data.length; i++) {
-        //     fillKeys[csv_data[i]["State"]] = {fillKey: csv_data[i]["State"]}
-        //     state_fills[csv_data[i]["State"]] = color(parseFloat(csv_data[i]["Diff: B WD vs WOD"]))
-        // }
-
-        // // draw map of US
-        // var map = new Datamap({
-        //     element: document.getElementById('map'),
-        //     scope: 'usa',
-        //     geographyConfig: {
-        //         popupOnHover: false,
-        //         highlightOnHover: false
-        //     },
-        //     fills: state_fills,
-        //     data: fillKeys
-        // });
+        var dudeFill = svgContainer.append('rect')
+                                   .attr('x', 0)
+                                   .attr('y', function() {
+                                        return(containerHeight - containerHeight*percentage);
+                                   })
+                                   .attr('width', '100%')
+                                   .attr('height', function() {
+                                        return (containerHeight*percentage);
+                                   })
+                                   .attr('fill', 'purple')
     });
-
-
-    
-
-
-
-
 })
