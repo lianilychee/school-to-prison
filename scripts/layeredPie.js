@@ -1,18 +1,23 @@
+var disability = true;
+var race = true;
+
+
 function layeredPie(csv_data){
-	data = [
-		{label:"1", pop:1, susp:.3 },
-		{label:"2", pop:2, susp:.1},
-		{label:"3", pop:3, susp:.5},
-		{label:"5", pop:5, susp:.7},
-		{label:"10", pop:10, susp:.2},
-		{label:"1", pop:1, susp:.3}
-	]
-	var radius = 100
+    console.log(csv_data);
+    // "Students WOD Enrollment "
+    // "Students WD Enrollment"
+    data = [
+        {label:"Disability", pop: parseFloat(csv_data[49]["Students WD Enrollment"]), susp: parseFloat(csv_data[49][" All Students WD Rates"])},
+        {label:"Without Disability", pop: parseFloat(csv_data[49]["Students WOD Enrollment "]), susp:parseFloat(csv_data[49][" All Students WOD Rates"])}
+    ]
+    console.log(data);
+
+    radius = 100;
 	var color = d3.scale.category10();
     var color2 = d3.scale.category20();
 
-	width = 300
-	height = 300
+	width = 300;
+	height = 300;
 
 
 	var svg = d3.select("body").append("svg")
@@ -28,10 +33,7 @@ function layeredPie(csv_data){
         .outerRadius(radius)
         .innerRadius(0)
     var arc2 = d3.svg.arc()
-        .outerRadius(function(d){
-            console.log(d);
-            return radius * d.data.susp;
-        })
+        .outerRadius(function(d){return radius * d.data.susp;})
         .innerRadius(0)
     var labelArc = d3.svg.arc()
         .outerRadius(radius + 100)
@@ -49,7 +51,7 @@ function layeredPie(csv_data){
 
     g.append("path")
         .attr("d", arc2)
-        .style("fill", function(d,i) { return color2(i); });
+        .style("fill", function(d,i) { return d3.rgb(color(i)).brighter(1.5);});
 
     g.append("text")
         .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })

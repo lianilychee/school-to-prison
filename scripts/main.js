@@ -1,9 +1,7 @@
 $(document).ready(function() {
-
-    layeredPie([]);
     // load CSVs
-    //d3.csv("http://localhost:8000/SuspensionByStateAndTotal.csv", function(csv_data) {
-
+    d3.csv("http://localhost:8000/SuspensionByStateAndTotal.csv", function(csv_data) {
+        layeredPie(csv_data);
         // var color = d3.scale.linear()
         //     .domain([100, 1000])
         //     .range(["white", "black"]);
@@ -28,7 +26,7 @@ $(document).ready(function() {
         //     fills: state_fills,
         //     data: fillKeys
         // });
-    //});
+    });
 
 
     
