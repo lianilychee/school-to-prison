@@ -1,21 +1,8 @@
 $(document).ready(function() {
 
-
-    // Click handlers
-    $('#sel-1').click(function() {
-        MAP.update('sel-1');
-    })
-
-    $('#sel-2').click(function() {
-        MAP.update('sel-2');
-    })
-
-    $('#sel-3').click(function() {
-        MAP.update('sel-3');
-    })
-
+    layeredPie([]);
     // load CSVs
-    d3.csv("http://localhost:8000/DisabilityStateGap.csv", function(csv_data) {
+    //d3.csv("http://localhost:8000/SuspensionByStateAndTotal.csv", function(csv_data) {
 
         // var color = d3.scale.linear()
         //     .domain([100, 1000])
@@ -41,7 +28,7 @@ $(document).ready(function() {
         //     fills: state_fills,
         //     data: fillKeys
         // });
-    });
+    //});
 
 
     
