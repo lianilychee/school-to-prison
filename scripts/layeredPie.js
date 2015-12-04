@@ -23,7 +23,7 @@ function layeredPie(csv_path){
     	height = 300
 
         // stick an SVG to the body of index.html
-    	var svg = d3.select("body").append("svg")
+    	var svg = d3.select("#pie").append("svg")
           .attr("width", width)
           .attr("height", height)
           .append("g")
@@ -33,22 +33,6 @@ function layeredPie(csv_path){
         var pie = d3.layout.pie()
             .sort(null)
             .value(function(d) { return d.pop; });
-
-
-        // draw slices
-        // var wdArcOuter = d3.svg.arc()
-        //     .outerRadius(radius)
-        //     .innerRadius(0)
-        //     .startAngle(0)
-        //     .endAngle(2);
-
-        // var wodArcOuter = d3.svg.arc()
-        //     .outerRadius(radius)
-        //     .innerRadius(0)
-        //     .startAngle(wdArcOuter.startAngle)
-        //     .endAngle()
-
-
 
         // initialize the outer slice
         var arc = d3.svg.arc()

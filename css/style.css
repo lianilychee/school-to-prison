@@ -1,0 +1,18 @@
+div {
+	border-style: dotted;
+	border-color: red;
+}
+
+.container {
+	background-color: purple;
+}
+
+#pie {
+	background-color: green;
+	float: right;
+}
+
+#person {
+	background-color: white;
+	float: left;
+}
