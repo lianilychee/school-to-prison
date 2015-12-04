@@ -2,11 +2,11 @@ function layeredPie(csv_path){
 
     d3.csv(csv_path, function(csv_data) {
 
-        console.log(csv_data);
+        // console.log(csv_data);
 
     	dataset = [
-    		{label:"1", pop:csv_data[49]['Students WD Enrollment'], susp:(csv_data[49]['Suspended Students WD']/csv_data[49]['Students WD Enrollment'])},
-    		{label:"2", pop:csv_data[49]['Students WOD Enrollment'], susp:(csv_data[49]['Suspended Students WOD']/csv_data[49]['Students WOD Enrollment'])},
+    		{label:"WD", pop:csv_data[49]['Students WD Enrollment'], susp:(csv_data[49]['Suspended Students WD']/csv_data[49]['Students WD Enrollment'])},
+    		{label:"WOD", pop:csv_data[49]['Students WOD Enrollment'], susp:(csv_data[49]['Suspended Students WOD']/csv_data[49]['Students WOD Enrollment'])},
             // {label:"2", pop:csv_data[50]['Students WOD Enrollment'], susp:0.4},
     		// {label:"3", pop:3, susp:0.5},
     		// {label:"5", pop:5, susp:0.7},
@@ -34,6 +34,22 @@ function layeredPie(csv_path){
             .sort(null)
             .value(function(d) { return d.pop; });
 
+
+        // draw slices
+        // var wdArcOuter = d3.svg.arc()
+        //     .outerRadius(radius)
+        //     .innerRadius(0)
+        //     .startAngle(0)
+        //     .endAngle(2);
+
+        // var wodArcOuter = d3.svg.arc()
+        //     .outerRadius(radius)
+        //     .innerRadius(0)
+        //     .startAngle(wdArcOuter.startAngle)
+        //     .endAngle()
+
+
+
         // initialize the outer slice
         var arc = d3.svg.arc()
             .outerRadius(radius)
@@ -59,8 +75,10 @@ function layeredPie(csv_path){
             .data(pie(dataset))
             .enter()
             .append("g")
-            .attr("class", "arc");
-
+            .attr("class", "arc")
+            .on("click", function() {
+                console.log('I touched the butt');
+            });
 
         g.append("path")
             .attr("d", arc)
@@ -69,7 +87,7 @@ function layeredPie(csv_path){
 
         g.append("path")
             .attr("d", arc2)
-            .style("fill", function(d,i) { return color2(i); });
+            .style("fill", function(d,i) { return color2; });
 
         g.append("text")
             .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
