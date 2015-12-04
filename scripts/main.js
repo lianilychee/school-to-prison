@@ -16,7 +16,7 @@ $(document).ready(function() {
     // load CSVs
     d3.csv("http://localhost:8000/DisabilityStateGap.csv", function(csv_data) {
 
-        var percentage = 0.50; // TWEAK THIS NUMBER
+        var percentage = 0.40; // TWEAK THIS NUMBER
 
         var containerHeight = $('#person-fill').height();
 
