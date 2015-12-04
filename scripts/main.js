@@ -1,43 +1,27 @@
 $(document).ready(function() {
 
     layeredPie("http://localhost:8000/SuspensionByStateAndTotal.csv");
-   
+ 
+    percentage = 0.5
 
-// EXAMPLE
+    var containerHeight = $('#person-image').height();
 
-    // load CSVs
-    // d3.csv("http://localhost:8000/SuspensionByStateAndTotal.csv", function(csv_data) {
+    console.log(containerHeight)
 
-    //     var color = d3.scale.linear()
-    //         .domain([100, 1000])
-    //         .range(["white", "black"]);
+    var svgContainer = d3.select('#person').append('svg')
+                                                .attr('width', '100%')
+                                                .attr('height', '100%')
 
-    //     var state_fills = {}
+    console.log(percentage)
 
-    //     var fillKeys = {}
-
-    //     for (var i = 0; i < csv_data.length; i++) {
-    //         fillKeys[csv_data[i]["State"]] = {fillKey: csv_data[i]["State"]}
-    //         state_fills[csv_data[i]["State"]] = color(parseFloat(csv_data[i]["Diff: B WD vs WOD"]))
-    //     }
-
-    //     // draw map of US
-    //     var map = new Datamap({
-    //         element: document.getElementById('map'),
-    //         scope: 'usa',
-    //         geographyConfig: {
-    //             popupOnHover: false,
-    //             highlightOnHover: false
-    //         },
-    //         fills: state_fills,
-    //         data: fillKeys
-    //     });
-    // });
-
-
-    
-
-
-
-
-})
+    var personFill = svgContainer.append('rect')
+                               .attr('x', 0)
+                               .attr('y', function() {
+                                    return(containerHeight - containerHeight*percentage);
+                               })
+                               .attr('width', '100%')
+                               .attr('height', function() {
+                                    return (containerHeight*percentage);
+                               })
+                               .attr('fill', 'purple')
+});
