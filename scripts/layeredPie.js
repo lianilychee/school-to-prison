@@ -51,31 +51,6 @@ function layeredPie(csv_path){
 
 
         // DRAW ALL THE OBJECTS
-<<<<<<< HEAD
-
-    	var g = svg.selectAll(".arc")
-            .data(pie(dataset))
-            .enter()
-            .append("g")
-            .attr("class", "arc")
-            .on("click", function() {
-                console.log('CLICKED');
-            });
-
-        g.append("path")
-            .attr("d", arc)
-            .style("fill", function(d,i) { return color(i); });
-
-
-        g.append("path")
-            .attr("d", arc2)
-            .style("fill", function(d,i) { return color2; });
-
-        g.append("text")
-            .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-            .attr("dy", ".35em")
-            .text(function(d,i) { return d.data.label; });
-=======
         function update(){
             svg.selectAll("g").remove()
         	var g = svg.selectAll(".arc")
@@ -103,6 +78,5 @@ function layeredPie(csv_path){
                 .text(function(d,i) { return d.data.label; });
         }
         update();
->>>>>>> master
     })
 }
