@@ -1,3 +1,6 @@
+var disability = ""
+var race = ""
+
 function layeredPie(csv_path){
 
     d3.csv(csv_path, function(csv_data) {
@@ -5,8 +8,8 @@ function layeredPie(csv_path){
         // console.log(csv_data);
 
     	dataset = [
-    		{label:"WD", pop:csv_data[49]['Students WD Enrollment'], susp:(csv_data[49]['Suspended Students WD']/csv_data[49]['Students WD Enrollment'])},
-    		{label:"WOD", pop:csv_data[49]['Students WOD Enrollment'], susp:(csv_data[49]['Suspended Students WOD']/csv_data[49]['Students WOD Enrollment'])},
+    		{label:"WD", pop:csv_data[49]['Students WD Enrollment'], susp:(csv_data[49]['Suspended Students WD']/csv_data[49]['Students WD Enrollment']), selected:false},
+    		{label:"WOD", pop:csv_data[49]['Students WOD Enrollment'], susp:(csv_data[49]['Suspended Students WOD']/csv_data[49]['Students WOD Enrollment']), selected:false},
     	]
 
     	var radius = 100
@@ -48,6 +51,7 @@ function layeredPie(csv_path){
 
 
         // DRAW ALL THE OBJECTS
+<<<<<<< HEAD
 
     	var g = svg.selectAll(".arc")
             .data(pie(dataset))
@@ -71,5 +75,34 @@ function layeredPie(csv_path){
             .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
             .attr("dy", ".35em")
             .text(function(d,i) { return d.data.label; });
+=======
+        function update(){
+            svg.selectAll("g").remove()
+        	var g = svg.selectAll(".arc")
+                .data(pie(dataset))
+                .enter()
+                .append("g")
+                .attr("class", "arc")
+                .on("click", function(d,i) {
+                    dataset[i]["selected"] = !dataset[i]["selected"];
+                    update();
+                });
+
+            g.append("path")
+                .attr("d", arc)
+                .style("fill", function(d,i) { return d.data.selected ? d3.rgb(color(i)).darker(2) : color(i); });
+
+
+            g.append("path")
+                .attr("d", arc2)
+                .style("fill", function(d,i) { return d.data.selected ? color(i) : d3.rgb(color(i)).brighter(2); });
+
+            g.append("text")
+                .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+                .attr("dy", ".35em")
+                .text(function(d,i) { return d.data.label; });
+        }
+        update();
+>>>>>>> master
     })
 }

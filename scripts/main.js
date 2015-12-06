@@ -24,4 +24,4 @@ $(document).ready(function() {
                                     return (containerHeight*percentage);
                                })
                                .attr('fill', 'purple')
-});
+})
