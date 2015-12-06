@@ -7,11 +7,6 @@ function layeredPie(csv_path){
     	dataset = [
     		{label:"WD", pop:csv_data[49]['Students WD Enrollment'], susp:(csv_data[49]['Suspended Students WD']/csv_data[49]['Students WD Enrollment'])},
     		{label:"WOD", pop:csv_data[49]['Students WOD Enrollment'], susp:(csv_data[49]['Suspended Students WOD']/csv_data[49]['Students WOD Enrollment'])},
-            // {label:"2", pop:csv_data[50]['Students WOD Enrollment'], susp:0.4},
-    		// {label:"3", pop:3, susp:0.5},
-    		// {label:"5", pop:5, susp:0.7},
-    		// {label:"10", pop:10, susp:0.2},
-    		// {label:"1", pop:1, susp:0.3}
     	]
 
     	var radius = 100
@@ -42,7 +37,6 @@ function layeredPie(csv_path){
         // initialize the inner slice
         var arc2 = d3.svg.arc()
             .outerRadius(function(d){
-                // console.log(d.data.susp);
                 return radius * d.data.susp;
             })
             .innerRadius(0)
@@ -61,7 +55,7 @@ function layeredPie(csv_path){
             .append("g")
             .attr("class", "arc")
             .on("click", function() {
-                console.log('I touched the butt');
+                console.log('CLICKED');
             });
 
         g.append("path")
