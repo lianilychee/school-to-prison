@@ -1,99 +1,150 @@
-var disability = ""
-var race = ""
+var pie_state = "default"
+var row_number = 49
+var raceColumns = ["White", "Black", "Latino", "Asian American", "American Indian","Hawaiian/Pacific Islander"];
+var WDcolor = "#FF8139"
+var WODcolor = "#00DFDD"
+
+function buildDataset(csv_data, row_number, pie_state){
+    var dataset = []
+    if (pie_state == "default" || pie_state == "WODRace"){
+        dataset.push(
+            {label:"WD",
+            pop:csv_data[row_number]['Students WD Enrollment'],
+            susp:(csv_data[row_number]['Suspended Students WD']/csv_data[row_number]['Students WD Enrollment']),
+            color:WDcolor,
+            selected:false});
+    }
+    if (pie_state == "WDRace"){
+        for (var i = 0; i < raceColumns.length; i++){
+            dataset.push(
+                {label:raceColumns[i] + "s WD",
+                pop:csv_data[row_number][raceColumns[i] + 's WD Enrollment'],
+                susp:(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WD']/csv_data[row_number][raceColumns[i]+'s WD Enrollment']),
+                color:d3.rgb(WDcolor).darker(i*.25),
+                selected:false});
+        }
+    }
+    if (pie_state == "default" || pie_state == "WDRace"){
+        dataset.push(
+            {label:"WOD",
+            pop:csv_data[row_number]['Students WOD Enrollment'],
+            susp:(csv_data[row_number]['Suspended Students WOD']/csv_data[row_number]['Students WOD Enrollment']),
+            color:WODcolor,
+            selected:false});
+    }
+    if (pie_state == "WODRace"){
+        for (var i = 0; i < raceColumns.length; i++){
+            dataset.push(
+                {label:raceColumns[i] + "s WOD",
+                pop:csv_data[row_number][raceColumns[i] + 's WOD Enrollment'],
+                susp:(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WOD']/csv_data[row_number][raceColumns[i]+'s WOD Enrollment']),
+                color:d3.rgb(WODcolor).darker(i*.25),
+                selected:false});
+        }
+    }
+    return dataset
+}
 
 function layeredPie(csv_path){
 
-    d3.csv(csv_path, function(csv_data) {
+    // console.log(csv_data);
 
-        // console.log(csv_data);
+    var outer_radius = 300
+    var inner_radius = 120
+    
 
-    	dataset = [
-    		{label:"WD", pop:csv_data[49]['Students WD Enrollment'], susp:(csv_data[49]['Suspended Students WD']/csv_data[49]['Students WD Enrollment']), selected:false},
-    		{label:"WOD", pop:csv_data[49]['Students WOD Enrollment'], susp:(csv_data[49]['Suspended Students WOD']/csv_data[49]['Students WOD Enrollment']), selected:false},
-    	]
+    // dimensions of the svg
+    width = 600
+    height = 600
 
-    	var radius = 100
-    	var color = d3.scale.category10();
-        var color2 = "white";
+    // stick an SVG to the body of index.html
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
 
-        // dimensions of the svg
-    	width = 300
-    	height = 300
+    var state_label = svg.append("text")
+        .attr("transform", "translate(" + width / 20 + "," + height / 15 + ")")
+        .style("font-family","sans-serif")
+        .style("font-size","20px");
+        
 
-        // stick an SVG to the body of index.html
-    	var svg = d3.select("body").append("svg")
-          .attr("width", width)
-          .attr("height", height)
-          .append("g")
-          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    var infog = svg.append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+        .style('opacity',0)
+        .style("text-anchor", "middle")
+        .style("font-family","sans-serif");
+    var info_text = {
+            line1:infog.append("text").attr('dy','-20'),
+            line2:infog.append("text").attr('dy','0'),
+            line3:infog.append("text").attr('dy','20'),
+        }   
 
-        // initialize pie chart
-        var pie = d3.layout.pie()
-            .sort(null)
-            .value(function(d) { return d.pop; });
+    var pieg = svg.append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+    // initialize pie chart
+    var pie = d3.layout.pie()
+        .sort(null)
+        .value(function(d) { return d.pop; });
 
-        // draw slices
-        // var wdArcOuter = d3.svg.arc()
-        //     .outerRadius(radius)
-        //     .innerRadius(0)
-        //     .startAngle(0)
-        //     .endAngle(2);
+    // initialize the outer slice
+    var arc = d3.svg.arc()
+        .outerRadius(outer_radius)
+        .innerRadius(inner_radius)
 
-        // var wodArcOuter = d3.svg.arc()
-        //     .outerRadius(radius)
-        //     .innerRadius(0)
-        //     .startAngle(wdArcOuter.startAngle)
-        //     .endAngle()
-
-
-
-        // initialize the outer slice
-        var arc = d3.svg.arc()
-            .outerRadius(radius)
-            .innerRadius(0)
-
-        // initialize the inner slice
-        var arc2 = d3.svg.arc()
-            .outerRadius(function(d){
-                // console.log(d.data.susp);
-                return radius * d.data.susp;
-            })
-            .innerRadius(0)
-
-        // initialize labels
-        var labelArc = d3.svg.arc()
-            .outerRadius(radius + 100)
-            .innerRadius(0)
-
-
+    // initialize the inner slice
+    var susp_arc = d3.svg.arc()
+        .outerRadius(function(d){
+            // console.log(d.data.susp);
+            return (outer_radius - inner_radius) * d.data.susp +inner_radius;
+        })
+        .innerRadius(inner_radius)
         // DRAW ALL THE OBJECTS
-        function update(){
-            svg.selectAll("g").remove()
-        	var g = svg.selectAll(".arc")
-                .data(pie(dataset))
-                .enter()
-                .append("g")
-                .attr("class", "arc")
-                .on("click", function(d,i) {
-                    dataset[i]["selected"] = !dataset[i]["selected"];
-                    update();
-                });
+    function update(csv_data){
+        state_label.text(csv_data[row_number]['State']);
+        state_label.on("click",function(){
+            row_number = (row_number + 1) % 50;
+            update(csv_data);
+        });
+        var dataset = buildDataset(csv_data, row_number, pie_state);
+        pieg.selectAll("g").remove();
+        var g = pieg.selectAll(".arc")
+            .data(pie(dataset))
+            .enter()
+            .append("g")
+            .attr("class", "arc")
+            .on("click", function(d,i) {
+                if(d.data.label == "WD" || d.data.label == "WOD"){
+                    pie_state = d.data.label+"Race";
+                    update(csv_data);
+                }else{
+                    d.data.selected = !d.data.selected
+                    //d3.select(this).selectAll(".whole_arc").style("fill", d.data.selected ? d3.rgb(d.data.color).darker(1) : d.data.color);
+                    //d3.select(this).selectAll(".susp_arc").style("fill", d.data.selected ? d.data.color : d3.rgb(d.data.color).brighter(1));
+                }
+            })
+            .on("mouseover",function(d){
+                infog.style("opacity",1);
+                info_text.line1.text((d.data.susp*100).toFixed(2) + "% of");
+                info_text.line2.text(d.data.label);
+                info_text.line3.text("Suspended");
+            })
+            .on("mouseout",function(d){
+                infog.style("opacity",0);
+            });
 
-            g.append("path")
-                .attr("d", arc)
-                .style("fill", function(d,i) { return d.data.selected ? d3.rgb(color(i)).darker(2) : color(i); });
+        g.append("path")
+            .attr("d", arc)
+            .attr("class","whole_arc")
+            .style("fill", function(d,i) { return d.data.color; });
 
 
-            g.append("path")
-                .attr("d", arc2)
-                .style("fill", function(d,i) { return d.data.selected ? color(i) : d3.rgb(color(i)).brighter(2); });
-
-            g.append("text")
-                .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-                .attr("dy", ".35em")
-                .text(function(d,i) { return d.data.label; });
-        }
-        update();
+        g.append("path")
+            .attr("d", susp_arc)
+            .attr("class","susp_arc")
+            .style("fill", function(d,i) { return d3.rgb(d.data.color).brighter(1); });
+    }
+    d3.csv(csv_path, function(csv_data) {
+        update(csv_data);
     })
 }
