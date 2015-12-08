@@ -96,7 +96,7 @@ function layeredPie(csv_path){
     var susp_arc = d3.svg.arc()
         .outerRadius(function(d){
             // console.log(d.data.susp);
-            return (outer_radius - inner_radius) * d.data.susp +inner_radius;
+            return Math.sqrt(d.data.susp*(Math.pow(outer_radius,2) - Math.pow(inner_radius,2)) + Math.pow(inner_radius,2));
         })
         .innerRadius(inner_radius)
         // DRAW ALL THE OBJECTS
@@ -119,8 +119,8 @@ function layeredPie(csv_path){
                     update(csv_data);
                 }else{
                     d.data.selected = !d.data.selected
-                    //d3.select(this).selectAll(".whole_arc").style("fill", d.data.selected ? d3.rgb(d.data.color).darker(1) : d.data.color);
-                    //d3.select(this).selectAll(".susp_arc").style("fill", d.data.selected ? d.data.color : d3.rgb(d.data.color).brighter(1));
+                    d3.select(this).selectAll(".whole_arc").style("stroke", d.data.selected ? d3.rgb(d.data.color).darker(1) : d.data.color);
+                    d3.select(this).selectAll(".susp_arc").style("stroke", d.data.selected ? d.data.color : d3.rgb(d.data.color).brighter(1));
                 }
             })
             .on("mouseover",function(d){
