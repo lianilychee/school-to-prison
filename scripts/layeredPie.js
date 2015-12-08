@@ -74,7 +74,7 @@ function layeredPie(csv_data){
     var outer_radius = 300
     var inner_radius = 120
     var label_radius = 320
-    
+
 
     // dimensions of the svg
     width = 1000
@@ -90,7 +90,7 @@ function layeredPie(csv_data){
         .attr("transform", "translate(" + width / 20 + "," + height / 15 + ")")
         .style("font-family","sans-serif")
         .style("font-size","20px");
-        
+
     var back_button = svg.append("foreignObject")
         .attr("transform", "translate(" + 17 * width / 20 + "," + height / 15 + ")")
         // .style("font-family","sans-serif")
@@ -159,6 +159,7 @@ function layeredPie(csv_data){
                         e.data.selected = d===e && e.data.selected;
                     });
                     if (d.data.selected) {
+                        setInfog(d);
                         arcs.on("mouseover", null).on("mouseout", null);
                     } else {
                         arcs.on("mouseover", setInfog).on("mouseout", hideInfog);
@@ -204,10 +205,10 @@ function layeredPie(csv_data){
                 setTimeout(function() { update(csv_data); }, 750);
                 // update(csv_data);
             });
-            
+
         } else {
             back_button.style("visibility", "hidden");
-            
+
         };
 
         var labels = []
@@ -227,14 +228,14 @@ function layeredPie(csv_data){
                 .style("fill-opacity",0)
                 .text(label.desc);
             }
-        });  
+        });
         arrangeLabels();
         if (pie_state != "default"){
             pieg.selectAll(".arc-label").transition().delay(700).duration(500).style("fill-opacity",1);
         } else {
             pieg.selectAll(".arc-label").style("fill-opacity",1);
         }
-        
+
     }
 
     function arcTween(d, i, a) {
