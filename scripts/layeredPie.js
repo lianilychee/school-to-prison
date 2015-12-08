@@ -3,13 +3,14 @@ var row_number = 49
 var raceColumns = ["White", "Black", "Latino", "Asian American", "American Indian","Hawaiian/Pacific Islander"];
 var WDcolor = "#FF8139"
 var WODcolor = "#00DFDD"
+var firstLoad = true;
 
 
 /** Returns a list of elements, where each element represents an arc in the pie.
     Each arc contains a label, population, suspension rate, color, and selection Y/N. **/
 function buildDataset(csv_data, row_number, pie_state){
     var dataset = []
-    if (pie_state == "default" || pie_state == "WODRace"){
+    if (pie_state == "default" || pie_state == "WOD"){
         dataset.push(
             {label:"WD",
             pop:csv_data[row_number]['Students WD Enrollment'],
@@ -17,8 +18,12 @@ function buildDataset(csv_data, row_number, pie_state){
             color:WDcolor,
             selected:false});
     }
-    if (pie_state == "WDRace"){
+    if (pie_state == "WD"){
+        var totalSusp = 0;
+        var totalEnroll = 0;
         for (var i = 0; i < raceColumns.length; i++){
+            totalSusp += parseInt(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WD']);
+            totalEnroll += parseInt(csv_data[row_number][raceColumns[i]+'s WD Enrollment']);
             dataset.push(
                 {label:raceColumns[i] + "s WD",
                 pop:csv_data[row_number][raceColumns[i] + 's WD Enrollment'],
@@ -26,8 +31,13 @@ function buildDataset(csv_data, row_number, pie_state){
                 color:d3.rgb(WDcolor).darker(i*.25),
                 selected:false});
         }
+        dataset.push({label:"Unknown WD",
+            pop:csv_data[row_number]['Students WD Enrollment'] - totalEnroll,
+            susp:((csv_data[row_number]['Suspended Students WD'] - totalSusp)/(csv_data[row_number]['Students WD Enrollment'] - totalEnroll)),
+            color:d3.rgb(WDcolor).darker(i*.25),
+            selected:false});
     }
-    if (pie_state == "default" || pie_state == "WDRace"){
+    if (pie_state == "default" || pie_state == "WD"){
         dataset.push(
             {label:"WOD",
             pop:csv_data[row_number]['Students WOD Enrollment'],
@@ -35,8 +45,12 @@ function buildDataset(csv_data, row_number, pie_state){
             color:WODcolor,
             selected:false});
     }
-    if (pie_state == "WODRace"){
+    if (pie_state == "WOD"){
+        var totalSusp = 0;
+        var totalEnroll = 0;
         for (var i = 0; i < raceColumns.length; i++){
+            totalSusp += parseInt(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WOD']);
+            totalEnroll += parseInt(csv_data[row_number][raceColumns[i]+'s WOD Enrollment']);
             dataset.push(
                 {label:raceColumns[i] + "s WOD",
                 pop:csv_data[row_number][raceColumns[i] + 's WOD Enrollment'],
@@ -44,6 +58,11 @@ function buildDataset(csv_data, row_number, pie_state){
                 color:d3.rgb(WODcolor).darker(i*.25),
                 selected:false});
         }
+        dataset.push({label:"Unknown WOD",
+            pop:csv_data[row_number]['Students WOD Enrollment'] - totalEnroll,
+            susp:((csv_data[row_number]['Suspended Students WOD'] - totalSusp)/(csv_data[row_number]['Students WOD Enrollment'] - totalEnroll)),
+            color:d3.rgb(WODcolor).darker(i*.25),
+            selected:false});
     }
     return dataset
 }
@@ -61,6 +80,7 @@ function layeredPie(csv_data){
     width = 1000
     height = 1000
 
+
     // stick an SVG to the body of index.html
     var svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -71,10 +91,17 @@ function layeredPie(csv_data){
         .style("font-family","sans-serif")
         .style("font-size","20px");
         
+    var back_button = svg.append("foreignObject")
+        .attr("transform", "translate(" + 17 * width / 20 + "," + height / 15 + ")")
+        // .style("font-family","sans-serif")
+        // .style("font-size","20px")
+        // .text("Back")
+        .style("visibility", "hidden")
+        .append("xhtml:body")
+            .html("<button class=\"back-button\">Back</button>");
 
     var infog = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-        .style('opacity',0)
         .style("text-anchor", "middle")
         .style("font-family","sans-serif");
     var info_text = {
@@ -122,34 +149,66 @@ function layeredPie(csv_data){
             .on("click", function(d,i) {
 
                 if(d.data.label == "WD" || d.data.label == "WOD"){
-                    pie_state = d.data.label+"Race";
+                    pie_state = d.data.label;
                     update(csv_data);
-                }else{
-                    d.data.selected = !d.data.selected
-                    d3.select(this).selectAll(".whole_arc").style("stroke", d.data.selected ? d3.rgb(d.data.color).darker(1) : d.data.color);
-                    d3.select(this).selectAll(".susp_arc").style("stroke", d.data.selected ? d.data.color : d3.rgb(d.data.color).brighter(1));
+                } else {
+                    d.data.selected = !d.data.selected;
+                    var arcs = pieg.selectAll(".arc");
+                    arcs.each(function(e,j) {
+                        d3.select(this).transition().duration(200).style("fill-opacity", d.data.selected && d!==e ? .6 : 1);
+                        e.data.selected = d===e && e.data.selected;
+                    });
+                    if (d.data.selected) {
+                        arcs.on("mouseover", null).on("mouseout", null);
+                    } else {
+                        arcs.on("mouseover", setInfog).on("mouseout", hideInfog);
+                    };
                 }
             })
-            .on("mouseover",function(d){
-                infog.style("opacity",1);
-                info_text.line1.text((d.data.susp*100).toFixed(2) + "% of");
-                info_text.line2.text(d.data.label);
-                info_text.line3.text("Suspended");
-            })
-            .on("mouseout",function(d){
-                infog.style("opacity",0);
-            });
+            .on("mouseover", setInfog)
+            .on("mouseout", hideInfog);
 
         g.append("path")
             .attr("d", arc)
             .attr("class","whole_arc")
-            .style("fill", function(d,i) { return d.data.color; });
+            .style("fill", function(d,i) { return d.data.color; })
+            .each(function(d) { this._current = d });
 
 
         g.append("path")
             .attr("d", susp_arc)
             .attr("class","susp_arc")
-            .style("fill", function(d,i) { return d3.rgb(d.data.color).brighter(1); });
+            .style("fill", function(d,i) { return d3.rgb(d.data.color).brighter(1); })
+            .each(function(d) { this._current = d });
+
+
+        if (pie_state != "default") {
+            var pieSwoosh = d3.layout.pie()
+                .sort(null)
+                .value(function(d) {
+                    // console.log(d.label, pie_state);
+                    // console.log(d.label.indexOf(pie_state));
+                    return d.label.indexOf(pie_state) < 0 ? 0 : d.pop;
+                });
+            g = g.data(pieSwoosh(dataset));
+            g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
+            g.selectAll(".susp_arc").transition().duration(750).attrTween("d", arcTween);
+            back_button.style("visibility", "visible");
+
+            back_button.on("click", function() {
+                pieg.selectAll(".arc-label").transition().duration(750).style("fill-opacity",0);
+                g = g.data(pie(dataset));
+                g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
+                g.selectAll(".susp_arc").transition().duration(750).attrTween("d", arcTween);
+                pie_state = "default";
+                setTimeout(function() { update(csv_data); }, 750);
+                // update(csv_data);
+            });
+            
+        } else {
+            back_button.style("visibility", "hidden");
+            
+        };
 
         var labels = []
         g.each(function(d,i){
@@ -158,25 +217,51 @@ function layeredPie(csv_data){
             var ang = (d.startAngle + d.endAngle)/2
             label.x = Math.sin(ang) * label_radius
             label.y = Math.cos(ang) * -label_radius
-            d3.select(this)
-            .append('text')
-            .attr('class', 'arc-label')
-            .attr('x', label.x)
-            .attr('y', label.y)
-            .attr('text-anchor', label.x >= 0 ? "start" : "end")
-            .text(label.desc);
-        });
-        
-        // var arcLabels = pieg.selectAll('.arc-label')
-        //     .data(labels)
-        //     .enter()
-            
-            
+            if(d.value > 0){
+                d3.select(this)
+                .append('text')
+                .attr('class', 'arc-label')
+                .attr('x', label.x)
+                .attr('y', label.y)
+                .attr('text-anchor', label.x >= 0 ? "start" : "end")
+                .style("fill-opacity",0)
+                .text(label.desc);
+            }
+        });  
         arrangeLabels();
-        pieg.selectAll('.arc-label').each(function(d, i){
-            console.log(d3.select(this));
-            //d3.select(d.arc).append("text");
-        });
+        if (pie_state != "default"){
+            pieg.selectAll(".arc-label").transition().delay(700).duration(500).style("fill-opacity",1);
+        } else {
+            pieg.selectAll(".arc-label").style("fill-opacity",1);
+        }
+        
+    }
+
+    function arcTween(d, i, a) {
+        var i = d3.interpolate(this._current, d3.select(this.parentNode).datum());
+        this._current = i(0);
+        if (d3.select(this).attr("class") == "whole_arc") {
+            return function(t) {
+                // console.log(t);
+                // console.log(arc(i(t)));
+                return arc(i(t));
+            };
+        } else {
+            return function(t) {
+                return susp_arc(i(t));
+            };
+        };
+    }
+
+    function setInfog(d) {
+        infog.style("visibility", "visible");
+        info_text.line1.text((d.data.susp*100).toFixed(2) + "% of");
+        info_text.line2.text(d.data.label);
+        info_text.line3.text("Suspended");
+    }
+
+    function hideInfog() {
+        infog.style("visibility", "hidden");
     }
     function arrangeLabels() {
       var move = 1;
@@ -208,9 +293,8 @@ function layeredPie(csv_data){
                   }
                 });
            });
-      }
-  }
+        }
+    }
  
     update(csv_data);
- 
-}
+ }
