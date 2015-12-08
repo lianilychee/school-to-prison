@@ -19,6 +19,16 @@ ul {
 	/*background-color: purple;*/
 }
 
+.back-button {
+	position: fixed;
+	bottom: -.5em;
+	left: 0px;
+	/*padding: 0px;*/
+	/*margin: 0px;*/
+	font-size: 20px;
+	font-family: sans-serif;
+}
+
 .container {
 	position: relative;
 	width: 100%;
