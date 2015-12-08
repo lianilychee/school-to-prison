@@ -16,6 +16,8 @@ function regions(regions_data, csv_data){
     // for (var i = 0; i < regions_data.length; i++) {
     for (var i = 0; i < regions_data.length; i++) {
 
+        // calculate the bar per person
+
         // build the strings that form the HTML
         input_html = "<div class='regional'>" +
 
@@ -25,12 +27,12 @@ function regions(regions_data, csv_data){
                         // create containers for person
                         "<div class='person-container'>" +
                             "<div class='person-fill'></div>" +
-                            "<div class='person-image'><img src='images/person2.png'></div>" +
+                            "<div class='person-image'><img src='images/person3.png'></div>" +
                         "<div>" + 
 
                         // append comparison to nat'l average
-                        (Number((parseFloat(regions_data[i][selector]) / natlAvg)).toFixed(2)) +
-                        "x more likely than the NATL avg to be suspended <br>" +
+                        // (Number((parseFloat(regions_data[i][selector]) / natlAvg)).toFixed(2)) +
+                        // "x more likely than the NATL avg to be suspended <br>" +
 
                         // append comparison to regional average
                         (Number((parseFloat(regions_data[i][selector]) / (parseFloat(regions_data[i]["All Students Rates"])))).toFixed(2)) +            
@@ -39,46 +41,6 @@ function regions(regions_data, csv_data){
                         "</div>";
 
         $('ul').append(input_html);
-
-         // $('ul').append("<div>",
-
-         //    // append District Name string
-         //    regions_data[i]["District Name"],
-         //    ":  <br>",
-
-         //    // append comparison to national average
-         //    Number((parseFloat(regions_data[i][selector]) / natlAvg)).toFixed(2),
-         //    "x more likely than the NATL avg to be suspended",
-         //    "<br>",
-
-         //    // append comparison to regional average
-         //    Number((parseFloat(regions_data[i][selector]) / (parseFloat(regions_data[i]["All Students Rates"])))).toFixed(2),            
-         //    "x more likely than the REG avg to be suspended",
-
-         //    // end div
-         //    "</div>")
     };
-    
-
-    // for (var i = 0; i < regions_data.length; i++) {
-    //      $('ul').append("<div>",
-
-    //         // append District Name string
-    //         regions_data[i]["District Name"],
-    //         ":  <br>",
-
-    //         // append comparison to national average
-    //         Number((parseFloat(regions_data[i][selector]) / natlAvg)).toFixed(2),
-    //         "x more likely than the NATL avg to be suspended",
-    //         "<br>",
-
-    //         // append comparison to regional average
-    //         Number((parseFloat(regions_data[i][selector]) / (parseFloat(regions_data[i]["All Students Rates"])))).toFixed(2),            
-    //         "x more likely than the REG avg to be suspended",
-
-    //         // end div
-    //         "</div>")
-    // };
-
 
 }
