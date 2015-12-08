@@ -4,6 +4,9 @@ var raceColumns = ["White", "Black", "Latino", "Asian American", "American India
 var WDcolor = "#FF8139"
 var WODcolor = "#00DFDD"
 
+
+/** Returns a list of elements, where each element represents an arc in the pie.
+    Each arc contains a label, population, suspension rate, color, and selection Y/N. **/
 function buildDataset(csv_data, row_number, pie_state){
     var dataset = []
     if (pie_state == "default" || pie_state == "WODRace"){
@@ -46,6 +49,7 @@ function buildDataset(csv_data, row_number, pie_state){
 }
 
 
+/** Build the layered pie. **/
 function layeredPie(csv_data){
 
     var outer_radius = 300
@@ -98,7 +102,9 @@ function layeredPie(csv_data){
             return Math.sqrt(d.data.susp*(Math.pow(outer_radius,2) - Math.pow(inner_radius,2)) + Math.pow(inner_radius,2));
         })
         .innerRadius(inner_radius)
-        // DRAW ALL THE OBJECTS
+
+
+    /** On element click, update the dataset. **/
     function update(csv_data){
         state_label.text(csv_data[row_number]['State']);
         state_label.on("click",function(){
