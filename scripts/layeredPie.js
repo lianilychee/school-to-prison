@@ -81,7 +81,6 @@ function layeredPie(csv_data){
 
     var infog = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-        .style('opacity',0)
         .style("text-anchor", "middle")
         .style("font-family","sans-serif");
     var info_text = {
@@ -139,6 +138,7 @@ function layeredPie(csv_data){
                         e.data.selected = d===e && e.data.selected;
                     });
                     if (d.data.selected) {
+                        setInfog(d);
                         arcs.on("mouseover", null).on("mouseout", null);
                     } else {
                         arcs.on("mouseover", setInfog).on("mouseout", hideInfog);
