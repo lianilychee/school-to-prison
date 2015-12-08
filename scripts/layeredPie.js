@@ -1,8 +1,11 @@
-var pie_state = "default"
-var row_number = 49
+var GLOBAL = {};
+GLOBAL.selectionState = "None";
+var pie_state = "default";
+var row_number = 49;
 var raceColumns = ["White", "Black", "Latino", "Asian American", "American Indian","Hawaiian/Pacific Islander"];
-var WDcolor = "#FF8139"
-var WODcolor = "#00DFDD"
+var WDcolor = "#FF8139";
+var WODcolor = "#00DFDD";
+
 
 
 /** Returns a list of elements, where each element represents an arc in the pie.
@@ -18,7 +21,11 @@ function buildDataset(csv_data, row_number, pie_state){
             selected:false});
     }
     if (pie_state == "WD"){
+        var totalSusp = 0;
+        var totalEnroll = 0;
         for (var i = 0; i < raceColumns.length; i++){
+            totalSusp += parseInt(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WD']);
+            totalEnroll += parseInt(csv_data[row_number][raceColumns[i]+'s WD Enrollment']);
             dataset.push(
                 {label:raceColumns[i] + "s WD",
                 pop:csv_data[row_number][raceColumns[i] + 's WD Enrollment'],
@@ -26,6 +33,11 @@ function buildDataset(csv_data, row_number, pie_state){
                 color:d3.rgb(WDcolor).darker(i*.25),
                 selected:false});
         }
+        dataset.push({label:"Other WD",
+            pop:csv_data[row_number]['Students WD Enrollment'] - totalEnroll,
+            susp:((csv_data[row_number]['Suspended Students WD'] - totalSusp)/(csv_data[row_number]['Students WD Enrollment'] - totalEnroll)),
+            color:d3.rgb(WDcolor).darker(i*.25),
+            selected:false});
     }
     if (pie_state == "default" || pie_state == "WD"){
         dataset.push(
@@ -36,7 +48,11 @@ function buildDataset(csv_data, row_number, pie_state){
             selected:false});
     }
     if (pie_state == "WOD"){
+        var totalSusp = 0;
+        var totalEnroll = 0;
         for (var i = 0; i < raceColumns.length; i++){
+            totalSusp += parseInt(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WOD']);
+            totalEnroll += parseInt(csv_data[row_number][raceColumns[i]+'s WOD Enrollment']);
             dataset.push(
                 {label:raceColumns[i] + "s WOD",
                 pop:csv_data[row_number][raceColumns[i] + 's WOD Enrollment'],
@@ -44,6 +60,11 @@ function buildDataset(csv_data, row_number, pie_state){
                 color:d3.rgb(WODcolor).darker(i*.25),
                 selected:false});
         }
+        dataset.push({label:"Other WOD",
+            pop:csv_data[row_number]['Students WOD Enrollment'] - totalEnroll,
+            susp:((csv_data[row_number]['Suspended Students WOD'] - totalSusp)/(csv_data[row_number]['Students WOD Enrollment'] - totalEnroll)),
+            color:d3.rgb(WODcolor).darker(i*.25),
+            selected:false});
     }
     return dataset
 }
@@ -54,14 +75,16 @@ function layeredPie(csv_data){
 
     var outer_radius = 300
     var inner_radius = 120
-    
+    var label_radius = 320
+
 
     // dimensions of the svg
-    width = 600
-    height = 600
+    width = 1000
+    height = 1000
+
 
     // stick an SVG to the body of index.html
-    var svg = d3.select("#pie").append("svg")
+    var svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -69,7 +92,7 @@ function layeredPie(csv_data){
         .attr("transform", "translate(" + width / 20 + "," + height / 15 + ")")
         .style("font-family","sans-serif")
         .style("font-size","20px");
-        
+
     var back_button = svg.append("foreignObject")
         .attr("transform", "translate(" + 17 * width / 20 + "," + height / 15 + ")")
         // .style("font-family","sans-serif")
@@ -100,7 +123,7 @@ function layeredPie(csv_data){
     // initialize the outer slice
     var arc = d3.svg.arc()
         .outerRadius(outer_radius)
-        .innerRadius(inner_radius)
+        .innerRadius(inner_radius);
 
     // initialize the inner slice
     var susp_arc = d3.svg.arc()
@@ -110,9 +133,9 @@ function layeredPie(csv_data){
         })
         .innerRadius(inner_radius)
 
-
     /** On element click, update the dataset. **/
     function update(csv_data){
+        GLOBAL.selectionState = pie_state;
         state_label.text(csv_data[row_number]['State']);
         state_label.on("click",function(){
             row_number = (row_number + 1) % 50;
@@ -120,13 +143,13 @@ function layeredPie(csv_data){
         });
         var dataset = buildDataset(csv_data, row_number, pie_state);
         pieg.selectAll("g").remove();
+        pieg.selectAll(".arc-label").remove();
         var g = pieg.selectAll(".arc")
             .data(pie(dataset))
             .enter()
             .append("g")
             .attr("class", "arc")
             .on("click", function(d,i) {
-
                 if(d.data.label == "WD" || d.data.label == "WOD"){
                     pie_state = d.data.label;
                     update(csv_data);
@@ -140,8 +163,10 @@ function layeredPie(csv_data){
                     if (d.data.selected) {
                         setInfog(d);
                         arcs.on("mouseover", null).on("mouseout", null);
+                        GLOBAL.selectionState = d.data.label;
                     } else {
                         arcs.on("mouseover", setInfog).on("mouseout", hideInfog);
+                        GLOBAL.selectionState = pie_state;
                     };
                 }
             })
@@ -161,6 +186,7 @@ function layeredPie(csv_data){
             .style("fill", function(d,i) { return d3.rgb(d.data.color).brighter(1); })
             .each(function(d) { this._current = d });
 
+
         if (pie_state != "default") {
             var pieSwoosh = d3.layout.pie()
                 .sort(null)
@@ -169,14 +195,13 @@ function layeredPie(csv_data){
                     // console.log(d.label.indexOf(pie_state));
                     return d.label.indexOf(pie_state) < 0 ? 0 : d.pop;
                 });
-            console.log(g.data());
             g = g.data(pieSwoosh(dataset));
-            console.log(g.data());
             g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
             g.selectAll(".susp_arc").transition().duration(750).attrTween("d", arcTween);
             back_button.style("visibility", "visible");
 
             back_button.on("click", function() {
+                pieg.selectAll(".arc-label").transition().duration(750).style("fill-opacity",0);
                 g = g.data(pie(dataset));
                 g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
                 g.selectAll(".susp_arc").transition().duration(750).attrTween("d", arcTween);
@@ -184,17 +209,41 @@ function layeredPie(csv_data){
                 setTimeout(function() { update(csv_data); }, 750);
                 // update(csv_data);
             });
+
         } else {
             back_button.style("visibility", "hidden");
+
         };
+
+        var labels = []
+        g.each(function(d,i){
+            var label = {}
+            label.desc =  d.data.label + " " + ((d.endAngle - d.startAngle)*100/(2*Math.PI)).toFixed(2) + "%";
+            var ang = (d.startAngle + d.endAngle)/2
+            label.x = Math.sin(ang) * label_radius
+            label.y = Math.cos(ang) * -label_radius
+            if(d.value > 0){
+                d3.select(this)
+                .append('text')
+                .attr('class', 'arc-label')
+                .attr('x', label.x)
+                .attr('y', label.y)
+                .attr('text-anchor', label.x >= 0 ? "start" : "end")
+                .style("fill-opacity",0)
+                .text(label.desc);
+            }
+        });
+        arrangeLabels();
+        if (pie_state != "default"){
+            pieg.selectAll(".arc-label").transition().delay(700).duration(500).style("fill-opacity",1);
+        } else {
+            pieg.selectAll(".arc-label").style("fill-opacity",1);
+        }
+
     }
 
     function arcTween(d, i, a) {
         var i = d3.interpolate(this._current, d3.select(this.parentNode).datum());
-        console.log(d);
-        console.log(this._current);
-        console.log(i(0));
-        console.log(i(1));
         this._current = i(0);
         if (d3.select(this).attr("class") == "whole_arc") {
             return function(t) {
@@ -218,6 +267,38 @@ function layeredPie(csv_data){
 
     function hideInfog() {
         infog.style("visibility", "hidden");
+    }
+    function arrangeLabels() {
+      var move = 1;
+      while(move > 0) {
+        move = 0;
+        pieg.selectAll(".arc-label")
+           .each(function() {
+             var that = this,
+                 a = this.getBoundingClientRect();
+             pieg.selectAll(".arc-label")
+                .each(function() {
+                  if(this != that) {
+                    var b = this.getBoundingClientRect();
+                    if((Math.abs(a.left - b.left) * 2 < (a.width + b.width)) &&
+                       (Math.abs(a.top - b.top) * 2 < (a.height + b.height))) {
+                      // overlap, move labels
+                      var dy = (Math.max(0, a.bottom - b.top) +
+                               Math.min(0, a.top - b.bottom)) * 0.02,
+                          tt = d3.transform(d3.select(this).attr("transform")),
+                          to = d3.transform(d3.select(that).attr("transform"));
+                      move += Math.abs(dy);
+
+                      to.translate = [ to.translate[0], to.translate[1] + dy ];
+                      tt.translate = [ tt.translate[0], tt.translate[1] - dy ];
+                      d3.select(this).attr("transform", "translate(" + tt.translate + ")");
+                      d3.select(that).attr("transform", "translate(" + to.translate + ")");
+                      a = this.getBoundingClientRect();
+                    }
+                  }
+                });
+           });
+        }
     }
  
     update(csv_data);
