@@ -46,7 +46,6 @@ ul {
 }
 
 .regional {
-	color: white;
 	width: 30%;
 }
 
@@ -60,12 +59,12 @@ ul {
 	float: right;
 }
 
-#person-container {
+.person-container {
 	background-color: white;
 	float: left;
 }
 
-#person-fill {
+.person-fill {
 	position: absolute;
 	left: 0px;
 	top: 0px;
