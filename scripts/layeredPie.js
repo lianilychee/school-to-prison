@@ -57,11 +57,11 @@ function layeredPie(csv_data){
     
 
     // dimensions of the svg
-    width = 600
-    height = 600
+    width = 300
+    height = 300
 
     // stick an SVG to the body of index.html
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#pie").append("svg")
         .attr("width", width)
         .attr("height", height);
 
