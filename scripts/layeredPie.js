@@ -4,6 +4,9 @@ var raceColumns = ["White", "Black", "Latino", "Asian American", "American India
 var WDcolor = "#FF8139"
 var WODcolor = "#00DFDD"
 
+
+/** Returns a list of elements, where each element represents an arc in the pie.
+    Each arc contains a label, population, suspension rate, color, and selection Y/N. **/
 function buildDataset(csv_data, row_number, pie_state){
     var dataset = []
     if (pie_state == "default" || pie_state == "WODRace"){
@@ -45,9 +48,9 @@ function buildDataset(csv_data, row_number, pie_state){
     return dataset
 }
 
-function layeredPie(csv_path){
 
-    // console.log(csv_data);
+/** Build the layered pie. **/
+function layeredPie(csv_data){
 
     var outer_radius = 300
     var inner_radius = 120
@@ -58,7 +61,7 @@ function layeredPie(csv_path){
     height = 600
 
     // stick an SVG to the body of index.html
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#pie").append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -96,10 +99,12 @@ function layeredPie(csv_path){
     var susp_arc = d3.svg.arc()
         .outerRadius(function(d){
             // console.log(d.data.susp);
-            return (outer_radius - inner_radius) * d.data.susp +inner_radius;
+            return Math.sqrt(d.data.susp*(Math.pow(outer_radius,2) - Math.pow(inner_radius,2)) + Math.pow(inner_radius,2));
         })
         .innerRadius(inner_radius)
-        // DRAW ALL THE OBJECTS
+
+
+    /** On element click, update the dataset. **/
     function update(csv_data){
         state_label.text(csv_data[row_number]['State']);
         state_label.on("click",function(){
@@ -114,10 +119,11 @@ function layeredPie(csv_path){
             .append("g")
             .attr("class", "arc")
             .on("click", function(d,i) {
+
                 if(d.data.label == "WD" || d.data.label == "WOD"){
                     pie_state = d.data.label+"Race";
                     update(csv_data);
-                }else{
+                } else {
                     d.data.selected = !d.data.selected;
                     var arcs = pieg.selectAll(".arc");
                     arcs.each(function(e,j) {
@@ -156,8 +162,6 @@ function layeredPie(csv_path){
     function hideInfog() {
         infog.style("opacity",0);
     }
-
-    d3.csv(csv_path, function(csv_data) {
-        update(csv_data);
-    })
-}
+ 
+    update(csv_data);
+ }

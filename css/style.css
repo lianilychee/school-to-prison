@@ -1,0 +1,86 @@
+
+/*** OVERARCHING HANDLING ***/
+
+body {
+	/*background-color: #5E5E5E;*/
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+div {
+	border-style: dotted;
+	border-color: red;
+}
+
+ul {
+	/*background-color: purple;*/
+}
+
+.container {
+	position: relative;
+	width: 100%;
+	overflow: auto;
+	border-style: dotted;
+	border-color: white;
+}
+
+.flex-container {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	-ms-box-orient: horizontal;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -moz-flex;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.wrap {
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+.regional {
+	color: white;
+	width: 30%;
+}
+
+/***  PANEL ***/
+
+#center-panel {
+	width: 600px;
+}
+
+#pie {
+	float: right;
+}
+
+#person-container {
+	background-color: white;
+	float: left;
+}
+
+#person-fill {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: 0;
+	width: 300px;
+	height: 300px;
+	/*background: gray;*/
+}
+
+#person-image {
+	position: absolute;
+	left: 0px;
+	left: 0px;
+	z-index: 1;
+	width: 300px;
+	height: 300px;
+	border-style: dotted;
+}
