@@ -118,20 +118,21 @@ function layeredPie(csv_path){
                     pie_state = d.data.label+"Race";
                     update(csv_data);
                 }else{
-                    d.data.selected = !d.data.selected
-                    //d3.select(this).selectAll(".whole_arc").style("fill", d.data.selected ? d3.rgb(d.data.color).darker(1) : d.data.color);
-                    //d3.select(this).selectAll(".susp_arc").style("fill", d.data.selected ? d.data.color : d3.rgb(d.data.color).brighter(1));
+                    d.data.selected = !d.data.selected;
+                    var arcs = pieg.selectAll(".arc");
+                    arcs.each(function(e,j) {
+                        d3.select(this).transition().duration(200).style("fill-opacity", d.data.selected && d!==e ? .6 : 1);
+                        e.data.selected = d===e && e.data.selected;
+                    });
+                    if (d.data.selected) {
+                        arcs.on("mouseover", null).on("mouseout", null);
+                    } else {
+                        arcs.on("mouseover", setInfog).on("mouseout", hideInfog);
+                    };
                 }
             })
-            .on("mouseover",function(d){
-                infog.style("opacity",1);
-                info_text.line1.text((d.data.susp*100).toFixed(2) + "% of");
-                info_text.line2.text(d.data.label);
-                info_text.line3.text("Suspended");
-            })
-            .on("mouseout",function(d){
-                infog.style("opacity",0);
-            });
+            .on("mouseover", setInfog)
+            .on("mouseout", hideInfog);
 
         g.append("path")
             .attr("d", arc)
@@ -144,6 +145,18 @@ function layeredPie(csv_path){
             .attr("class","susp_arc")
             .style("fill", function(d,i) { return d3.rgb(d.data.color).brighter(1); });
     }
+
+    function setInfog(d) {
+        infog.style("opacity",1);
+        info_text.line1.text((d.data.susp*100).toFixed(2) + "% of");
+        info_text.line2.text(d.data.label);
+        info_text.line3.text("Suspended");
+    }
+
+    function hideInfog() {
+        infog.style("opacity",0);
+    }
+
     d3.csv(csv_path, function(csv_data) {
         update(csv_data);
     })
