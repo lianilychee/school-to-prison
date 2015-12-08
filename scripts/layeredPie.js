@@ -1,9 +1,11 @@
-var pie_state = "default"
-var row_number = 49
+var GLOBAL = {};
+GLOBAL.selectionState = "None";
+var pie_state = "default";
+var row_number = 49;
 var raceColumns = ["White", "Black", "Latino", "Asian American", "American Indian","Hawaiian/Pacific Islander"];
-var WDcolor = "#FF8139"
-var WODcolor = "#00DFDD"
-var firstLoad = true;
+var WDcolor = "#FF8139";
+var WODcolor = "#00DFDD";
+
 
 
 /** Returns a list of elements, where each element represents an arc in the pie.
@@ -133,6 +135,7 @@ function layeredPie(csv_data){
 
     /** On element click, update the dataset. **/
     function update(csv_data){
+        GLOBAL.selectionState = pie_state;
         state_label.text(csv_data[row_number]['State']);
         state_label.on("click",function(){
             row_number = (row_number + 1) % 50;
@@ -147,7 +150,6 @@ function layeredPie(csv_data){
             .append("g")
             .attr("class", "arc")
             .on("click", function(d,i) {
-
                 if(d.data.label == "WD" || d.data.label == "WOD"){
                     pie_state = d.data.label;
                     update(csv_data);
@@ -161,8 +163,10 @@ function layeredPie(csv_data){
                     if (d.data.selected) {
                         setInfog(d);
                         arcs.on("mouseover", null).on("mouseout", null);
+                        GLOBAL.selectionState = d.data.label;
                     } else {
                         arcs.on("mouseover", setInfog).on("mouseout", hideInfog);
+                        GLOBAL.selectionState = pie_state;
                     };
                 }
             })
