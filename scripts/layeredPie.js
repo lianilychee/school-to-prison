@@ -31,7 +31,7 @@ function buildDataset(csv_data, row_number, pie_state){
                 color:d3.rgb(WDcolor).darker(i*.25),
                 selected:false});
         }
-        dataset.push({label:"Unknown WD",
+        dataset.push({label:"Other WD",
             pop:csv_data[row_number]['Students WD Enrollment'] - totalEnroll,
             susp:((csv_data[row_number]['Suspended Students WD'] - totalSusp)/(csv_data[row_number]['Students WD Enrollment'] - totalEnroll)),
             color:d3.rgb(WDcolor).darker(i*.25),
@@ -58,7 +58,7 @@ function buildDataset(csv_data, row_number, pie_state){
                 color:d3.rgb(WODcolor).darker(i*.25),
                 selected:false});
         }
-        dataset.push({label:"Unknown WOD",
+        dataset.push({label:"Other WOD",
             pop:csv_data[row_number]['Students WOD Enrollment'] - totalEnroll,
             susp:((csv_data[row_number]['Suspended Students WOD'] - totalSusp)/(csv_data[row_number]['Students WOD Enrollment'] - totalEnroll)),
             color:d3.rgb(WODcolor).darker(i*.25),
