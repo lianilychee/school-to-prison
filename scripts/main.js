@@ -12,13 +12,13 @@ $(document).ready(function() {
     })
 
  
-    percentage = 0.5
+    percentage = 0.2
 
-    var containerHeight = $('#person-image').height();
+    var containerHeight = $('.person-image').height();
 
     // console.log(containerHeight)
 
-    var svgContainer = d3.select('#person').append('svg')
+    var svgContainer = d3.select('.person-fill').append('svg')
                                                 .attr('width', '100%')
                                                 .attr('height', '100%')
 
