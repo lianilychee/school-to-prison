@@ -54,14 +54,15 @@ function layeredPie(csv_data){
 
     var outer_radius = 300
     var inner_radius = 120
+    var label_radius = 320
     
 
     // dimensions of the svg
-    width = 300
-    height = 300
+    width = 1000
+    height = 1000
 
     // stick an SVG to the body of index.html
-    var svg = d3.select("#pie").append("svg")
+    var svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -93,7 +94,7 @@ function layeredPie(csv_data){
     // initialize the outer slice
     var arc = d3.svg.arc()
         .outerRadius(outer_radius)
-        .innerRadius(inner_radius)
+        .innerRadius(inner_radius);
 
     // initialize the inner slice
     var susp_arc = d3.svg.arc()
@@ -102,7 +103,6 @@ function layeredPie(csv_data){
             return Math.sqrt(d.data.susp*(Math.pow(outer_radius,2) - Math.pow(inner_radius,2)) + Math.pow(inner_radius,2));
         })
         .innerRadius(inner_radius)
-
 
     /** On element click, update the dataset. **/
     function update(csv_data){
@@ -113,6 +113,7 @@ function layeredPie(csv_data){
         });
         var dataset = buildDataset(csv_data, row_number, pie_state);
         pieg.selectAll("g").remove();
+        pieg.selectAll(".arc-label").remove();
         var g = pieg.selectAll(".arc")
             .data(pie(dataset))
             .enter()
@@ -149,7 +150,66 @@ function layeredPie(csv_data){
             .attr("d", susp_arc)
             .attr("class","susp_arc")
             .style("fill", function(d,i) { return d3.rgb(d.data.color).brighter(1); });
+
+        var labels = []
+        g.each(function(d,i){
+            var label = {}
+            label.desc =  d.data.label + " " + ((d.endAngle - d.startAngle)*100/(2*Math.PI)).toFixed(2) + "%";
+            var ang = (d.startAngle + d.endAngle)/2
+            label.x = Math.sin(ang) * label_radius
+            label.y = Math.cos(ang) * -label_radius
+            d3.select(this)
+            .append('text')
+            .attr('class', 'arc-label')
+            .attr('x', label.x)
+            .attr('y', label.y)
+            .attr('text-anchor', label.x >= 0 ? "start" : "end")
+            .text(label.desc);
+        });
+        
+        // var arcLabels = pieg.selectAll('.arc-label')
+        //     .data(labels)
+        //     .enter()
+            
+            
+        arrangeLabels();
+        pieg.selectAll('.arc-label').each(function(d, i){
+            console.log(d3.select(this));
+            //d3.select(d.arc).append("text");
+        });
     }
+    function arrangeLabels() {
+      var move = 1;
+      while(move > 0) {
+        move = 0;
+        pieg.selectAll(".arc-label")
+           .each(function() {
+             var that = this,
+                 a = this.getBoundingClientRect();
+             pieg.selectAll(".arc-label")
+                .each(function() {
+                  if(this != that) {
+                    var b = this.getBoundingClientRect();
+                    if((Math.abs(a.left - b.left) * 2 < (a.width + b.width)) &&
+                       (Math.abs(a.top - b.top) * 2 < (a.height + b.height))) {
+                      // overlap, move labels
+                      var dy = (Math.max(0, a.bottom - b.top) +
+                               Math.min(0, a.top - b.bottom)) * 0.02,
+                          tt = d3.transform(d3.select(this).attr("transform")),
+                          to = d3.transform(d3.select(that).attr("transform"));
+                      move += Math.abs(dy);
+
+                      to.translate = [ to.translate[0], to.translate[1] + dy ];
+                      tt.translate = [ tt.translate[0], tt.translate[1] - dy ];
+                      d3.select(this).attr("transform", "translate(" + tt.translate + ")");
+                      d3.select(that).attr("transform", "translate(" + to.translate + ")");
+                      a = this.getBoundingClientRect();
+                    }
+                  }
+                });
+           });
+      }
+  }
  
     update(csv_data);
  
