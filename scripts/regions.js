@@ -36,22 +36,22 @@ var REGIONS = {
     var natContainer = d3.select("#nat-comparison").append("svg");
 
     var natCirc = natContainer.append("circle")
-                              .attr("cx", 40)
-                              .attr("cy", 40)
-                              .attr("stroke-width", 3)
-                              .attr("stroke", colorCirc)
-                              .attr("fill", "none")
-                              .attr("r", 30);
+      .attr("cx", 40)
+      .attr("cy", 40)
+      .attr("stroke-width", 3)
+      .attr("stroke", colorCirc)
+      .attr("fill", "none")
+      .attr("r", 30);
 
     var natCirc = natContainer.append("text")
-                              .attr("x", 21)
-                              .attr("y", 43)
-                              .attr("fill", colorText)
-                              .attr("font-weight", "bold")
-                              .text(function() {
-                                text = natLike + "x"
-                                return text;
-                                });
+      .attr("x", 21)
+      .attr("y", 43)
+      .attr("fill", colorText)
+      .attr("font-weight", "bold")
+      .text(function() {
+        text = natLike + "x"
+        return text;
+        });
 
     $('#natl-comparison').append(natLike);
 
@@ -78,11 +78,10 @@ var REGIONS = {
         })
       .append("text")
         .attr({
-          "fill": colorText,
-          "font-weight": "bold",
+          // "fill": colorText,
+          // "font-weight": "bold",
           "x": function(d,i) { return i*50; },
           "y": 50,
-          "font-size": 100
         })
         .text(function(d) { return d.likelihood });
 
