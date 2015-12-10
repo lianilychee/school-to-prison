@@ -34,7 +34,7 @@ ul {
 	width: 100%;
 	overflow: auto;
 	border-style: dotted;
-	border-color: white;
+	border-color: green;
 }
 
 .flex-container {

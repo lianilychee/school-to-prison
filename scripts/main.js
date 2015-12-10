@@ -7,6 +7,16 @@ $(document).ready(function() {
 
             layeredPie(csv_data);
             regions(regions_data, csv_data);
+            REGIONS.dataset = regions_data; // unmodified dataset
+            // REGIONS.render();
+
+            /** Called when anything in the center pie is selected.  Takes in the new GLOBAL.selectionState (called state) and calls update functions of the rest of the webapp elements.**/
+            function updateAll(state) {
+              REGIONS.update(state);
+            };
+
+            // on event trigger ,change state
+            // when GLOBAL.selectionState changes, pass new state to all update functions
 
         })
     })
@@ -19,19 +29,19 @@ $(document).ready(function() {
     // console.log(containerHeight)
 
     var svgContainer = d3.select('.person-fill').append('svg')
-                                                .attr('width', '100%')
-                                                .attr('height', '100%')
+      .attr('width', '100%')
+      .attr('height', '100%');
 
     // console.log(percentage)
 
     var personFill = svgContainer.append('rect')
-                               .attr('x', 0)
-                               .attr('y', function() {
-                                    return(containerHeight - containerHeight*percentage);
-                               })
-                               .attr('width', '100%')
-                               .attr('height', function() {
-                                    return (containerHeight*percentage);
-                               })
-                               .attr('fill', 'purple')
+      .attr('x', 0)
+      .attr('y', function() {
+        return(containerHeight - containerHeight*percentage);
+      })
+      .attr('width', '100%')
+      .attr('height', function() {
+        return (containerHeight*percentage);
+      })
+      .attr('fill', 'purple')
 })
