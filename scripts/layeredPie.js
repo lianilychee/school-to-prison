@@ -93,15 +93,29 @@ function layeredPie(csv_data){
         .style("font-family","sans-serif")
         .style("font-size","20px");
 
-    var back_button = svg.append("foreignObject")
-        .attr("transform", "translate(" + 17 * width / 20 + "," + height / 15 + ")")
-        // .style("font-family","sans-serif")
-        // .style("font-size","20px")
-        // .text("Back")
-        .style("visibility", "hidden")
-        .append("xhtml:body")
-            .html("<button class=\"back-button\">Back</button>");
+    var back_size = inner_radius / 3
+    // var back_button = svg.append("foreignObject")
+    //     .attr("transform", "translate(" + width / 2 + "," + (height / 2 - height / 15) + ")")
+    //     .style("visibility", "hidden")
+    //     .append("xhtml:body")
+    //         .html("<button class=\"back-button\">Back</button>");
 
+    var pieg = svg.append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    
+    pieg.append("circle")
+        .attr("r", outer_radius)
+        .style("fill", "black");
+
+    pieg.append("circle")
+        .attr("r", inner_radius)
+        .style("fill", "white");
+
+    var back_button = svg.append("polygon")
+        .attr("transform", "translate(" + width / 2 + "," + (height / 2 - inner_radius) + ")")
+        .style("visibility", "hidden")
+        .style("fill", "black")
+        .attr("points", 0 + "," + 0 + " " + (back_size * Math.sqrt(3) / 2) + "," + (back_size) + " " + (-back_size * Math.sqrt(3) / 2) + "," + (back_size));
     var infog = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
         .style("text-anchor", "middle")
@@ -111,9 +125,6 @@ function layeredPie(csv_data){
             line2:infog.append("text").attr('dy','0'),
             line3:infog.append("text").attr('dy','20'),
         }   
-
-    var pieg = svg.append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // initialize pie chart
     var pie = d3.layout.pie()
@@ -157,7 +168,7 @@ function layeredPie(csv_data){
                     d.data.selected = !d.data.selected;
                     var arcs = pieg.selectAll(".arc");
                     arcs.each(function(e,j) {
-                        d3.select(this).transition().duration(200).style("fill-opacity", d.data.selected && d!==e ? .6 : 1);
+                        d3.select(this).transition().duration(200).style("fill-opacity", d.data.selected && d!==e ? .4 : 1);
                         e.data.selected = d===e && e.data.selected;
                     });
                     if (d.data.selected) {
@@ -176,6 +187,7 @@ function layeredPie(csv_data){
         g.append("path")
             .attr("d", arc)
             .attr("class","whole_arc")
+            .style("opacity", .2)
             .style("fill", function(d,i) { return d.data.color; })
             .each(function(d) { this._current = d });
 
@@ -201,6 +213,7 @@ function layeredPie(csv_data){
             back_button.style("visibility", "visible");
 
             back_button.on("click", function() {
+                back_button.style("visibility", "hidden");
                 pieg.selectAll(".arc-label").transition().duration(750).style("fill-opacity",0);
                 g = g.data(pie(dataset));
                 g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
@@ -209,9 +222,6 @@ function layeredPie(csv_data){
                 setTimeout(function() { update(csv_data); }, 750);
                 // update(csv_data);
             });
-
-        } else {
-            back_button.style("visibility", "hidden");
 
         };
 
@@ -240,6 +250,7 @@ function layeredPie(csv_data){
             pieg.selectAll(".arc-label").style("fill-opacity",1);
         }
 
+        // svg.selectAll("text").style("fill", "white");
     }
 
     function arcTween(d, i, a) {

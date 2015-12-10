@@ -69,6 +69,10 @@ ul {
 	float: right;
 }
 
+svg {
+	/*background-color: #535353;*/
+}
+
 .person-container {
 	background-color: white;
 	float: left;
