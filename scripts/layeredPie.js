@@ -5,6 +5,7 @@ var row_number = 49;
 var raceColumns = ["White", "Black", "Latino", "Asian American", "American Indian","Hawaiian/Pacific Islander"];
 var WDcolor = "#FF8139";
 var WODcolor = "#00DFDD";
+var regions = false;
 
 
 
@@ -66,6 +67,7 @@ function buildDataset(csv_data, row_number, pie_state){
             color:d3.rgb(WODcolor).darker(i*.25),
             selected:false});
     }
+    console.log(dataset)
     return dataset
 }
 
@@ -73,9 +75,9 @@ function buildDataset(csv_data, row_number, pie_state){
 /** Build the layered pie. **/
 function layeredPie(csv_data){
 
-    var outer_radius = 300
+    var outer_radius = 320
     var inner_radius = 120
-    var label_radius = 320
+    var label_radius = 340
 
 
     // dimensions of the svg
@@ -140,7 +142,8 @@ function layeredPie(csv_data){
     var susp_arc = d3.svg.arc()
         .outerRadius(function(d){
             // console.log(d.data.susp);
-            return Math.sqrt(d.data.susp*(Math.pow(outer_radius,2) - Math.pow(inner_radius,2)) + Math.pow(inner_radius,2));
+            var r = Math.sqrt(d.data.susp*(Math.pow(outer_radius,2) - Math.pow(inner_radius,2)) + Math.pow(inner_radius,2));
+            return r != NaN ? r : inner_radius;
         })
         .innerRadius(inner_radius)
 
