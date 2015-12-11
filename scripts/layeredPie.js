@@ -122,12 +122,6 @@ function layeredPie(csv_data){
         .style("font-family","sans-serif")
         .style("font-size","20px");
 
-    var back_size = inner_radius / 3
-    // var back_button = svg.append("foreignObject")
-    //     .attr("transform", "translate(" + width / 2 + "," + (height / 2 - height / 15) + ")")
-    //     .style("visibility", "hidden")
-    //     .append("xhtml:body")
-    //         .html("<button class=\"back-button\">Back</button>");
 
     var pieg = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -140,11 +134,24 @@ function layeredPie(csv_data){
         .attr("r", inner_radius)
         .style("fill", "white");
 
-    var back_button = svg.append("polygon")
+    var back_rad = 10;
+    var back_size = inner_radius / 3;
+    var back_button = svg.append("g")
+        .style("visibility", "hidden");
+    back_button.append("polygon")
         .attr("transform", "translate(" + width / 2 + "," + (height / 2 - inner_radius) + ")")
-        .style("visibility", "hidden")
         .style("fill", "black")
         .attr("points", 0 + "," + 0 + " " + (back_size * Math.sqrt(3) / 2) + "," + (back_size) + " " + (-back_size * Math.sqrt(3) / 2) + "," + (back_size));
+    back_button.append("foreignObject")
+        .attr("transform", "translate(" + (width / 2 - back_rad) + "," + (height / 2 - inner_radius + 3 / 2 * back_rad)+ ")")
+        .attr("left", "-2em")
+        .attr("top", "-2em")
+        .style("text-align", "center")
+        .append("xhtml:body")
+            .style("margin", 0)
+            .html("<i class=\"fa fa-undo\"></i>")
+            .style("font-size", back_rad * 2)
+            .style("color", "white");
     var infog = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
         .style("text-anchor", "middle")
