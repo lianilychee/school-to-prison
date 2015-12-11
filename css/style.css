@@ -94,9 +94,19 @@ svg {
 	font-family: sans-serif;
 }
 
+#context {
+	float: left;
+	width: 60px;
+}
+
+#pie {
+	float: left;
+	width: 950px;
+}
+
 #right-panel {
-	background-color: #969696;
+	/*background-color: #969696;*/
 	width: 450px;
 	/*height: 90%;*/
-	right: 0px;
+	float: right;
 }

@@ -67,7 +67,7 @@ function buildDataset(csv_data, row_number, pie_state){
             color:d3.rgb(WODcolor).darker(i*.25),
             selected:false});
     }
-    console.log(dataset)
+    // console.log(dataset)
     return dataset
 }
 
@@ -81,12 +81,12 @@ function layeredPie(csv_data){
 
 
     // dimensions of the svg
-    width = 1000
-    height = 1000
+    width = 800
+    height = 800
 
 
     // stick an SVG to the body of index.html
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#pie").append("svg")
         .attr("width", width)
         .attr("height", height);
 
