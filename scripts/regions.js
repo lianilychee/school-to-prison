@@ -13,10 +13,12 @@ var REGIONS = {
 
     REGIONS.cleanData = [];
 
-    for (var i = 0; i < REGIONS.regData.length; i++) {
+    for (var i = 0; i < 14; i++) {
+    // for (var i = 0; i < REGIONS.regData.length; i++) {
         REGIONS.cleanData.push({
             'District Name': REGIONS.regData[i]['District Name'],
-            'likelihood': Number(parseFloat(REGIONS.regData[i][selection]) / REGIONS.natAvg).toFixed(2)
+            'likelihood': Number(parseFloat(REGIONS.regData[i][selection]) / REGIONS.natAvg).toFixed(2),
+            'poverty': parseFloat(REGIONS.regData[i]["% 5-17 under poverty line"])
         });
     }
     return REGIONS.cleanData;
@@ -80,46 +82,42 @@ var REGIONS = {
       .attr('transform', 'translate(30)')
       .call(yAxis);
 
-
-
     // these are the circles
     povPlot.selectAll("circle")
       .data(regions_data, function(d) { return d["District Name"]; })
       .enter()
       .append('circle')
+      .attr({
+        'cx': function(d, i) { 
+          pos_intended = 60 + 50*i;
+          console.log(60 + 50*(i-1));
+          if (Math.abs(pos_intended) < 50) {
+            console.log('overlap');
+          }
+          return 60+50*i;
+        },
+        'cy': function(d) { return yScale(d["poverty"]); },
+        'r': 20,
+        'stroke': colorCirc,
+        'stroke-width': 3,
+        'fill': 'none',
+      });
 
-    var regCirc = d3.select(povPlot)
-      .attr("width", "100%")
-      .selectAll(".regCirc")
-      .data(regions_data, function(d){ return d["District Name"]; })
+    povPlot.selectAll('text')
+      .data(regions_data)
       .enter()
-      .append("g")
-      .attr("class","regCirc")
-
-    regCirc.append("circle")
-        .attr({
-          "class":"regCirc",
-          "stroke-width": 3,
-          "r": 30,
-          "stroke": colorCirc,
-          "cx": function(d,i) { return i*50; },
-          "cy": 50,
-          "fill": "none",
-        })
-
-    regCirc.append("text")
-        .attr({
-          "fill": colorText,
-          "font-weight": "bold",
-          "x": function(d,i) { return i*50; },
-          "y": 55,
-        })
-        .text(function(d) {
-          text = d.likelihood + "x";
-          return text
-        })
-        .style("text-anchor","middle");
-
+      .append('text')
+      .text(function(d) {
+        text = d.likelihood + "x";
+        return text;
+      })
+      .attr({
+        "fill": colorText,
+        "font-weight": "bold",
+        "x": function(d,i) { console.log(i); return 60; },
+        "y": function(d) { return yScale(d["poverty"]); },
+      })
+      .style("text-anchor","middle");
   },
 
 };
