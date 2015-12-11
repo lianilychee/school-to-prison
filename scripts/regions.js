@@ -27,7 +27,7 @@ var REGIONS = {
     console.log(selection);
 
     colorCirc = "#C30017"; // some shade of red
-    colorText = "white";
+    colorText = "black";
 
     // BUILD THE NATL PART
     natLike = REGIONS.natData[49][selection];
@@ -74,10 +74,7 @@ var REGIONS = {
           "stroke-width": 3,
           "r": 30,
           "stroke": colorCirc,
-          "cx": function(d,i) {
-            console.log(d);
-            return i*50;
-          },
+          "cx": function(d,i) { return i*50; },
           "cy": 50,
           "fill": "none",
         })
