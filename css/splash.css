@@ -85,6 +85,11 @@ of those sections to manage the look and feel of the site. */
 
 }
 
+.intro-image img{
+    max-height: 50%;
+    max-width:50%;
+}
+
 .hook1-section {
 
 }
