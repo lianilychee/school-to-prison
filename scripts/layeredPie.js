@@ -12,7 +12,22 @@ var regions = false;
 /** Returns a list of elements, where each element represents an arc in the pie.
     Each arc contains a label, population, suspension rate, color, and selection Y/N. **/
 function buildDataset(csv_data, row_number, pie_state){
-    var dataset = []
+    function descendingPop(a, b) {
+        console.log(a, b);
+        if (isDisability(a) && !isDisability(b)) {
+            return 1;
+        };
+        if (isDisability(b) && !isDisability(a)) {
+            return -1;
+        };
+        return d3.descending(parseInt(a.pop), parseInt(b.pop));
+    }
+
+    function isDisability(d) {
+        return d.label.indexOf("WOD") < 0
+    }
+
+    var dataset = [];
     if (pie_state == "default" || pie_state == "WOD"){
         dataset.push(
             {label:"WD",
@@ -22,23 +37,29 @@ function buildDataset(csv_data, row_number, pie_state){
             selected:false});
     }
     if (pie_state == "WD"){
+        var subset = [];
         var totalSusp = 0;
         var totalEnroll = 0;
         for (var i = 0; i < raceColumns.length; i++){
             totalSusp += parseInt(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WD']);
             totalEnroll += parseInt(csv_data[row_number][raceColumns[i]+'s WD Enrollment']);
-            dataset.push(
+            subset.push(
                 {label:raceColumns[i] + "s WD",
                 pop:csv_data[row_number][raceColumns[i] + 's WD Enrollment'],
                 susp:(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WD']/csv_data[row_number][raceColumns[i]+'s WD Enrollment']),
-                color:d3.rgb(WDcolor).darker(i*.25),
+                color:d3.rgb(WDcolor),
                 selected:false});
         }
-        dataset.push({label:"Other WD",
+        subset.push({label:"Other WD",
             pop:csv_data[row_number]['Students WD Enrollment'] - totalEnroll,
             susp:((csv_data[row_number]['Suspended Students WD'] - totalSusp)/(csv_data[row_number]['Students WD Enrollment'] - totalEnroll)),
-            color:d3.rgb(WDcolor).darker(i*.25),
+            color:d3.rgb(WDcolor),
             selected:false});
+        subset.sort(descendingPop);
+        subset.forEach(function(d, i) {
+            d.color = d.color.darker(2*i/subset.length);
+            dataset.push(d);
+        });
     }
     if (pie_state == "default" || pie_state == "WD"){
         dataset.push(
@@ -49,23 +70,29 @@ function buildDataset(csv_data, row_number, pie_state){
             selected:false});
     }
     if (pie_state == "WOD"){
+        var subset = [];
         var totalSusp = 0;
         var totalEnroll = 0;
         for (var i = 0; i < raceColumns.length; i++){
             totalSusp += parseInt(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WOD']);
             totalEnroll += parseInt(csv_data[row_number][raceColumns[i]+'s WOD Enrollment']);
-            dataset.push(
+            subset.push(
                 {label:raceColumns[i] + "s WOD",
                 pop:csv_data[row_number][raceColumns[i] + 's WOD Enrollment'],
                 susp:(csv_data[row_number]['Suspended '+ raceColumns[i] + 's WOD']/csv_data[row_number][raceColumns[i]+'s WOD Enrollment']),
-                color:d3.rgb(WODcolor).darker(i*.25),
+                color:d3.rgb(WODcolor),
                 selected:false});
         }
-        dataset.push({label:"Other WOD",
+        subset.push({label:"Other WOD",
             pop:csv_data[row_number]['Students WOD Enrollment'] - totalEnroll,
             susp:((csv_data[row_number]['Suspended Students WOD'] - totalSusp)/(csv_data[row_number]['Students WOD Enrollment'] - totalEnroll)),
-            color:d3.rgb(WODcolor).darker(i*.25),
+            color:d3.rgb(WODcolor),
             selected:false});
+        subset.sort(descendingPop);
+        subset.forEach(function(d, i) {
+            d.color = d.color.darker(2*i/subset.length);
+            dataset.push(d);
+        });
     }
     console.log(dataset)
     return dataset
