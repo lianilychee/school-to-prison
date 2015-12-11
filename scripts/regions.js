@@ -13,10 +13,12 @@ var REGIONS = {
 
     REGIONS.cleanData = [];
 
-    for (var i = 0; i < REGIONS.regData.length; i++) {
+    for (var i = 0; i < 14; i++) {
+    // for (var i = 0; i < REGIONS.regData.length; i++) {
         REGIONS.cleanData.push({
             'District Name': REGIONS.regData[i]['District Name'],
-            'likelihood': Number(parseFloat(REGIONS.regData[i][selection]) / REGIONS.natAvg).toFixed(2)
+            'likelihood': Number(parseFloat(REGIONS.regData[i][selection]) / REGIONS.natAvg).toFixed(2),
+            'poverty': parseFloat(REGIONS.regData[i]["% 5-17 under poverty line"])
         });
     }
     REGIONS.render(selection,REGIONS.cleanData);
@@ -60,39 +62,62 @@ var REGIONS = {
 
 
     // BUILD THE REGIONAL PART
+    heightOfDiv = 600
 
-    var regCirc = d3.select("#reg-comparison").append("svg")
-      .attr("width", "100%")
-      .selectAll(".regCirc")
-      .data(regions_data, function(d){ return d["District Name"]; })
+    // this is the axis
+    var povPlot = d3.select('#reg-comparison').append('svg')
+      .attr('height', heightOfDiv)
+
+    yScale = d3.scale.linear()
+      .domain([0,100])
+      .range([heightOfDiv - 25, 0])
+
+    var yAxis = d3.svg.axis()
+      .orient('left')
+      .scale(yScale);
+
+    povPlot.append('g')
+      .attr('class', 'yAxis')
+      .attr('height', d3.select('#reg-comparison').attr('height'))
+      .attr('transform', 'translate(30)')
+      .call(yAxis);
+
+    // these are the circles
+    povPlot.selectAll("circle")
+      .data(regions_data, function(d) { return d["District Name"]; })
       .enter()
-      .append("g")
-      .attr("class","regCirc")
+      .append('circle')
+      .attr({
+        'cx': function(d, i) { 
+          pos_intended = 60 + 50*i;
+          console.log(60 + 50*(i-1));
+          if (Math.abs(pos_intended) < 50) {
+            console.log('overlap');
+          }
+          return 60+50*i;
+        },
+        'cy': function(d) { return yScale(d["poverty"]); },
+        'r': 20,
+        'stroke': colorCirc,
+        'stroke-width': 3,
+        'fill': 'none',
+      });
 
-    regCirc.append("circle")
-        .attr({
-          "class":"regCirc",
-          "stroke-width": 3,
-          "r": 30,
-          "stroke": colorCirc,
-          "cx": function(d,i) { return i*50; },
-          "cy": 50,
-          "fill": "none",
-        });
-      
-    regCirc.append("text")
-        .attr({
-          "fill": colorText,
-          "font-weight": "bold",
-          "x": function(d,i) { return i*50; },
-          "y": 55,
-        })
-        .text(function(d) {
-          text = d.likelihood + "x";
-          return text
-        })
-        .style("text-anchor","middle");
-
+    povPlot.selectAll('text')
+      .data(regions_data)
+      .enter()
+      .append('text')
+      .text(function(d) {
+        text = d.likelihood + "x";
+        return text;
+      })
+      .attr({
+        "fill": colorText,
+        "font-weight": "bold",
+        "x": function(d,i) { console.log(i); return 60; },
+        "y": function(d) { return yScale(d["poverty"]); },
+      })
+      .style("text-anchor","middle");
   },
 
 };
@@ -108,7 +133,7 @@ function regions(regions_data, csv_data) {
     dummySelection = 'Latino Students Rates';  // TODO pipe from layeredPie
 
     // update the data to be passed into render function
-    REGIONS.update(dummySelection, natlAvg);
+    REGIONS.update(dummySelection, REGIONS.natlAvg);
 
 
 }
