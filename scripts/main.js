@@ -15,6 +15,13 @@ $(document).ready(function() {
               REGIONS.update(state);
             };
 
+            REGIONS.regWidth = $('#reg-comparison').width();
+            REGIONS.regHeight = $('#reg-comparison').height();
+
+            REGIONS.natWidth = $('#nat-comparison').width();
+            REGIONS.natHeight = $('#nat-comparison').height();
+
+
             // on event trigger ,change state
             // when GLOBAL.selectionState changes, pass new state to all update functions
 

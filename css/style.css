@@ -1,9 +1,5 @@
 
-/*** OVERARCHING HANDLING ***/
-
-body {
-	/*background-color: #5E5E5E;*/
-}
+/******** OVERARCHING HANDLING ********/
 
 img {
 	max-width: 100%;
@@ -17,16 +13,6 @@ div {
 
 ul {
 	/*background-color: purple;*/
-}
-
-.back-button {
-	position: fixed;
-	bottom: -.5em;
-	left: 0px;
-	/*padding: 0px;*/
-	/*margin: 0px;*/
-	font-size: 20px;
-	font-family: sans-serif;
 }
 
 .container {
@@ -59,7 +45,7 @@ ul {
 	width: 30%;
 }
 
-/***  PANEL ***/
+/********  PANEL ********/
 
 #center-panel {
 	width: 600px;
@@ -92,4 +78,21 @@ ul {
 	width: 300px;
 	height: 300px;
 	border-style: dotted;
+}
+
+.back-button {
+	position: fixed;
+	bottom: -.5em;
+	left: 0px;
+	/*padding: 0px;*/
+	/*margin: 0px;*/
+	font-size: 20px;
+	font-family: sans-serif;
+}
+
+#right-panel {
+	background-color: #969696;
+	width: 450px;
+	/*height: 90%;*/
+	right: 0px;
 }
