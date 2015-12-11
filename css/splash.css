@@ -31,13 +31,37 @@ html {
 The padding is very important to make sure the scrollspy picks up the right area when scrolled to. Adjust the margin and padding of sections and children 
 of those sections to manage the look and feel of the site. */
 
+/*If text is highlighted in a different color*/
 .highlight-red {
-    color: rgb(191,30,46)
+    color: rgb(191,30,46);
 }
 
 .highlight-white {
-    color: #FFFFFF
+    color: #FFFFFF;
 }
+
+/*Navbar stuff*/
+
+.navbar{
+    background: rgb(50,50,50);
+}
+
+.navbar .navbar-nav, .navbar .nav > li > a{
+    color: #FFFFFF;
+}
+
+.navbar .navbar-nav > li > a:hover, .navbar .nav > li > a:focus{
+    color: rgb(191,30,46);
+    font-weight: bold;
+}
+
+.navbar .navbar-brand, .navbar .nav .logo > li > a{
+    color: rgb(191,30,46);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/*Slides*/
 
 .slide {
     height: 100%;
