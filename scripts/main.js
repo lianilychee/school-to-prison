@@ -11,9 +11,7 @@ $(document).ready(function() {
             // REGIONS.render();
 
             /** Called when anything in the center pie is selected.  Takes in the new GLOBAL.selectionState (called state) and calls update functions of the rest of the webapp elements.**/
-            function updateAll(state) {
-              REGIONS.update(state);
-            };
+
 
             // on event trigger ,change state
             // when GLOBAL.selectionState changes, pass new state to all update functions
@@ -21,7 +19,6 @@ $(document).ready(function() {
         })
     })
 
- 
     percentage = 0.2
 
     var containerHeight = $('.person-image').height();
@@ -45,3 +42,6 @@ $(document).ready(function() {
       })
       .attr('fill', 'purple')
 })
+function updateAll(state) {
+  REGIONS.update(state);
+};

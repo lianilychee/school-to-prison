@@ -18,13 +18,14 @@ var REGIONS = {
             'likelihood': Number(parseFloat(REGIONS.regData[i][selection]) / natlAvg).toFixed(2)
         });
     }
-    return REGIONS.cleanData
+    REGIONS.render(selection,REGIONS.cleanData);
   },
 
   /** renders the national comparison.  Renders the regional comparison. **/
   render: function(selection, regions_data) {
     console.log(selection);
-
+    d3.select("#nat-comparison").selectAll("svg").remove();
+    d3.select("#reg-comparison").selectAll("svg").remove();
     colorCirc = "#C30017"; // some shade of red
     colorText = "white";
 
@@ -43,7 +44,7 @@ var REGIONS = {
       .attr("fill", "none")
       .attr("r", 30);
 
-    var natCirc = natContainer.append("text")
+    var natText = natContainer.append("text")
       .attr("x", 21)
       .attr("y", 43)
       .attr("fill", colorText)
@@ -59,12 +60,15 @@ var REGIONS = {
     // BUILD THE REGIONAL BIT
     // console.log(regions_data);
 
-    var regContainer = d3.select("#reg-comparison").append("svg")
+    var regCirc = d3.select("#reg-comparison").append("svg")
       .attr("width", "100%")
       .selectAll(".regCirc")
       .data(regions_data, function(d){ return d["District Name"]; })
       .enter()
-      .append("circle")
+      .append("g")
+      .attr("class","regCirc")
+
+    regCirc.append("circle")
         .attr({
           "class":"regCirc",
           "stroke-width": 3,
@@ -75,8 +79,9 @@ var REGIONS = {
           },
           "cy": 50,
           "fill": "none",
-        })
-      .append("text")
+        });
+      
+    regCirc.append("text")
         .attr({
           // "fill": colorText,
           // "font-weight": "bold",
@@ -101,9 +106,7 @@ function regions(regions_data, csv_data) {
     dummySelection = 'Latino Students Rates';  // TODO pipe from layeredPie
 
     // update the data to be passed into render function
-    regData = REGIONS.update(dummySelection, natlAvg);
-
-    REGIONS.render(dummySelection, regData);
+    REGIONS.update(dummySelection, natlAvg);
 
     // create the divs based on the number of districts in regions_data
     // for (var i = 0; i < regions_data.length; i++) {
