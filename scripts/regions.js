@@ -60,14 +60,15 @@ var REGIONS = {
 
     // BUILD THE REGIONAL PART
 
-    heightOfDiv = 250
+    heightOfDiv = 600
 
+    // this is the axis
     var povPlot = d3.select('#reg-comparison').append('svg')
       .attr('height', heightOfDiv)
 
     yScale = d3.scale.linear()
       .domain([0,100])
-      .range([heightOfDiv, 0])
+      .range([heightOfDiv - 25, 0])
 
     var yAxis = d3.svg.axis()
       .orient('left')
@@ -79,37 +80,45 @@ var REGIONS = {
       .attr('transform', 'translate(30)')
       .call(yAxis);
 
-    // var regCirc = d3.select("#reg-comparison").append("svg")
-    //   .attr("width", "100%")
-    //   .selectAll(".regCirc")
-    //   .data(regions_data, function(d){ return d["District Name"]; })
-    //   .enter()
-    //   .append("g")
-    //   .attr("class","regCirc")
 
-    // regCirc.append("circle")
-    //     .attr({
-    //       "class":"regCirc",
-    //       "stroke-width": 3,
-    //       "r": 30,
-    //       "stroke": colorCirc,
-    //       "cx": function(d,i) { return i*50; },
-    //       "cy": 50,
-    //       "fill": "none",
-    //     })
 
-    // regCirc.append("text")
-    //     .attr({
-    //       "fill": colorText,
-    //       "font-weight": "bold",
-    //       "x": function(d,i) { return i*50; },
-    //       "y": 55,
-    //     })
-    //     .text(function(d) {
-    //       text = d.likelihood + "x";
-    //       return text
-    //     })
-    //     .style("text-anchor","middle");
+    // these are the circles
+    povPlot.selectAll("circle")
+      .data(regions_data, function(d) { return d["District Name"]; })
+      .enter()
+      .append('circle')
+
+    var regCirc = d3.select(povPlot)
+      .attr("width", "100%")
+      .selectAll(".regCirc")
+      .data(regions_data, function(d){ return d["District Name"]; })
+      .enter()
+      .append("g")
+      .attr("class","regCirc")
+
+    regCirc.append("circle")
+        .attr({
+          "class":"regCirc",
+          "stroke-width": 3,
+          "r": 30,
+          "stroke": colorCirc,
+          "cx": function(d,i) { return i*50; },
+          "cy": 50,
+          "fill": "none",
+        })
+
+    regCirc.append("text")
+        .attr({
+          "fill": colorText,
+          "font-weight": "bold",
+          "x": function(d,i) { return i*50; },
+          "y": 55,
+        })
+        .text(function(d) {
+          text = d.likelihood + "x";
+          return text
+        })
+        .style("text-anchor","middle");
 
   },
 
