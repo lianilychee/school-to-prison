@@ -59,6 +59,10 @@ text {
 	width: 30%;
 }
 
+body{
+	background-color: #BBBBBB;
+	color:white;
+}
 /********  PANEL ********/
 
 #center-panel {

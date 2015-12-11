@@ -1,10 +1,11 @@
+var LAYEREDPIE = {}
 var selection_state = "";
 var pie_state = "default";
-var row_number = 49;
+var row_number = 0;
 var races = ["W","B","L","AA","AI","PI"];
 var color = {
-    "WD":"#C30017",
-    "WOD":"#A2DFDD"
+    "WD":d3.rgb("#C30017").brighter(2),
+    "WOD":"#A2EFEE"
 }// LIANI original: "#00DFDD";
 
 
@@ -50,6 +51,9 @@ var raceStringBuilder = function(code){
         },
         suspended:function(dis){
             return "Suspended " + magicText[code].text + "s " + dis;
+        },
+        suspRate:function(dis){
+            return magicText[code].text + " Students " + dis + " Rates"
         }
     }
 }
@@ -95,6 +99,8 @@ function buildDataset(csv_data, row_number, pie_state){
     return dataset
 }
 function disabilityArcInfo(csv_data,pie_state){
+    console.log(csv_data)
+    console.log(pie_state, csv_data[row_number]["Students "+pie_state+" Enrollment"])
     return {id:pie_state,
     label:magicText[pie_state].text,
     pop:csv_data[row_number]["Students "+pie_state+" Enrollment"],
@@ -107,7 +113,7 @@ function disabilityArcInfo(csv_data,pie_state){
 /** Build the layered pie. **/
 function layeredPie(csv_data){
 
-    var outer_radius = 600
+    var outer_radius = 400
     var inner_radius = 100
     var label_radius = 340
 
@@ -121,7 +127,8 @@ function layeredPie(csv_data){
     // stick an SVG to the body of index.html
     var svg = d3.select("#pie").append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .style("fill","white");
 
     var state_label = svg.append("text")
         .attr("transform", "translate(" + width / 20 + "," + height / 15 + ")")
@@ -197,9 +204,9 @@ function layeredPie(csv_data){
 
     /** On element click, update the dataset. **/
     function update(csv_data){
-        state_label.text(csv_data[row_number]["State"]);
+        state_label.text(csv_data[row_number]["District Name"]);
         state_label.on("click",function(){
-            row_number = (row_number + 1) % 50;
+            row_number = (row_number + 1) % 14;
             update(csv_data);
         });
         var dataset = buildDataset(csv_data, row_number, pie_state);
@@ -214,6 +221,7 @@ function layeredPie(csv_data){
                 if(d.data.id == "WD" || d.data.id == "WOD"){
                     pie_state = d.data.id;
                     update(csv_data);
+                    REGIONS.update("All Students "+ pie_state+" Rates")
                 } else {
                     selectRace(d);
                 }
@@ -221,12 +229,12 @@ function layeredPie(csv_data){
             .on("mouseover", setInfog)
             .on("mouseout", hideInfog);
 
-        /*g.append("path")
+        g.append("path")
             .attr("d", arc)
             .attr("class","whole_arc")
+            .attr("fill-opacity",.5)
             .style("fill", function(d,i) { return d.data.color; })
-            .style("visibility", "hidden")
-            .each(function(d) { this._current = d });*/
+            .each(function(d) { this._current = d });
 
         
         max_susp_r = 0;
@@ -270,7 +278,10 @@ function layeredPie(csv_data){
                 g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
                 g.selectAll(".susp_arc").transition().duration(750).attrTween("d", arcTween);
                 pie_state = "default";
-                setTimeout(function() { update(csv_data); }, 750);
+                setTimeout(function() { 
+                    update(csv_data);
+                    REGIONS.update("All Students Rates");
+                }, 750);
                 // update(csv_data);
             });
 
@@ -313,11 +324,11 @@ function layeredPie(csv_data){
             setInfog(d);
             arcs.on("mouseover", null).on("mouseout", null);
             selection_state = d.data.id;
-            //REGIONS.update(d.data.label.split(" ")[0].slice(0,-1)+" Students "+pie_state+ " Rates");
+            REGIONS.update(raceStringBuilder(d.data.id).suspRate(pie_state));
         } else {
             arcs.on("mouseover", setInfog).on("mouseout", hideInfog);
             selection_state = false;
-            //REGIONS.update("All Students " +pie_state+" Rates");
+            REGIONS.update("All Students " +pie_state+" Rates");
         };
 
     }
@@ -389,5 +400,9 @@ function layeredPie(csv_data){
     }
  
     update(csv_data);
+    LAYEREDPIE.update = function(region_number){
+        row_number = region_number;
+        update(csv_data);
+    };
  }
 

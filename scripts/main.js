@@ -5,7 +5,7 @@ $(document).ready(function() {
 
         d3.csv("http://localhost:8000/Are_We_Closing_Secondary_regions.csv", function(regions_data) {
 
-            layeredPie(csv_data);
+            layeredPie(regions_data);
             regions(regions_data, csv_data);
             REGIONS.dataset = regions_data; // unmodified dataset
             // REGIONS.render();
@@ -48,7 +48,4 @@ $(document).ready(function() {
         return (containerHeight*percentage);
       })
       .attr('fill', 'purple')
-})
-function updateAll(state) {
-  REGIONS.update(state);
-};
+});
