@@ -42,13 +42,13 @@ of those sections to manage the look and feel of the site. */
 
 .title {
     font-size: 4em;
-    margin-bottom: 10%;
+/*    margin-bottom: 10%;*/
 }
 
 .subtitle {
     font-size: 3em;
-    margin-top: 10%;
-    margin-bottom: 10%;
+/*    margin-top: 10%;
+    margin-bottom: 10%;*/
 }
 
 /*Navbar stuff*/
@@ -91,4 +91,8 @@ of those sections to manage the look and feel of the site. */
 
 .hook2-section {
 
+}
+
+.go-next {
+    padding-top: 25px;
 }
