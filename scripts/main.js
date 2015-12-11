@@ -13,6 +13,13 @@ $(document).ready(function() {
             /** Called when anything in the center pie is selected.  Takes in the new GLOBAL.selectionState (called state) and calls update functions of the rest of the webapp elements.**/
 
 
+            REGIONS.regWidth = $('#reg-comparison').width();
+            REGIONS.regHeight = $('#reg-comparison').height();
+
+            REGIONS.natWidth = $('#nat-comparison').width();
+            REGIONS.natHeight = $('#nat-comparison').height();
+
+
             // on event trigger ,change state
             // when GLOBAL.selectionState changes, pass new state to all update functions
 

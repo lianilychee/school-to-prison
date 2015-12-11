@@ -7,6 +7,7 @@ var color = {
     "WOD":"#A2DFDD"
 }// LIANI original: "#00DFDD";
 
+
 var magicText = {
     "WD":{
         "text":"with a disability",
@@ -102,11 +103,9 @@ function disabilityArcInfo(csv_data,pie_state){
     selected:false}
 }
 
-// TODO: uncomment all of the below
+
 /** Build the layered pie. **/
 function layeredPie(csv_data){
-
-    console.log("layeredPie()");
 
     var outer_radius = 600
     var inner_radius = 100
@@ -114,12 +113,13 @@ function layeredPie(csv_data){
 
 
     // dimensions of the svg
-    width = 1000
-    height = 1000
+
+    width = 800
+    height = 800
 
 
     // stick an SVG to the body of index.html
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#pie").append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -136,6 +136,22 @@ function layeredPie(csv_data){
         .style("visibility", "hidden")
         .append("xhtml:body")
             .html("<button class=\"back-button\">Back</button>");
+
+    var back_size = inner_radius / 3
+    // var back_button = svg.append("foreignObject")
+    //     .attr("transform", "translate(" + width / 2 + "," + (height / 2 - height / 15) + ")")
+    //     .style("visibility", "hidden")
+    //     .append("xhtml:body")
+    //         .html("<button class=\"back-button\">Back</button>");
+
+    var pieg = svg.append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var back_button = svg.append("polygon")
+        .attr("transform", "translate(" + width / 2 + "," + (height / 2 - inner_radius) + ")")
+        .style("visibility", "hidden")
+        .style("fill", "black")
+        .attr("points", 0 + "," + 0 + " " + (back_size * Math.sqrt(3) / 2) + "," + (back_size) + " " + (-back_size * Math.sqrt(3) / 2) + "," + (back_size));
 
     var infog = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
@@ -237,6 +253,7 @@ function layeredPie(csv_data){
                     // console.log(d.label, pie_state);
                     // console.log(d.label.indexOf(pie_state));
                     return d.id == (pie_state == "WD"?"WOD":"WD") ? 0 : d.pop;
+
                 });
             g = g.data(pieSwoosh(dataset));
             g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
@@ -245,6 +262,9 @@ function layeredPie(csv_data){
 
             back_button.on("click", function() {
                 selection_state = "";
+
+                back_button.style("visibility", "hidden");
+
                 pieg.selectAll(".arc-label").transition().duration(750).style("fill-opacity",0);
                 g = g.data(pie(dataset));
                 g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
@@ -254,10 +274,7 @@ function layeredPie(csv_data){
                 // update(csv_data);
             });
 
-        } else {
-            back_button.style("visibility", "hidden");
-
-        };
+        }
 
         var labels = []
         g.each(function(d,i){
@@ -283,11 +300,8 @@ function layeredPie(csv_data){
         } else {
             pieg.selectAll(".arc-label").style("fill-opacity",1);
         }
-
-
-
-
     }
+
     function selectRace(d){
         d.data.selected = !d.data.selected;
         var arcs = pieg.selectAll(".arc");
@@ -305,6 +319,7 @@ function layeredPie(csv_data){
             selection_state = false;
             //REGIONS.update("All Students " +pie_state+" Rates");
         };
+
     }
 
     function arcTween(d, i, a) {
@@ -365,7 +380,7 @@ function layeredPie(csv_data){
                       tt.translate = [ tt.translate[0], tt.translate[1] - dy ];
                       d3.select(this).attr("transform", "translate(" + tt.translate + ")");
                       d3.select(that).attr("transform", "translate(" + to.translate + ")");
-                      //a = this.getBoundingClientRect();
+                      a = this.getBoundingClientRect();
                     }
                   }
                 });
@@ -375,3 +390,4 @@ function layeredPie(csv_data){
  
     update(csv_data);
  }
+

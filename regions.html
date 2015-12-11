@@ -16,7 +16,6 @@
     <script src="scripts/regions.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/layeredPie.js"></script>
-    <script src="scripts/person.js"></script>
     <script src="scripts/regions.js"></script>
 
 </head>
@@ -26,18 +25,21 @@
     <ul class='flex-container wrap regions'>
     </ul>
 
-    <div class='container' id='right-panel' style='background-color: #969696'>
-        RISK MULTIPLIER <br>
-        Compared to the national average, how much more likely is the selected student to be suspended?
+    <div class='container'>
 
-        <div id='nat-comparison'>
-            NATIONAL
+        <div class='container' id='context'>context panel</div>
+
+        <div class='container' id='pie'></div>
+
+        <div class='container' id='right-panel'>
+            RISK MULTIPLIER <br>
+            Compared to the national average, how much more likely is the selected student to be suspended?
+
+            <div id='nat-comparison'></div>
+
+            <div id='reg-comparison'></div>
+
         </div>
-
-        <div id='reg-comparison'>
-            REGIONAL
-        </div>
-
     </div>
 
 
