@@ -19,6 +19,10 @@ ul {
 	/*background-color: purple;*/
 }
 
+text {
+	font-family: Arial;
+}
+
 .back-button {
 	position: fixed;
 	bottom: -.5em;
