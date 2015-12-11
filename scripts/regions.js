@@ -60,37 +60,56 @@ var REGIONS = {
 
     // BUILD THE REGIONAL PART
 
-    var regCirc = d3.select("#reg-comparison").append("svg")
-      .attr("width", "100%")
-      .selectAll(".regCirc")
-      .data(regions_data, function(d){ return d["District Name"]; })
-      .enter()
-      .append("g")
-      .attr("class","regCirc")
+    heightOfDiv = 250
 
-    regCirc.append("circle")
-        .attr({
-          "class":"regCirc",
-          "stroke-width": 3,
-          "r": 30,
-          "stroke": colorCirc,
-          "cx": function(d,i) { return i*50; },
-          "cy": 50,
-          "fill": "none",
-        })
+    var povPlot = d3.select('#reg-comparison').append('svg')
+      .attr('height', heightOfDiv)
 
-    regCirc.append("text")
-        .attr({
-          "fill": colorText,
-          "font-weight": "bold",
-          "x": function(d,i) { return i*50; },
-          "y": 55,
-        })
-        .text(function(d) {
-          text = d.likelihood + "x";
-          return text
-        })
-        .style("text-anchor","middle");
+    yScale = d3.scale.linear()
+      .domain([0,100])
+      .range([heightOfDiv, 0])
+
+    var yAxis = d3.svg.axis()
+      .orient('left')
+      .scale(yScale);
+
+    povPlot.append('g')
+      .attr('class', 'yAxis')
+      .attr('height', d3.select('#reg-comparison').attr('height'))
+      .attr('transform', 'translate(30)')
+      .call(yAxis);
+
+    // var regCirc = d3.select("#reg-comparison").append("svg")
+    //   .attr("width", "100%")
+    //   .selectAll(".regCirc")
+    //   .data(regions_data, function(d){ return d["District Name"]; })
+    //   .enter()
+    //   .append("g")
+    //   .attr("class","regCirc")
+
+    // regCirc.append("circle")
+    //     .attr({
+    //       "class":"regCirc",
+    //       "stroke-width": 3,
+    //       "r": 30,
+    //       "stroke": colorCirc,
+    //       "cx": function(d,i) { return i*50; },
+    //       "cy": 50,
+    //       "fill": "none",
+    //     })
+
+    // regCirc.append("text")
+    //     .attr({
+    //       "fill": colorText,
+    //       "font-weight": "bold",
+    //       "x": function(d,i) { return i*50; },
+    //       "y": 55,
+    //     })
+    //     .text(function(d) {
+    //       text = d.likelihood + "x";
+    //       return text
+    //     })
+    //     .style("text-anchor","middle");
 
   },
 
