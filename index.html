@@ -9,15 +9,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-    <!-- LIBRARY SCRIPTS -->
-    <link rel='stylesheet' type='text/css' href='css/style.css'>
-
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!-- STPP SCRIPTS -->
-    <script src="scripts/main.js"></script>
     <script src="scripts/regions.js"></script>
+    <script src="scripts/main.js"></script>
     <script src="scripts/layeredPie.js"></script>
     <script src="scripts/regions.js"></script>
 
@@ -25,32 +22,26 @@
 
 <body>
 
-    <div class='container' id='center-panel'>
-        container div
-        <div id='pie'> </div>
-
-<!--         <div class='person-container'>
-            <div class='person-fill'></div>
-            <div class='person-image'><img src='images/person2.png'></div>
-        </div>
- -->
-    </div>
-
     <ul class='flex-container wrap regions'>
     </ul>
-    <div class='container' id='right-panel' style='background-color: #969696'>
-    RISK MULTIPLIER <br>
-    Compared to the national average, how much more likely is the selected student to be suspended?
 
-    <div id='nat-comparison'>
-        NATIONAL
+    <div class='container'>
+
+        <div class='container' id='context'>context panel</div>
+
+        <div class='container' id='pie'></div>
+
+        <div class='container' id='right-panel'>
+            RISK MULTIPLIER <br>
+            Compared to the national average, how much more likely is the selected student to be suspended?
+
+            <div id='nat-comparison'></div>
+
+            <div id='reg-comparison'></div>
+
+        </div>
     </div>
 
-    <div id='reg-comparison'>
-        REGIONAL
-    </div>
-
-    </div>
 
 
 </body>
