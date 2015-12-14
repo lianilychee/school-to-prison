@@ -4,25 +4,35 @@ var race = "";
 // basically all my helper functions
 var REGIONS = {
 
+    sortBy: "All Students Enrollment",
+
     cleanData: [],    // to be updated based on selections
+
+    sortCleanData: [],  // cleanData sorted by the button click
 
     natAvg: 10.08,
 
     /** updates the dataset, to be reflected in cleanData.    Assume state input is GLOBAL.selectionState. **/
-    update: function(selection, bar) {
+    update: function(selection, bar, sort) {
 
         REGIONS.cleanData = [];
 
         for (var i = 1; i < 14; i++) {
         // for (var i = 0; i < REGIONS.regData.length; i++) {
-                REGIONS.cleanData.push({
-                        'District Name': REGIONS.regData[i]['District Name'],
-                        'likelihood': Number(parseFloat(REGIONS.regData[i][selection]) / REGIONS.natAvg).toFixed(1),
-                        'poverty': parseFloat(REGIONS.regData[i]["% 5-17 under poverty line"]),
-                        'row_number':i
-                });
+            REGIONS.cleanData.push({
+                'district_name': REGIONS.regData[i]['District Name'],
+                'likelihood': Number(parseFloat(REGIONS.regData[i][selection]) / REGIONS.natAvg).toFixed(1),
+                'poverty': parseFloat(REGIONS.regData[i]["% 5-17 under poverty line"]),
+                'sort_column': parseFloat(REGIONS.regData[i][REGIONS.sortBy]),
+                'row_number':i
+            });
         }
-        REGIONS.render(selection,REGIONS.cleanData);
+
+        console.log(REGIONS.cleanData)
+        REGIONS.sortCleanData = REGIONS.cleanData.sort( function(a,b) { return b['sort_column'] - a['sort_column'] });
+        console.log(REGIONS.sortCleanData)
+
+        REGIONS.render(selection,REGIONS.sortCleanData);
     },
 
     /** renders the national comparison.    Renders the regional comparison. **/
@@ -83,7 +93,7 @@ var REGIONS = {
         // school district label
         regionG.append("text")
         .text(function(d){
-            return d.row["District Name"]
+            return d.row["district_name"]
         })
         .attr({
             "fill":colorText,
@@ -114,11 +124,9 @@ function buildCircleData(regions_data, yScale, circle_radius, column_width, x_ma
         // define rows
         if ((i%2)/2 == 0) {
             datum.y = ((i+2)/2).toFixed(0) + scoot;        
-            console.log(i, datum.y);
         }
         if ((i%2)/2 !== 0) {
             datum.y = ( (((i-1)+2)/2).toFixed(0)+scoot );
-            console.log(i, datum.y);
         }
 
         data.push(datum);
@@ -135,10 +143,36 @@ function regions(regions_data, csv_data) {
 
         // Percentage of students are suspended, regardless of disability status
 
-        defaultSelection = 'All Students Rates';    // TODO pipe from layeredPie
+        defaultSelection = 'All Students Rates';
 
         // update the data to be passed into render function
-        REGIONS.update(defaultSelection, REGIONS.natlAvg);
+        REGIONS.update(defaultSelection, REGIONS.natlAvg, REGIONS.sortBy);
 
+        // upon sortBy click, update REGIONS.sortBy
+        $("button").click( function() {
+            id = $(this).attr("id")
 
+            if (id == "poverty") { REGIONS.sortBy = "% 5-17 under poverty line"; };
+
+            if (id == "english") { REGIONS.sortBy = "EL Enrollment"; };
+
+            if (id == "arrests") { REGIONS.sortBy = "Juvenile Arrest Rate"; };
+
+            if (id == "enrollment") { REGIONS.sortBy = "All Students Enrollment"; };
+
+            console.log(REGIONS.sortBy);
+
+            REGIONS.update(defaultSelection, REGIONS.natlAvg, REGIONS.sortBy);
+        });
 }
+
+
+
+
+    // /** Sort based on button click
+    // **/
+    // sort: function() {
+    //     $("button").onClick( function() {
+    //         return ($(this).attr("id"));
+    //     })
+    // }

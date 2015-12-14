@@ -106,8 +106,8 @@ function buildDataset(csv_data, row_number, pie_state){
 
 /** Basically builds datasets for the not-race arcs. **/
 function disabilityArcInfo(csv_data,pie_state){
-    console.log(csv_data)
-    console.log(pie_state, csv_data[row_number]["Students "+pie_state+" Enrollment"])
+    // console.log(csv_data)
+    // console.log(pie_state, csv_data[row_number]["Students "+pie_state+" Enrollment"])
     return {id:pie_state,
     label:magicText[pie_state].text,
     pop:csv_data[row_number]["Students "+pie_state+" Enrollment"],
@@ -126,7 +126,6 @@ function layeredPie(csv_data){
 
 
     // dimensions of the svg
-
     width = 800
     height = 800
 
