@@ -9,6 +9,7 @@ var color = {
 }// LIANI original: "#00DFDD";
 
 
+// text is for csv column lookup, display is for labeling
 var magicText = {
     "WD":{
         "text":"with a disability",
@@ -42,6 +43,8 @@ var magicText = {
     }
 }
 
+
+// references columns in csv for databuilding
 var raceStringBuilder = function(code){
     return {
         text:magicText[code].text,
@@ -59,7 +62,9 @@ var raceStringBuilder = function(code){
 }
 
 /** Returns a list of elements, where each element represents an arc in the pie.
-    Each arc contains a label, population, suspension rate, color, and selection Y/N. **/
+    Each arc contains a label, population, suspension rate, color, and selection Y/N. 
+
+    Has the code that builds the race arcs.  **/
 function buildDataset(csv_data, row_number, pie_state){
     var dataset = []
     if (pie_state == "default"){
@@ -98,6 +103,8 @@ function buildDataset(csv_data, row_number, pie_state){
     // console.log(dataset)
     return dataset
 }
+
+/** Basically builds datasets for the not-race arcs. **/
 function disabilityArcInfo(csv_data,pie_state){
     console.log(csv_data)
     console.log(pie_state, csv_data[row_number]["Students "+pie_state+" Enrollment"])
