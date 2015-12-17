@@ -80,6 +80,7 @@ text {
 body{
 	background-color: dimgrey;
 	color:white;
+	overflow: hidden;
 }
 /********  PANEL ********/
 
@@ -89,31 +90,6 @@ body{
 
 svg {
 	/*background-color: #535353;*/
-}
-
-.person-container {
-	background-color: white;
-	float: left;
-}
-
-.person-fill {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	z-index: 0;
-	width: 300px;
-	height: 300px;
-	/*background: gray;*/
-}
-
-#person-image {
-	position: absolute;
-	left: 0px;
-	left: 0px;
-	z-index: 1;
-	width: 300px;
-	height: 300px;
-	border-style: dotted;
 }
 
 .back-button {
@@ -171,6 +147,7 @@ button:active {
 	height: 675px;
 	padding: 0px;
 	overflow: hidden;
+	background-color: gray;
 }
 
 #right-panel {
@@ -185,4 +162,10 @@ button:active {
 
 #reg-comparison{
 	height: 550px;
+}
+
+.just-text{
+	margin-top: 80px;
+	/*padding: 0px 10px 10px 10px;*/
+	padding: 0px 50px 0px 50px;
 }
