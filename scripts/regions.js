@@ -28,9 +28,9 @@ var REGIONS = {
             });
         }
 
-        console.log(REGIONS.cleanData)
+        // console.log(REGIONS.cleanData)
         REGIONS.sortCleanData = REGIONS.cleanData.sort( function(a,b) { return b['sort_column'] - a['sort_column'] });
-        console.log(REGIONS.sortCleanData)
+        // console.log(REGIONS.sortCleanData)
 
         REGIONS.render(selection,REGIONS.sortCleanData);
     },
@@ -161,7 +161,7 @@ function regions(regions_data, csv_data) {
 
             if (id == "enrollment") { REGIONS.sortBy = "All Students Enrollment"; };
 
-            console.log(REGIONS.sortBy);
+            // console.log(REGIONS.sortBy);
 
             REGIONS.update(defaultSelection, REGIONS.natlAvg, REGIONS.sortBy);
         });
