@@ -12,34 +12,34 @@ var color = {
 // text is for csv column lookup, display is for labeling
 var magicText = {
     "WD":{
-        "text":"disabled",
+        "text":"Disabled",
     },
     "WOD":{
-        "text":"non-disabled"
+        "text":"Non-Disabled"
     },
     "W":{
         "text": "White",
-        "display": "white"
+        "display": "White"
     },
     "B":{
         "text": "Black",
-        "display": "black"
+        "display": "Black"
     },
     "L":{
         "text": "Latino",
-        "display": "latino"
+        "display": "Latino"
     },
     "AA":{
         "text": "Asian American",
-        "display": "asian"
+        "display": "Asian"
     },
     "AI":{
         "text": "American Indian",
-        "display": "american indian"
+        "display": "American Indian"
     },
     "PI":{
         "text": "Hawaiian/Pacific Islander",
-        "display": "hawaiian/pacific islander"
+        "display": "Hawaiian/Pacific Islander"
     },
     "O":{
         "display": "other"
@@ -94,7 +94,7 @@ function buildDataset(csv_data, row_number, pie_state){
         }
         var other = {
             id:"O",
-            label:"other",
+            label:"Other",
             pop:csv_data[row_number]["Students "+pie_state+" Enrollment"] - totalEnroll,
             susp:((csv_data[row_number]["Suspended Students "+pie_state+""] - totalSusp)/(csv_data[row_number]["Students "+pie_state+" Enrollment"] - totalEnroll)),
             color:d3.rgb(color[pie_state]).darker(i*.25),
@@ -138,7 +138,7 @@ function layeredPie(csv_data){
 
     var pie_center = {
         x:width * (2/5),
-        y:height * (2/5)
+        y:height * (1/2)
     } 
 
 
@@ -148,10 +148,7 @@ function layeredPie(csv_data){
         .attr("height", height)
         .style("fill","white");
 
-    var state_label = svg.append("text")
-        .attr("transform", "translate(" + width / 20 + "," + height / 15 + ")")
-        .style("font-family","sans-serif")
-        .style("font-size","20px");
+
 
     var detail_text = svg.append("foreignObject")
         .attr("transform", "translate(" + width * (11/16)+ "," + height * (1/7) + ")")
@@ -226,11 +223,6 @@ function layeredPie(csv_data){
 
     /** On element click, update the dataset. **/
     function update(csv_data){
-        state_label.text(csv_data[row_number]["District Name"]);
-        state_label.on("click",function(){
-            row_number = (row_number + 1) % 14;
-            update(csv_data);
-        });
         var dataset = buildDataset(csv_data, row_number, pie_state);
         pieG.selectAll("g").remove();
         pieG.selectAll(".arc-label").remove();
@@ -262,12 +254,17 @@ function layeredPie(csv_data){
 
         //Select state if state was selected on previous data
         if(selection_state != ""){
-            pieG.selectAll(".arc").each(function(d){
-                if(d.data.id == selection_state){
-                    selectArc(d);
+            if(pie_state != "default" && (selection_state == "WD" || selection_state == "WOD")){
+                var spoofArc = {data:disabilityArcInfo(csv_data,pie_state)};
+                updateDetailText(spoofArc);
+            }else{
+                pieG.selectAll(".arc").each(function(d){
+                    if(d.data.id == selection_state){
+                        selectArc(d);
 
-                }
-            });
+                    }
+                });
+            }
         }
 
         if (pie_state != "default") {
@@ -331,6 +328,9 @@ function layeredPie(csv_data){
     }
 
     function selectArc(d){
+        if (d.data.id == "O"){
+            return;
+        }
         d.data.selected = !d.data.selected;
         var arcs = pieG.selectAll(".arc");
         arcs.each(function(e,j) {
@@ -342,9 +342,9 @@ function layeredPie(csv_data){
             selection_state = d.data.id;
             REGIONS.update(pie_state == "default" ? "All Students " + d.data.id +" Rates" : raceStringBuilder(d.data.id).suspRate(pie_state));
         } else {
+            updateDetailText(d);
             if (pie_state != "default"){
                 selection_state = pie_state;
-                updateDetailText(d);
                 REGIONS.update("All Students " +pie_state+" Rates");
             }else{
                 //swoosh
@@ -360,7 +360,7 @@ function layeredPie(csv_data){
     }
     function updateDetailText(d){
         var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br/>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
-        detail_string += (pie_state == "default" ? d.data.label + " students are <br/>": d.data.label + " " + magicText[pie_state].text + " students <br/> are ")
+        detail_string += (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students are <br/>": d.data.label + " " + magicText[pie_state].text + " students <br/> are ")
         var risk_factor = ((d.data.susp*100)/REGIONS.natAvg).toFixed(1); 
         detail_string += "<span style='font-size:25px'><strong>" + risk_factor + "X</strong></span>"
         detail_string += (risk_factor > 1 ? " times more likely " : " times as likely ");

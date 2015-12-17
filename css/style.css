@@ -27,9 +27,9 @@ img {
 }
 
 div {
-	border-style: dotted;
+/*	border-style: dotted;
 	border-color: red;
-}
+*/}
 
 ul {
 	/*background-color: purple;*/
@@ -51,8 +51,8 @@ text {
 	position: relative;
 	width: 100%;
 	overflow: auto;
-	border-style: dotted;
-	border-color: white;
+/*	border-style: dotted;
+	border-color: white;*/
 	/*padding-left: 0px;*/
 }
 
