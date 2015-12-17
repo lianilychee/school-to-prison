@@ -132,7 +132,7 @@ button {
 	text-align: center;
 	text-decoration: none;
 	font: 14px/100% Arial, sans-serif;
-	padding: .7em .7em .7em;
+	padding: .3em;
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	-webkit-border-radius: .5em; 
 	-moz-border-radius: .5em;
@@ -181,6 +181,7 @@ button:active {
 	height: 805px;
 	/*height: 90%;*/
 	float: right;
+	overflow: hidden;
 }
 
 #reg-comparison{
