@@ -1,9 +1,5 @@
 
-/*** OVERARCHING HANDLING ***/
-
-body {
-	/*background-color: #5E5E5E;*/
-}
+/******** OVERARCHING HANDLING ********/
 
 img {
 	max-width: 100%;
@@ -17,6 +13,10 @@ div {
 
 ul {
 	/*background-color: purple;*/
+}
+
+text {
+	font-family: Arial;
 }
 
 .back-button {
@@ -34,7 +34,7 @@ ul {
 	width: 100%;
 	overflow: auto;
 	border-style: dotted;
-	border-color: white;
+	border-color: green;
 }
 
 .flex-container {
@@ -59,7 +59,11 @@ ul {
 	width: 30%;
 }
 
-/***  PANEL ***/
+body{
+	background-color: dimgrey;
+	color:white;
+}
+/********  PANEL ********/
 
 #center-panel {
 	width: 600px;
@@ -96,4 +100,35 @@ svg {
 	width: 300px;
 	height: 300px;
 	border-style: dotted;
+}
+
+.back-button {
+	position: fixed;
+	bottom: -.5em;
+	left: 0px;
+	/*padding: 0px;*/
+	/*margin: 0px;*/
+	font-size: 20px;
+	font-family: sans-serif;
+}
+
+#context {
+	float: left;
+	width: 60px;
+}
+
+#pie {
+	float: left;
+	width: 950px;
+}
+
+#right-panel {
+	/*background-color: #969696;*/
+	width: 400px;
+	/*height: 90%;*/
+	float: right;
+}
+
+#reg-comparison {
+	height: 700px;
 }

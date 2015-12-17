@@ -14,34 +14,32 @@
 
     <title>Disability in the School to Prison Pipeline</title>
 
-    <!-- jQuery -->
+    <!-- JS libraries -->
     <script src="scripts/lib/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="scripts/lib/bootstrap.min.js"></script>
-
-    <!-- Scrolling Nav JavaScript -->
     <script src="scripts/lib/jquery.easing.min.js"></script>
     <script src="scripts/lib/scrolling-nav.js"></script>
+    <script src="scripts/lib/bootstrap.min.js"></script>
 
-    <!-- Bootstrap Core CSS -->
+    <!-- CSS libraries-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <!-- STPP CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="css/splash.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- STPP JS -->
+    <script src="scripts/regions.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/layeredPie.js"></script>
+    <script src="scripts/regions.js"></script>
 
 </head>
 
-<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
-
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -76,6 +74,37 @@
             </div>
         </div>
     </nav>
+
+
+    <div class='container'>
+
+        <div class='container' id='context'>context panel</div>
+
+        <div class='container' id='pie'></div>
+
+        <div class='container' id='right-panel'>
+            risk of suspension <br>
+            COMPARED TO DISTRICT <br> <br>
+
+            Compared to the national average, how much more likely is the selected student to be suspended? <br> <br>
+
+            Sort by, descending:
+            <button type='button' id='poverty'>Poverty level</button>
+            <button type='button' id='english'>English learner representation</button>
+            <button type='button' id='arrests'>County arrest rates</button>
+            <button type='button' id='enrollment'>District enrollment</button>
+
+
+            <div id='nat-comparison'></div>
+
+            <div id='reg-comparison'></div>
+
+        </div>
+    </div>
+
+
+
+
 
 </body>
 
