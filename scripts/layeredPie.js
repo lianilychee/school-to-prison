@@ -5,7 +5,7 @@ var row_number = 0;
 var races = ["W","B","L","AA","AI","PI"];
 var color = {
     "WD":d3.rgb("#C30017").brighter(2),
-    "WOD":"#A2EFEE"
+    "WOD":d3.rgb("#00FFFF")
 }// LIANI original: "#00DFDD";
 
 
@@ -160,11 +160,24 @@ function layeredPie(csv_data){
     var pieg = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    var back_button = svg.append("polygon")
+    var back_rad = 10;
+    var back_size = inner_radius / 3;
+    var back_button = svg.append("g")
+        .style("visibility", "hidden");
+    back_button.append("polygon")
         .attr("transform", "translate(" + width / 2 + "," + (height / 2 - inner_radius) + ")")
-        .style("visibility", "hidden")
         .style("fill", "black")
         .attr("points", 0 + "," + 0 + " " + (back_size * Math.sqrt(3) / 2) + "," + (back_size) + " " + (-back_size * Math.sqrt(3) / 2) + "," + (back_size));
+    back_button.append("foreignObject")
+        .attr("transform", "translate(" + (width / 2 - back_rad) + "," + (height / 2 - inner_radius + 3 / 2 * back_rad)+ ")")
+        .attr("left", "-2em")
+        .attr("top", "-2em")
+        .style("text-align", "center")
+        .append("xhtml:body")
+            .style("margin", 0)
+            .html("<i class=\"fa fa-undo\"></i>")
+            .style("font-size", back_rad * 2)
+            .style("color", "white");
 
     var infog = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
@@ -296,7 +309,7 @@ function layeredPie(csv_data){
         var labels = []
         g.each(function(d,i){
             var label = {};
-            label.desc =  d.data.label + " " + ((d.endAngle - d.startAngle)*100/(2*Math.PI)).toFixed(2) + "%";
+            label.desc =  d.data.label;// + " " + ((d.endAngle - d.startAngle)*100/(2*Math.PI)).toFixed(2) + "%";
             var ang = (d.startAngle + d.endAngle)/2;
             label.x = Math.sin(ang) * (max_susp_r  + 20);
             label.y = Math.cos(ang) * -(max_susp_r + 20);
@@ -360,10 +373,10 @@ function layeredPie(csv_data){
         info_text.line1.text((d.data.susp*100).toFixed(2) + "% of");
         if(d.data.id == "WD" || d.data.id == "WOD"){
             info_text.line2.text("students " + d.data.label);
-            info_text.line3.text("suspended");
+            info_text.line3.text("are suspended");
         }else{
             info_text.line2.text(magicText[d.data.id].display + " students");
-            info_text.line3.text(magicText[pie_state].text +" suspended");
+            info_text.line3.text(magicText[pie_state].text +" are suspended");
         }
         
         

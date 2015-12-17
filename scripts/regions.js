@@ -120,14 +120,15 @@ function buildCircleData(regions_data, yScale, circle_radius, column_width, x_ma
         } else {
             datum.x = 300;
         }
+        datum.y = Math.floor(i/2) * 85 + 40
 
         // define rows
-        if ((i%2)/2 == 0) {
-            datum.y = ((i+2)/2).toFixed(0) + scoot;        
-        }
-        if ((i%2)/2 !== 0) {
-            datum.y = ( (((i-1)+2)/2).toFixed(0)+scoot );
-        }
+        // if ((i%2)/2 == 0) {
+        //     datum.y = ((i)/2).toFixed(0) + scoot;        
+        // }
+        // if ((i%2)/2 !== 0) {
+        //     datum.y = ( (((i-1))/2).toFixed(0) + scoot );
+        // }
 
         data.push(datum);
     }
