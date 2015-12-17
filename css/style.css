@@ -80,6 +80,7 @@ text {
 body{
 	background-color: dimgrey;
 	color:white;
+	overflow: hidden;
 }
 /********  PANEL ********/
 
@@ -146,6 +147,7 @@ button:active {
 	height: 675px;
 	padding: 0px;
 	overflow: hidden;
+	background-color: gray;
 }
 
 #right-panel {
@@ -160,4 +162,10 @@ button:active {
 
 #reg-comparison{
 	height: 550px;
+}
+
+#about{
+	margin-top: 80px;
+	/*padding: 0px 10px 10px 10px;*/
+	padding: 0px 50px 0px 50px;
 }
