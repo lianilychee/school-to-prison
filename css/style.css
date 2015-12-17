@@ -3,14 +3,14 @@
 
 h1 {
 	text-align: center;
-	font-size: 20pt;
+	font-size: 18pt;
 	font-weight: bold;
 	margin: 0px;
 }
 
 h2 {
 	text-align: center;
-	font-size: 12pt;
+	font-size: 10pt;
 	margin: 0px;
 	font-weight: bold;
 }
@@ -27,12 +27,11 @@ img {
 }
 
 div {
-	border-style: dotted;
-	border-color: red;
+	/*border-style: dotted;*/
+	/*border-color: red;*/
 }
 
 ul {
-	/*background-color: purple;*/
 }
 
 text {
@@ -51,9 +50,7 @@ text {
 	position: relative;
 	width: 100%;
 	overflow: auto;
-	border-style: dotted;
 	border-color: white;
-	/*padding-left: 0px;*/
 }
 
 .flex-container {
@@ -177,7 +174,7 @@ button:active {
 #right-panel {
 	/*background-color: #969696;*/
 	margin-top: 80px;
-	width: 400px;
+	width: 350px;
 	height: 675px;
 	/*height: 90%;*/
 	float: right;

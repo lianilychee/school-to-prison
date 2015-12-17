@@ -28,7 +28,7 @@ var REGIONS = {
             });
         }
 
-        // console.log(REGIONS.cleanData)
+        console.log(REGIONS.cleanData)
         REGIONS.sortCleanData = REGIONS.cleanData.sort( function(a,b) { return b['sort_column'] - a['sort_column'] });
         // console.log(REGIONS.sortCleanData)
 

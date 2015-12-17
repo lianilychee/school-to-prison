@@ -5,15 +5,17 @@ $(document).ready(function() {
 
         d3.csv("http://localhost:8000/Are_We_Closing_Secondary_regions.csv", function(regions_data) {
 
-            layeredPie(regions_data);
-            regions(regions_data, csv_data);
-            REGIONS.dataset = regions_data; // unmodified dataset
+          console.log(regions_data);          
 
-            REGIONS.regWidth = $('#reg-comparison').width();
-            REGIONS.regHeight = $('#reg-comparison').height();
+          layeredPie(regions_data);
+          regions(regions_data, csv_data);
+          REGIONS.dataset = regions_data; // unmodified dataset
 
-            REGIONS.natWidth = $('#nat-comparison').width();
-            REGIONS.natHeight = $('#nat-comparison').height();
+          REGIONS.regWidth = $('#reg-comparison').width();
+          REGIONS.regHeight = $('#reg-comparison').height();
+
+          REGIONS.natWidth = $('#nat-comparison').width();
+          REGIONS.natHeight = $('#nat-comparison').height();
         })
     })
 
