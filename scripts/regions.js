@@ -116,9 +116,9 @@ function buildCircleData(regions_data, yScale, circle_radius, column_width, x_ma
 
         // define columns
         if (i%2 == 0) {
-            datum.x = 100;
+            datum.x = ($('#reg-comparison').width()) / 4;
         } else {
-            datum.x = 300;
+            datum.x = ($('#reg-comparison').width() * 3) / 4;
         }
         datum.y = Math.floor(i/2) * 85 + 40
 
