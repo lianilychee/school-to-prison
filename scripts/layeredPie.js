@@ -255,8 +255,7 @@ function layeredPie(csv_data){
         //Select state if state was selected on previous data
         if(selection_state != ""){
             if(pie_state != "default" && (selection_state == "WD" || selection_state == "WOD")){
-                var spoofArc = {data:disabilityArcInfo(csv_data,pie_state)};
-                updateDetailText(spoofArc);
+                updateDetailText({data:disabilityArcInfo(csv_data,pie_state)});
             }else{
                 pieG.selectAll(".arc").each(function(d){
                     if(d.data.id == selection_state){
@@ -284,6 +283,7 @@ function layeredPie(csv_data){
 
             back_button.on("click", function() {
                 selection_state = "";
+                detail_text.html("");
 
                 back_button.style("visibility", "hidden");
 
@@ -342,9 +342,9 @@ function layeredPie(csv_data){
             selection_state = d.data.id;
             REGIONS.update(pie_state == "default" ? "All Students " + d.data.id +" Rates" : raceStringBuilder(d.data.id).suspRate(pie_state));
         } else {
-            updateDetailText(d);
             if (pie_state != "default"){
                 selection_state = pie_state;
+                updateDetailText({data:disabilityArcInfo(csv_data,pie_state)});
                 REGIONS.update("All Students " +pie_state+" Rates");
             }else{
                 //swoosh

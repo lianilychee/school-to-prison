@@ -16,13 +16,17 @@ var REGIONS = {
     update: function(selection, bar, sort) {
 
         REGIONS.cleanData = [];
-
+        var natData = {
+            'district_name': "National",
+            'likelihood': Number(parseFloat(REGIONS.regData[0][selection]) / REGIONS.natAvg).toFixed(1),
+            'sort_column': parseFloat(REGIONS.regData[0][REGIONS.sortBy]),
+            'row_number':0
+        }
         for (var i = 1; i < 11; i++) {
         // for (var i = 0; i < REGIONS.regData.length; i++) {
             REGIONS.cleanData.push({
                 'district_name': REGIONS.regData[i]['District Name'],
                 'likelihood': Number(parseFloat(REGIONS.regData[i][selection]) / REGIONS.natAvg).toFixed(1),
-                'poverty': parseFloat(REGIONS.regData[i]["% 5-17 under poverty line"]),
                 'sort_column': parseFloat(REGIONS.regData[i][REGIONS.sortBy]),
                 'row_number':i
             });
@@ -31,13 +35,12 @@ var REGIONS = {
         console.log(REGIONS.cleanData)
         REGIONS.sortCleanData = REGIONS.cleanData.sort( function(a,b) { return b['sort_column'] - a['sort_column'] });
         // console.log(REGIONS.sortCleanData)
-
+        REGIONS.sortCleanData.unshift(natData);
         REGIONS.render(selection,REGIONS.sortCleanData);
     },
 
     /** renders the national comparison.    Renders the regional comparison. **/
     render: function(selection, regions_data) {
-        d3.select("#nat-comparison").selectAll("svg").remove();
         d3.select("#reg-comparison").selectAll("svg").remove();
         colorCirc = "#C30017"; // some shade of red
         colorText = "white";
@@ -55,7 +58,7 @@ var REGIONS = {
 
         var regionG = povPlot.
             selectAll("g .region")
-            .data(buildCircleData(regions_data,yScale,circleRad,circleRad*2+30,100))
+            .data(buildCircleData(regions_data))
             .enter()
             .append("g")
             .attr({
@@ -70,7 +73,9 @@ var REGIONS = {
         //Circle
         regionG.append("circle")
             .attr({
-                "r": circleRad,
+                "r": function(d,i){
+                    return i == 0 ? circleRad *(8/7): circleRad;
+                },
                 "stroke": colorCirc,
                 "stroke-width": 3,
                 "fill-opacity": 0
@@ -105,30 +110,28 @@ var REGIONS = {
 
 };
 
-function buildCircleData(regions_data, yScale, circle_radius, column_width, x_margin){
-    columns = []
+function buildCircleData(regions_data){
     data = []
-    for(var i = 0; i < regions_data.length; i++){
+    
+    var scoot = 40;
+    var row_spacing = 85;
+    //National circle
+    data.push({
+        row:regions_data[0],
+        x: ($('#reg-comparison').width() / 2),
+        y: scoot
+    });
 
-        var scoot = 10;
-
+    for(var i = 1; i < regions_data.length; i++){
         var datum = {row:regions_data[i]}
 
         // define columns
-        if (i%2 == 0) {
+        if ((i-1)%2 == 0) {
             datum.x = ($('#reg-comparison').width()) / 4;
         } else {
             datum.x = ($('#reg-comparison').width() * 3) / 4;
         }
-        datum.y = Math.floor(i/2) * 85 + 40
-
-        // define rows
-        // if ((i%2)/2 == 0) {
-        //     datum.y = ((i)/2).toFixed(0) + scoot;        
-        // }
-        // if ((i%2)/2 !== 0) {
-        //     datum.y = ( (((i-1))/2).toFixed(0) + scoot );
-        // }
+        datum.y = (Math.floor((i-1)/2) + 1) * row_spacing + scoot;
 
         data.push(datum);
     }
@@ -137,10 +140,9 @@ function buildCircleData(regions_data, yScale, circle_radius, column_width, x_ma
 }
 //Note that regions_data must be sorted by poverty rate
 
-function regions(regions_data, csv_data) {
+function regions(regions_data) {
 
         REGIONS.regData = regions_data;
-        REGIONS.natData = csv_data;
 
         // Percentage of students are suspended, regardless of disability status
 

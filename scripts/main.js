@@ -1,14 +1,11 @@
 $(document).ready(function() {
 
-    // load CSV data
-    d3.csv("http://localhost:8000/SuspensionByStateAndTotal.csv", function(csv_data) {
-
-        d3.csv("http://localhost:8000/Are_We_Closing_Secondary_regions.csv", function(regions_data) {
+    d3.csv("http://localhost:8000/Are_We_Closing_Secondary_regions.csv", function(regions_data) {
 
           console.log(regions_data);          
 
           layeredPie(regions_data);
-          regions(regions_data, csv_data);
+          regions(regions_data);
           REGIONS.dataset = regions_data; // unmodified dataset
 
           REGIONS.regWidth = $('#reg-comparison').width();
@@ -16,8 +13,7 @@ $(document).ready(function() {
 
           REGIONS.natWidth = $('#nat-comparison').width();
           REGIONS.natHeight = $('#nat-comparison').height();
-        })
-    })
+    });
 
     percentage = 0.2
 
