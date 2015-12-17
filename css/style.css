@@ -15,7 +15,18 @@ h2 {
 	font-weight: bold;
 }
 
+text {
+	font-family: Arial;
+}
+
+
 /******** OVERARCHING HANDLING ********/
+
+body{
+	background-color: dimgrey;
+	color:white;
+	overflow: hidden;
+}
 
 nav {
 	padding: 0px;
@@ -31,22 +42,6 @@ div {
 	/*border-color: red;*/
 }
 
-
-ul {
-}
-
-text {
-	font-family: Arial;
-}
-
-.back-button {
-	position: fixed;
-	bottom: -.5em;
-	left: 0px;
-	font-size: 20px;
-	font-family: sans-serif;
-}
-
 .container {
 	position: relative;
 	width: 100%;
@@ -55,41 +50,39 @@ text {
 	border-color: white;*/
 }
 
-.flex-container {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	-ms-box-orient: horizontal;
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -moz-flex;
-	display: -webkit-flex;
-	display: flex;
-}
-
-.wrap {
-	-webkit-flex-wrap: wrap;
-	flex-wrap: wrap;
-}
-
-.regional {
-	width: 30%;
-}
-
-body{
-	background-color: dimgrey;
-	color:white;
-	overflow: hidden;
-}
-/********  PANEL ********/
-
-#center-panel {
-	width: 600px;
-}
-
 svg {
 	/*background-color: #535353;*/
+}
+
+
+.just-text{
+	margin-top: 80px;
+	/*padding: 0px 10px 10px 10px;*/
+	padding: 0px 50px 0px 50px;
+}
+
+
+/******** CONTEXT PANEL ********/
+
+#context {
+	float: left;
+	margin-top: 80px;
+	width: 340px;
+	height: 675px;
+	padding-left: 0px;
+}
+
+
+/******** BULLSEYE ********/
+
+#pie {
+	float: left;
+	margin-top: 80px;
+	width: 805px;
+	height: 675px;
+	padding: 0px;
+	overflow: hidden;
+	background-color: gray;
 }
 
 .back-button {
@@ -99,6 +92,13 @@ svg {
 	font-size: 20px;
 	font-family: sans-serif;
 }
+
+.arc {
+	cursor: pointer;
+}
+
+
+/********  REGIONS PANEL ********/
 
 button {
 	display: inline-block;
@@ -114,40 +114,18 @@ button {
 	border-radius: .5em;
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	box-shadow: 0 1px 2px rgba(0,0,0,.2)
-
-	color: #C30017;
-/*	border: solid 1px #ffffff; /*this gradient looks awful */
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	color: white;
 	background: #C30017;
-/*	background: -webkit-gradient(linear, left top, left bottom, from(#C30017), to(#b43553));
-	background: -moz-linear-gradient(top,  #C30017,  #b43553);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#C30017', endColorstr='#b43553');*/
-*/
-;}
+}
+
 button:hover {
 	text-decoration: none;
 }
+
 button:active {
 	position: relative;
 	top: 1px;
-}
-
-#context {
-	float: left;
-	margin-top: 80px;
-	width: 340px;
-	height: 675px;
-	padding-left: 0px;
-}
-
-#pie {
-	float: left;
-	margin-top: 80px;
-	width: 805px;
-	height: 675px;
-	padding: 0px;
-	overflow: hidden;
-	background-color: gray;
 }
 
 #right-panel {
@@ -164,8 +142,6 @@ button:active {
 	height: 550px;
 }
 
-.just-text{
-	margin-top: 80px;
-	/*padding: 0px 10px 10px 10px;*/
-	padding: 0px 50px 0px 50px;
+.region {
+	cursor: pointer;
 }

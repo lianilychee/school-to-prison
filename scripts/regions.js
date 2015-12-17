@@ -94,6 +94,7 @@ var REGIONS = {
             "font-size": 20,
         })
         .style("text-anchor","middle");
+        // .style("cursor","pointer");
 
         // school district label
         regionG.append("text")
