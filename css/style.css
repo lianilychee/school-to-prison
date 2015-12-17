@@ -161,7 +161,7 @@ button:active {
 	float: left;
 	margin-top: 80px;
 	width: 340px;
-	height: 805px;
+	height: 675px;
 	padding-left: 0px;
 }
 
@@ -169,7 +169,7 @@ button:active {
 	float: left;
 	margin-top: 80px;
 	width: 805px;
-	height: 805px;
+	height: 675px;
 	padding: 0px;
 	overflow: hidden;
 }
@@ -178,12 +178,12 @@ button:active {
 	/*background-color: #969696;*/
 	margin-top: 80px;
 	width: 400px;
-	height: 805px;
+	height: 675px;
 	/*height: 90%;*/
 	float: right;
 	overflow: hidden;
 }
 
 #reg-comparison{
-	height: 80%;
+	height: 550px;
 }

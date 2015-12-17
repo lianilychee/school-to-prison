@@ -17,7 +17,7 @@ var REGIONS = {
 
         REGIONS.cleanData = [];
 
-        for (var i = 1; i < 14; i++) {
+        for (var i = 1; i < 11; i++) {
         // for (var i = 0; i < REGIONS.regData.length; i++) {
             REGIONS.cleanData.push({
                 'district_name': REGIONS.regData[i]['District Name'],
