@@ -59,6 +59,17 @@ text {
 	width: 30%;
 }
 
+.little-heading {
+	text-align: center;
+	font-size: 12pt;
+}
+
+.big-heading {
+	text-align: center;
+	font-size: 24pt;
+	font-weight: bold;
+}
+
 body{
 	background-color: dimgrey;
 	color:white;
