@@ -126,8 +126,8 @@ function layeredPie(csv_data){
 
 
     // dimensions of the svg
-    width = 800
-    height = 800
+    width = outer_radius * 2
+    height = outer_radius * 2
 
 
     // stick an SVG to the body of index.html
@@ -232,12 +232,12 @@ function layeredPie(csv_data){
             .on("mouseover", setInfog)
             .on("mouseout", hideInfog);
 
-        g.append("path")
-            .attr("d", arc)
-            .attr("class","whole_arc")
-            .attr("fill-opacity",.5)
-            .style("fill", function(d,i) { return d.data.color; })
-            .each(function(d) { this._current = d });
+        // g.append("path")
+        //     .attr("d", arc)
+        //     .attr("class","whole_arc")
+        //     .attr("fill-opacity",.5)
+        //     .style("fill", function(d,i) { return d.data.color; })
+        //     .each(function(d) { this._current = d });
 
         
         max_susp_r = 0;

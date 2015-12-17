@@ -1,6 +1,10 @@
 
 /******** OVERARCHING HANDLING ********/
 
+nav {
+	padding: 0px;
+}
+
 img {
 	max-width: 100%;
 	max-height: 100%;
@@ -23,8 +27,6 @@ text {
 	position: fixed;
 	bottom: -.5em;
 	left: 0px;
-	/*padding: 0px;*/
-	/*margin: 0px;*/
 	font-size: 20px;
 	font-family: sans-serif;
 }
@@ -34,7 +36,8 @@ text {
 	width: 100%;
 	overflow: auto;
 	border-style: dotted;
-	border-color: green;
+	border-color: white;
+	/*padding-left: 0px;*/
 }
 
 .flex-container {
@@ -80,10 +83,6 @@ body{
 	width: 600px;
 }
 
-#pie {
-	float: right;
-}
-
 svg {
 	/*background-color: #535353;*/
 }
@@ -117,8 +116,6 @@ svg {
 	position: fixed;
 	bottom: -.5em;
 	left: 0px;
-	/*padding: 0px;*/
-	/*margin: 0px;*/
 	font-size: 20px;
 	font-family: sans-serif;
 }
@@ -157,21 +154,30 @@ button:active {
 
 #context {
 	float: left;
-	width: 60px;
+	margin-top: 80px;
+	width: 340px;
+	height: 805px;
+	padding-left: 0px;
 }
 
 #pie {
 	float: left;
-	width: 950px;
+	margin-top: 80px;
+	width: 805px;
+	height: 805px;
+	padding: 0px;
+	overflow: hidden;
 }
 
 #right-panel {
 	/*background-color: #969696;*/
+	margin-top: 80px;
 	width: 400px;
+	height: 805px;
 	/*height: 90%;*/
 	float: right;
 }
 
-#reg-comparison {
-	height: 700px;
+#reg-comparison{
+	height: 80%;
 }
