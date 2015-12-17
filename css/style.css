@@ -50,7 +50,7 @@ text {
 .container {
 	position: relative;
 	width: 100%;
-	overflow: auto;
+	overflow: hidden;
 	/*border-style: dotted;
 	border-color: white;*/
 }

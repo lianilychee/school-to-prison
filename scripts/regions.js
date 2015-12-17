@@ -44,7 +44,7 @@ var REGIONS = {
         d3.select("#reg-comparison").selectAll("svg").remove();
         colorCirc = "#C30017"; // some shade of red
         colorText = "white";
-        circleRad = 30
+        circleRad = 25
 
         var bbox = d3.select("#reg-comparison").node().getBoundingClientRect()
 
@@ -91,7 +91,7 @@ var REGIONS = {
             "fill": colorText,
             "font-weight": "bold",
             "dy":".4em",
-            "font-size": 24,
+            "font-size": 20,
         })
         .style("text-anchor","middle");
 
@@ -102,8 +102,8 @@ var REGIONS = {
         })
         .attr({
             "fill":colorText,
-            "font-size":10,
-            "dy":"4.5em"
+            "font-size":11,
+            "dy":"3.75em"
         })
         .style("text-anchor","middle");
     },
