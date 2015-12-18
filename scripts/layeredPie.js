@@ -127,7 +127,7 @@ function disabilityArcInfo(csv_data,pie_state){
 /** Build the layered pie. **/
 function layeredPie(csv_data){
 
-    var outer_radius = 300
+    var outer_radius = 450
     var inner_radius = 100
 
 
@@ -137,7 +137,7 @@ function layeredPie(csv_data){
     var width = bbox.width;
 
     var pie_center = {
-        x:width * (2/5),
+        x:width * (1/2),
         y:height * (1/2)
     } 
 
@@ -396,6 +396,11 @@ function layeredPie(csv_data){
     }
 
     function setInfog(d) {
+        console.log(this);
+        d3.select(this).select(".susp_arc").style('stroke', 'white')
+        .style('stroke-width', 3)
+        .style('stroke-alignment', 'inner');
+
         infog.style("visibility", "visible");
         info_text.line1.text(((d.data.susp*100)/REGIONS.natAvg).toFixed(1) + "X");
         if(d.data.id == "WD" || d.data.id == "WOD"){
@@ -411,6 +416,7 @@ function layeredPie(csv_data){
 
     function hideInfog() {
         infog.style("visibility", "hidden");
+        d3.select(this).select(".susp_arc").style('stroke-width', 0);
     }
     function arrangeLabels() {
       var move = 1;

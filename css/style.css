@@ -85,11 +85,18 @@ svg {
 	height: 675px;
 	padding-left: 0px;
 }
+#bg-stats {
+	margin-top: 20%;
+}
+#bg-stats h1{
+	text-align: left;
+}
 #bg-stats h2{
 	text-align: left;
 }
+
+
 #detail-text{
-	margin-top: 40%;
 	font-size: 20px;	
 }
 

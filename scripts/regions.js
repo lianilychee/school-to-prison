@@ -142,7 +142,7 @@ function buildCircleData(regions_data){
 }
 
 function updateBackgroundStats(row_number){
-    console.log(REGIONS.regData[row_number]["All Students Enrollment"])
+    d3.select("#city-name").html(REGIONS.regData[row_number]["District Name"]);
     d3.select("#enrollment").html(REGIONS.regData[row_number]["All Students Enrollment"]);
     d3.select("#poverty").html(REGIONS.regData[row_number]["% 5-17 under poverty line"]);
     d3.select("#english").html(REGIONS.regData[row_number]["% EL"]);
