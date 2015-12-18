@@ -223,6 +223,8 @@ function layeredPie(csv_data){
 
     /** On element click, update the dataset. **/
     function update(csv_data){
+        updateTitle(pie_state);
+
         var dataset = buildDataset(csv_data, row_number, pie_state);
         pieG.selectAll("g").remove();
         pieG.selectAll(".arc-label").remove();
@@ -366,6 +368,16 @@ function layeredPie(csv_data){
         detail_string += (risk_factor > 1 ? " times more likely " : " times as likely ");
         detail_string += "to be suspended than the average student."
         detail_text.html(detail_string)
+    }
+    function updateTitle(pie_state){
+        var titleString = ""
+        titleString += csv_data[row_number]["District Name"] == "Total" ? " in the United States" : " in " + csv_data[row_number]["District Name"];
+        if(pie_state == "default"){
+            titleString += ", by disability status";
+        }else{
+            titleString += " for "+(pie_state == "WD" ? "disabled" : "non-disabled")+" students, by race";
+        }
+        d3.select("#pie-subtitle").html(titleString);
     }
 
     function arcTween(d, i, a) {

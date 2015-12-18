@@ -32,9 +32,7 @@ var REGIONS = {
             });
         }
 
-        console.log(REGIONS.cleanData)
         REGIONS.sortCleanData = REGIONS.cleanData.sort( function(a,b) { return b['sort_column'] - a['sort_column'] });
-        // console.log(REGIONS.sortCleanData)
         REGIONS.sortCleanData.unshift(natData);
         REGIONS.render(selection,REGIONS.sortCleanData);
     },
@@ -74,7 +72,7 @@ var REGIONS = {
         regionG.append("circle")
             .attr({
                 "r": function(d,i){
-                    return i == 0 ? circleRad *(8/7): circleRad;
+                    return i == 0 ? circleRad * (8/7): circleRad;
                 },
                 "stroke": colorCirc,
                 "stroke-width": 3,
