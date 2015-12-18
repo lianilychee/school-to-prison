@@ -73,6 +73,7 @@ svg {
 
 #overarching{
 	padding-right: 0px;
+	padding-left: 50px;
 	height: 100%;
 	float: left;
 	width: 1250px;
@@ -86,6 +87,7 @@ svg {
 	width: 340px;
 	height: 675px;
 	padding-left: 0px;
+	padding-right: 0px;
 }
 #bg-stats {
 	margin-top: 20%;
@@ -107,7 +109,7 @@ svg {
 #pie {
 	float: left;
 	/*margin-top: 80px;*/
-	width: 855px;
+	width: 805px;
 	height: 675px;
 	padding: 0px;
 	overflow: hidden;

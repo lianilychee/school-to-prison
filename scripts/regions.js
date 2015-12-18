@@ -142,7 +142,6 @@ function buildCircleData(regions_data){
 }
 
 function updateBackgroundStats(row_number){
-    d3.select("#city-name").html(REGIONS.regData[row_number]["District Name"]);
     d3.select("#enrollment").html(REGIONS.regData[row_number]["All Students Enrollment"]);
     d3.select("#poverty").html(REGIONS.regData[row_number]["% 5-17 under poverty line"]);
     d3.select("#english").html(REGIONS.regData[row_number]["% EL"]);
@@ -161,6 +160,7 @@ function regions(regions_data) {
 
         // update the data to be passed into render function
         REGIONS.update(defaultSelection, REGIONS.natlAvg, REGIONS.sortBy);
+        updateBackgroundStats(0);
 
         // upon sortBy click, update REGIONS.sortBy
         $("button").click( function() {

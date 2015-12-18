@@ -42,6 +42,7 @@ var magicText = {
         "display": "Hawaiian/Pacific Islander"
     },
     "O":{
+        "text": "other",
         "display": "other"
     }
 }
@@ -127,7 +128,7 @@ function disabilityArcInfo(csv_data,pie_state){
 /** Build the layered pie. **/
 function layeredPie(csv_data){
 
-    var outer_radius = 450
+    var outer_radius = 500
     var inner_radius = 100
 
 
@@ -149,7 +150,7 @@ function layeredPie(csv_data){
         .style("fill","#323232");
 
 
-    var back_rad = 7;
+    var back_rad = 6;
     var back_size = inner_radius / 3;
     var back_button = svg.append("g")
         .style("visibility", "hidden");
@@ -162,7 +163,7 @@ function layeredPie(csv_data){
         .attr("left", "-2em")
         .attr("top", "-2em")
         .style("text-align", "center")
-        .append("xhtml:body")
+        .append("xhtml:div")
             .style("margin", 0)
             .html("<i class=\"fa fa-undo\"></i>")
             .style("font-size", back_rad * 2)
@@ -198,12 +199,18 @@ function layeredPie(csv_data){
         .innerRadius(inner_radius);
 
     var max_susp_r = 0;
+    var absolute_max = 280;
+
     var suspArcSize = function(d){
             // console.log(d.data.susp);
             var r = Math.sqrt(d.data.susp*(Math.pow(outer_radius,2) - Math.pow(inner_radius,2)) + Math.pow(inner_radius,2));
             if(r > max_susp_r){
-                max_susp_r = r
+                max_susp_r = r;
             }
+            if(max_susp_r > absolute_max){
+                max_susp_r = absolute_max;
+            }
+
             return r != NaN ? r : inner_radius;
     }
     // initialize the inner slice
@@ -212,7 +219,7 @@ function layeredPie(csv_data){
         .innerRadius(inner_radius)
 
     /** On element click, update the dataset. **/
-    function update(csv_data){
+    function update(csv_data, non_interactive){
         updateTitle(pie_state);
 
         var dataset = buildDataset(csv_data, row_number, pie_state);
@@ -223,11 +230,9 @@ function layeredPie(csv_data){
             .enter()
             .append("g")
             .attr("class", "arc")
-            .on("click", function(d,i) {
-                selectArc(d);
-            })
-            .on("mouseover", setInfog)
-            .on("mouseout", hideInfog);
+            .on("click", non_interactive ? null : selectArc)
+            .on("mouseover", non_interactive ? null : setInfog)
+            .on("mouseout", non_interactive ? null : hideInfog);
 
         // g.append("path")
         //     .attr("d", arc)
@@ -252,10 +257,15 @@ function layeredPie(csv_data){
                 pieG.selectAll(".arc").each(function(d){
                     if(d.data.id == selection_state){
                         selectArc(d);
-
+                        if(non_interactive){
+                            setInfog.call(this,d);
+                        }
                     }
+
                 });
             }
+        }else{
+            updateDetailText(null);
         }
 
         if (pie_state != "default") {
@@ -271,7 +281,7 @@ function layeredPie(csv_data){
             g = g.data(pieSwoosh(dataset));
             g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
             g.selectAll(".susp_arc").transition().duration(750).attrTween("d", arcTween);
-            back_button.style("visibility", "visible");
+            back_button.style("visibility", non_interactive ? "hidden" : "visible");
 
             back_button.on("click", function() {
                 selection_state = "";
@@ -300,16 +310,28 @@ function layeredPie(csv_data){
             var ang = (d.startAngle + d.endAngle)/2;
             label.x = Math.sin(ang) * (max_susp_r  + 20);
             label.y = Math.cos(ang) * -(max_susp_r + 20);
-            if(d.value > 0){
-                d3.select(this)
-                .append("text")
-                .attr("class", "arc-label")
-                .attr("x", label.x)
-                .attr("y", label.y)
-                .attr("text-anchor", label.x >= 0 ? "start" : "end")
-                .style("fill-opacity",0)
-                .text(label.desc);
+            if (d.value > 0){
+                var labelG = d3.select(this)
+                    .append("g")
+                    .attr("class", "arc-label")
+                    .attr("transform", "translate("+label.x+" "+label.y+")")
+                    .style("fill-opacity",0);
+                var labelText = labelG.append("text")
+                    .attr("text-anchor", label.x >= 0 ? "start" : "end")
+                    .text(d.value > 0 ? label.desc: "");
+                var bbox = labelText.node().getBoundingClientRect();
+                var vpadding = 2;
+                var hpadding = 5;
+                var labelBox = labelG.append("rect")
+                    .attr("transform", "translate("+ (label.x >= 0 ? -hpadding : -bbox.width - hpadding)+" "+(vpadding - bbox.height)+")")
+                    .attr("width", bbox.width + (hpadding*2))
+                    .attr("height", bbox.height + (vpadding*2))
+                    .attr("rx", 5)
+                    .attr("ry", 5)
+                    .style("fill", "#C8C8C8");
+                labelText[0][0].parentNode.appendChild(labelText[0][0])
             }
+                
         });
         arrangeLabels();
         if (pie_state != "default"){
@@ -352,11 +374,11 @@ function layeredPie(csv_data){
     }
     function updateDetailText(d){
         if (!d){
-            d3.select("#detail-text").html("");
+            d3.select("#detail-text").html("Select sections to compare suspension risk across districts, double-click to break down sections by race.");
             d3.select("#districts-sub-title").html("for all students");
         }else{
-            var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br/>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
-            detail_string += (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students are <br/>": d.data.label + " " + magicText[pie_state].text + " students <br/> are ")
+            var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
+            detail_string += (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students are <br>": d.data.label + " " + magicText[pie_state].text + " students <br/> are ")
             var risk_factor = ((d.data.susp*100)/REGIONS.natAvg).toFixed(1); 
             detail_string += "<span style='font-size:25px'><strong>" + risk_factor + "X</strong></span>"
             detail_string += (risk_factor > 1 ? " times more likely " : " times as likely ");
@@ -396,7 +418,7 @@ function layeredPie(csv_data){
     }
 
     function setInfog(d) {
-        console.log(this);
+        this.parentNode.appendChild(this);
         d3.select(this).select(".susp_arc").style('stroke', 'white')
         .style('stroke-width', 3)
         .style('stroke-alignment', 'inner');
@@ -424,14 +446,14 @@ function layeredPie(csv_data){
         move = 0;
         pieG.selectAll(".arc-label")
            .each(function() {
-             var that = this,
-                 a = this.getBoundingClientRect();
+            var that = this;
+            var a = this.getBoundingClientRect();
              pieG.selectAll(".arc-label")
                 .each(function() {
                   if(this != that) {
                     var b = this.getBoundingClientRect();
-                    if((Math.abs(a.left - b.left) * 2 < (a.width + b.width)) &&
-                       (Math.abs(a.top - b.top) * 2 < (a.height + b.height))) {
+                    if((Math.abs(a.left - b.left) * 2 < (a.width + b.width + 10)) &&
+                       (Math.abs(a.top - b.top) * 2 < (a.height + b.height + 10))) {
                       // overlap, move labels
                       var dy = (Math.max(0, a.bottom - b.top) +
                                Math.min(0, a.top - b.bottom)) * 0.02,
@@ -451,10 +473,16 @@ function layeredPie(csv_data){
         }
     }
  
-    update(csv_data);
     LAYEREDPIE.update = function(region_number){
         row_number = region_number;
         update(csv_data);
+    };
+    LAYEREDPIE.forceState = function(row, selection, pie){
+        row_number = row;
+        selection_state = selection;
+        pie_state = pie;
+        infog.style("visibility", "hidden");
+        update(csv_data, true);
     };
  }
 
