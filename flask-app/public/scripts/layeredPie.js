@@ -147,7 +147,8 @@ function layeredPie(csv_data){
     var svg = d3.select("#pie").append("svg")
         .attr("width", width)
         .attr("height", height)
-        .style("fill","#323232");
+        .style("fill","#323232")
+        .style("overflow","visible");
 
 
     var back_rad = 6;
@@ -225,6 +226,7 @@ function layeredPie(csv_data){
         var dataset = buildDataset(csv_data, row_number, pie_state);
         pieG.selectAll("g").remove();
         pieG.selectAll(".arc-label").remove();
+        svg.selectAll("image").remove();
         var g = pieG.selectAll(".arc")
             .data(pie(dataset))
             .enter()
@@ -339,6 +341,14 @@ function layeredPie(csv_data){
         } else {
             pieG.selectAll(".arc-label").style("fill-opacity",1);
         }
+
+        //Add the diagram last so its always on top
+        var scale = .3;
+        svg.append("svg:image")
+            .attr("transform","translate(" + width * (7/10) +" "+ -50 +")")
+            .attr('width', scale*888)
+            .attr('height', scale*501)
+            .attr("xlink:href","images/diagram.png")
     }
 
     function selectArc(d){

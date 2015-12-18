@@ -112,7 +112,7 @@ svg {
 	width: 805px;
 	height: 675px;
 	padding: 0px;
-	overflow: hidden;
+	overflow: visible;
 	background-color: none;
 }
 
