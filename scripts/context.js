@@ -2,7 +2,7 @@ var disability = "";
 var race = "";
 
 // basically all my helper functions
-var REGIONS = {
+var CONTEXT = {
 
     sortBy: "All Students Enrollment",
 
@@ -32,7 +32,9 @@ var REGIONS = {
             });
         }
 
+        console.log(REGIONS.cleanData)
         REGIONS.sortCleanData = REGIONS.cleanData.sort( function(a,b) { return b['sort_column'] - a['sort_column'] });
+        // console.log(REGIONS.sortCleanData)
         REGIONS.sortCleanData.unshift(natData);
         REGIONS.render(selection,REGIONS.sortCleanData);
     },
@@ -40,7 +42,7 @@ var REGIONS = {
     /** renders the national comparison.    Renders the regional comparison. **/
     render: function(selection, regions_data) {
         d3.select("#reg-comparison").selectAll("svg").remove();
-        colorCirc = "#BE1E2D"; // some shade of red
+        colorCirc = "#C30017"; // some shade of red
         colorText = "white";
         circleRad = 25
 
@@ -67,13 +69,12 @@ var REGIONS = {
             })
             .on("click",function(d){
                 LAYEREDPIE.update(d.row.row_number);
-
             });
         //Circle
         regionG.append("circle")
             .attr({
                 "r": function(d,i){
-                    return i == 0 ? circleRad * (8/7): circleRad;
+                    return i == 0 ? circleRad *(8/7): circleRad;
                 },
                 "stroke": colorCirc,
                 "stroke-width": 3,
@@ -88,13 +89,11 @@ var REGIONS = {
         })
         .attr({
             "fill": colorText,
-            "font-family": "open-sans",
             "font-weight": "bold",
             "dy":".4em",
             "font-size": 20,
         })
         .style("text-anchor","middle");
-        // .style("cursor","pointer");
 
         // school district label
         regionG.append("text")
@@ -104,7 +103,6 @@ var REGIONS = {
         .attr({
             "fill":colorText,
             "font-size":11,
-            "font-family": "open-sans",
             "dy":"3.75em"
         })
         .style("text-anchor","middle");
@@ -140,14 +138,6 @@ function buildCircleData(regions_data){
 
     return data;
 }
-
-function updateBackgroundStats(row_number){
-    d3.select("enrollment").html(REGIONS.regData[""]);
-    d3.select("poverty").html(REGIONS.regData[""]);
-    d3.select("enrollment").html(REGIONS.regData[""]);
-    d3.select("enrollment").html(REGIONS.regData[""]);
-
-}
 //Note that regions_data must be sorted by poverty rate
 
 function regions(regions_data) {
@@ -173,19 +163,6 @@ function regions(regions_data) {
 
             if (id == "enrollment") { REGIONS.sortBy = "All Students Enrollment"; };
 
-            // console.log(REGIONS.sortBy);
-
             REGIONS.update(defaultSelection, REGIONS.natlAvg, REGIONS.sortBy);
         });
 }
-
-
-
-
-    // /** Sort based on button click
-    // **/
-    // sort: function() {
-    //     $("button").onClick( function() {
-    //         return ($(this).attr("id"));
-    //     })
-    // }
