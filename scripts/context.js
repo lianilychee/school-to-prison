@@ -2,7 +2,7 @@ var disability = "";
 var race = "";
 
 // basically all my helper functions
-var REGIONS = {
+var CONTEXT = {
 
     sortBy: "All Students Enrollment",
 
@@ -42,7 +42,7 @@ var REGIONS = {
     /** renders the national comparison.    Renders the regional comparison. **/
     render: function(selection, regions_data) {
         d3.select("#reg-comparison").selectAll("svg").remove();
-        colorCirc = "#BE1E2D"; // some shade of red
+        colorCirc = "#C30017"; // some shade of red
         colorText = "white";
         circleRad = 25
 
@@ -89,13 +89,11 @@ var REGIONS = {
         })
         .attr({
             "fill": colorText,
-            "font-family": "open-sans",
             "font-weight": "bold",
             "dy":".4em",
             "font-size": 20,
         })
         .style("text-anchor","middle");
-        // .style("cursor","pointer");
 
         // school district label
         regionG.append("text")
@@ -105,7 +103,6 @@ var REGIONS = {
         .attr({
             "fill":colorText,
             "font-size":11,
-            "font-family": "open-sans",
             "dy":"3.75em"
         })
         .style("text-anchor","middle");
@@ -166,19 +163,6 @@ function regions(regions_data) {
 
             if (id == "enrollment") { REGIONS.sortBy = "All Students Enrollment"; };
 
-            // console.log(REGIONS.sortBy);
-
             REGIONS.update(defaultSelection, REGIONS.natlAvg, REGIONS.sortBy);
         });
 }
-
-
-
-
-    // /** Sort based on button click
-    // **/
-    // sort: function() {
-    //     $("button").onClick( function() {
-    //         return ($(this).attr("id"));
-    //     })
-    // }

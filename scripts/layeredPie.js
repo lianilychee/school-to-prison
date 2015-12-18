@@ -4,8 +4,8 @@ var pie_state = "default";
 var row_number = 0;
 var races = ["W","B","L","AA"/*,"AI","PI"*/];
 var color = {
-    "WD":d3.rgb("#C30017").brighter(2),
-    "WOD":d3.rgb("#00FFFF")
+    "WD":d3.rgb("#BE1E2D").brighter(2),
+    "WOD":d3.rgb("#3C3CBF")
 }// LIANI original: "#00DFDD";
 
 
@@ -89,7 +89,7 @@ function buildDataset(csv_data, row_number, pie_state){
                 label:rsb.display,
                 pop:csv_data[row_number][rsb.enrolled(pie_state)],
                 susp:(csv_data[row_number][rsb.suspended(pie_state)]/csv_data[row_number][rsb.enrolled(pie_state)]),
-                color:d3.rgb(color[pie_state]).darker(i*.25),
+                color:d3.rgb(color[pie_state]).darker(i*3),
                 selected:false});
         }
         var other = {
@@ -97,7 +97,7 @@ function buildDataset(csv_data, row_number, pie_state){
             label:"Other",
             pop:csv_data[row_number]["Students "+pie_state+" Enrollment"] - totalEnroll,
             susp:((csv_data[row_number]["Suspended Students "+pie_state+""] - totalSusp)/(csv_data[row_number]["Students "+pie_state+" Enrollment"] - totalEnroll)),
-            color:d3.rgb(color[pie_state]).darker(i*.25),
+            color:d3.rgb(color[pie_state]).darker(i*.5),
             selected:false}
         if (other.pop > 0 && other.susp > 0){
             dataset.push(other);
@@ -146,7 +146,7 @@ function layeredPie(csv_data){
     var svg = d3.select("#pie").append("svg")
         .attr("width", width)
         .attr("height", height)
-        .style("fill","white");
+        .style("fill","#323232");
 
 
 
@@ -155,7 +155,7 @@ function layeredPie(csv_data){
         .append("xhtml:p")
             .style("margin", 0)
             .style("font-size", 18 + "px")
-            .style("color", "white")
+            .style("color", "#C8C8C8")
             .style("width", width * (5/16) + "px")
             .html("");
 
@@ -176,7 +176,7 @@ function layeredPie(csv_data){
             .style("margin", 0)
             .html("<i class=\"fa fa-undo\"></i>")
             .style("font-size", back_rad * 2)
-            .style("color", "white");
+            .style("color", "#C8C8C8");
 
     var infog = svg.append("g")
         .attr("transform", "translate(" + pie_center.x + "," + pie_center.y + ")")
