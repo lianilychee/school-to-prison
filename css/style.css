@@ -33,8 +33,9 @@ text {
 
 body{
 	font-family: 'open-sans';
-	color:white;
 	overflow: hidden;
+	background-color: #C8C8C8;
+	color: #323232;
 }
 
 nav {
@@ -47,16 +48,16 @@ img {
 }
 
 div {
-	/*border-style: dotted;*/
-	/*border-color: red;*/
+/*	border-style: dotted;
+	border-color: green;*/
 }
 
 .container {
 	position: relative;
 	width: 100%;
 	overflow: hidden;
-	/*border-style: dotted;
-	border-color: white;*/
+/*	border-style: dotted;
+	border-color: purple;*/
 }
 
 svg {
@@ -70,10 +71,9 @@ svg {
 	padding: 0px 50px 0px 50px;
 }
 
-body{
-	background-color: #C8C8C8;
-	color: #323232;
-	overflow: hidden;
+#overarching{
+	padding-right: 0px;
+	height: 100%;
 }
 
 /******** CONTEXT PANEL ********/
@@ -147,16 +147,17 @@ button:active {
 
 #right-panel {
 	background-color: gray;
-	margin-top: 80px;
+	margin-top: 50px;
 	width: 350px;
-	height: 675px;
-	/*height: 90%;*/
+	height: 100%;
 	float: right;
 	overflow: hidden;
+	padding-top: 35px;
 }
 
 #reg-comparison{
-	height: 550px;
+	padding: 0px;
+	height: 560px;
 }
 
 .region {
