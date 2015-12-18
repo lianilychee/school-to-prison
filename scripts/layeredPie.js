@@ -285,7 +285,7 @@ function layeredPie(csv_data){
 
             back_button.on("click", function() {
                 selection_state = "";
-                detail_text.html("");
+                updateDetailText(null);
 
                 back_button.style("visibility", "hidden");
 
@@ -361,13 +361,22 @@ function layeredPie(csv_data){
         };
     }
     function updateDetailText(d){
-        var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br/>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
-        detail_string += (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students are <br/>": d.data.label + " " + magicText[pie_state].text + " students <br/> are ")
-        var risk_factor = ((d.data.susp*100)/REGIONS.natAvg).toFixed(1); 
-        detail_string += "<span style='font-size:25px'><strong>" + risk_factor + "X</strong></span>"
-        detail_string += (risk_factor > 1 ? " times more likely " : " times as likely ");
-        detail_string += "to be suspended than the average student."
-        detail_text.html(detail_string)
+        if (!d){
+            detail_text.html("");
+            d3.select("#districts-sub-title").html("for all students");
+        }else{
+            var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br/>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
+            detail_string += (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students are <br/>": d.data.label + " " + magicText[pie_state].text + " students <br/> are ")
+            var risk_factor = ((d.data.susp*100)/REGIONS.natAvg).toFixed(1); 
+            detail_string += "<span style='font-size:25px'><strong>" + risk_factor + "X</strong></span>"
+            detail_string += (risk_factor > 1 ? " times more likely " : " times as likely ");
+            detail_string += "to be suspended than the average student."
+            detail_text.html(detail_string)
+
+
+            var districts_title_strings = "for "+(d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students": d.data.label + " " + magicText[pie_state].text + " students")
+            d3.select("#districts-sub-title").html(districts_title_strings);
+        }
     }
     function updateTitle(pie_state){
         var titleString = ""

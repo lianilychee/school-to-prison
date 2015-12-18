@@ -67,6 +67,7 @@ var REGIONS = {
             })
             .on("click",function(d){
                 LAYEREDPIE.update(d.row.row_number);
+
             });
         //Circle
         regionG.append("circle")
@@ -136,6 +137,14 @@ function buildCircleData(regions_data){
     }
 
     return data;
+}
+
+function updateBackgroundStats(row_number){
+    d3.select("enrollment").html(REGIONS.regData[""]);
+    d3.select("poverty").html(REGIONS.regData[""]);
+    d3.select("enrollment").html(REGIONS.regData[""]);
+    d3.select("enrollment").html(REGIONS.regData[""]);
+
 }
 //Note that regions_data must be sorted by poverty rate
 
