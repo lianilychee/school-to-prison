@@ -79,41 +79,47 @@
 
 
     <div class='container' id='overarching'>
-
-        <div class='container' id='context'>
-            <div>
-                <p id = "detail-text"></p>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class='container' id='context'>
+                    <div>
+                        <p id = "detail-text"></p>
+                    </div>
+                    <div id = "bg-stats">
+                        <h2>District Population: <span id = "enrollment"></span></h2>
+                        <h2>English Learner Enrollment: <span id = "english"></span></h2>
+                        <h2>Students in Poverty: <span id = "poverty"></span></h2>
+                        <h2>County Juvenile Arrest: <span id = "arrests"></span></h2>
+                    </div>
+                </div>
             </div>
-            <div id = "bg-stats">
-                <h2>District Population: <span id = "enrollment"></span></h2>
-                <h2>English Learner Enrollment: <span id = "english"></span></h2>
-                <h2>Students in Poverty: <span id = "poverty"></span></h2>
-                <h2>County Juvenile Arrest: <span id = "arrests"></span></h2>
+
+            <div class="col-lg-6">
+                <div class='container' id='pie'>
+                    <br>
+                    <div><h1>RISK OF SUSPENSION</h1></div>
+                    <div><h2 id="pie-subtitle">in the United States, by disability status</h2></div>
+                </div>
             </div>
-        </div>
 
-        <div class='container' id='pie'>
-            <br>
-            <div><h1>RISK OF SUSPENSION</h1></div>
-            <div><h2 id="pie-subtitle">in the United States, by disability status</h2></div>
-        </div>
+            <div class="col-lg-3">
+                <div class='container' id='right-panel'>
+                    <div><h2>compared risk of suspension</h2></div>
+                    <div><h1>BY DISTRICT</h1></div>
+                    <div><h2 id = "districts-sub-title">for all students</h2></div><br>
 
-        <div class='container' id='right-panel'>
-            <div><h2>compared risk of suspension</h2></div>
-            <div><h1>BY DISTRICT</h1></div>
-            <div><h2 id = "districts-sub-title">for all students</h2></div><br>
+        <!--             Compared to the national average, how much more likely are students from the selected district to be suspended? <br> <br> -->
 
-<!--             Compared to the national average, how much more likely are students from the selected district to be suspended? <br> <br> -->
+                    Sort by, descending:
+                    <button type='button' id='poverty'>Poverty level</button>
+                    <button type='button' id='arrests'>County arrest rates</button>
+                    <button type='button' id='enrollment'>District student body size</button>
+                    <button type='button' id='english'>English learner representation</button>
+                    <br><br>
 
-            Sort by, descending:
-            <button type='button' id='poverty'>Poverty level</button>
-            <button type='button' id='arrests'>County arrest rates</button>
-            <button type='button' id='enrollment'>District student body size</button>
-            <button type='button' id='english'>English learner representation</button>
-            <br><br>
-
-            <div id='reg-comparison'></div>
-
+                    <div id='reg-comparison'></div>
+                </div>
+            </div>
         </div>
     </div>
 

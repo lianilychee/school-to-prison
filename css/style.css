@@ -79,11 +79,11 @@ svg {
 /******** CONTEXT PANEL ********/
 
 #context {
-	float: left;
+/*	float: left;
 	margin-top: 80px;
 	width: 340px;
 	height: 675px;
-	padding-left: 0px;
+	padding-left: 0px;*/
 }
 #bg-stats h2{
 	text-align: left;
@@ -96,13 +96,13 @@ svg {
 /******** BULLSEYE ********/
 
 #pie {
-	float: left;
+/*	float: left;*/
 	margin-top: 80px;
-	width: 855px;
+/*	width: 855px;
 	height: 675px;
 	padding: 0px;
 	overflow: hidden;
-	background-color: none;
+	background-color: none;*/
 }
 
 .back-button {
@@ -151,12 +151,12 @@ button:active {
 
 #right-panel {
 	background-color: gray;
-	margin-top: 50px;
+/*	margin-top: 50px;
 	width: 350px;
 	height: 100%;
 	float: right;
 	overflow: hidden;
-	padding-top: 35px;
+	padding-top: 35px;*/
 }
 
 #reg-comparison{
