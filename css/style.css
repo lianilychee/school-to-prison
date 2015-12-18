@@ -106,7 +106,7 @@ svg {
 
 #pie {
 	float: left;
-	margin-top: 80px;
+	/*margin-top: 80px;*/
 	width: 855px;
 	height: 675px;
 	padding: 0px;
