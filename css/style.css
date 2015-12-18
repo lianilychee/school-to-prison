@@ -85,7 +85,9 @@ body{
 	height: 675px;
 	padding-left: 0px;
 }
-
+#bg-stats h2{
+	text-align: left;
+}
 
 /******** BULLSEYE ********/
 

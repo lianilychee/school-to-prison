@@ -67,7 +67,7 @@ var REGIONS = {
             })
             .on("click",function(d){
                 LAYEREDPIE.update(d.row.row_number);
-
+                updateBackgroundStats(d.row.row_number);
             });
         //Circle
         regionG.append("circle")
@@ -142,10 +142,11 @@ function buildCircleData(regions_data){
 }
 
 function updateBackgroundStats(row_number){
-    d3.select("enrollment").html(REGIONS.regData[""]);
-    d3.select("poverty").html(REGIONS.regData[""]);
-    d3.select("enrollment").html(REGIONS.regData[""]);
-    d3.select("enrollment").html(REGIONS.regData[""]);
+    console.log(REGIONS.regData[row_number]["All Students Enrollment"])
+    d3.select("#enrollment").html(REGIONS.regData[row_number]["All Students Enrollment"]);
+    d3.select("#poverty").html(REGIONS.regData[row_number]["% 5-17 under poverty line"]);
+    d3.select("#english").html(REGIONS.regData[row_number]["% EL"]);
+    d3.select("#arrests").html(REGIONS.regData[row_number]["Juvenile Arrest Rate"]);
 
 }
 //Note that regions_data must be sorted by poverty rate
@@ -167,7 +168,7 @@ function regions(regions_data) {
 
             if (id == "poverty") { REGIONS.sortBy = "% 5-17 under poverty line"; };
 
-            if (id == "english") { REGIONS.sortBy = "EL Enrollment"; };
+            if (id == "english") { REGIONS.sortBy = "% EL"; };
 
             if (id == "arrests") { REGIONS.sortBy = "Juvenile Arrest Rate"; };
 
