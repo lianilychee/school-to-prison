@@ -1,75 +1,11 @@
 $(document).ready(function() {
 
+    d3.csv("datasets/Are_We_Closing_Secondary_regions.csv", function(regions_data) {     
 
-    // Click handlers
-    $('#sel-1').click(function() {
-        MAP.update('sel-1');
-    })
+          layeredPie(regions_data);
+          regions(regions_data);
+          introSequence();
 
-    $('#sel-2').click(function() {
-        MAP.update('sel-2');
-    })
-
-    $('#sel-3').click(function() {
-        MAP.update('sel-3');
-    })
-
-    // load CSVs
-    d3.csv("datasets/DisabilityStateGap.csv", function(csv_data) {
-
-        var color = d3.scale.linear()
-            .domain([0, 50])
-            .range(["white", "red"]);
-
-        var color2 = d3.scale.linear()
-            .domain([100, 1000])
-            .range(["white", "blue"]);
-
-        var state_fills = {}
-        var state_fills2 = {}
-
-        var fillKeys = {}
-
-        for (var i = 0; i < csv_data.length; i++) {
-            fillKeys[csv_data[i]["State"]] = {fillKey: csv_data[i]["State"]}
-            state_fills[csv_data[i]["State"]] = color(parseFloat(csv_data[i]["Norm Poverty Percent"]))
-            state_fills2[csv_data[i]["State"]] = color2(parseFloat(csv_data[i]["Diff: B WD vs WOD"]))
-        }
-
-        // draw map of US
-        var map = new Datamap({
-            element: document.getElementById('map'),
-            scope: 'usa',
-            geographyConfig: {
-                popupOnHover: false,
-                highlightOnHover: false
-            },
-            fills: state_fills,
-            data: fillKeys
-        });
-
-        var map2 = new Datamap({
-            element: document.getElementById('map'),
-            scope: 'usa',
-            geographyConfig: {
-                popupOnHover: false,
-                highlightOnHover: false
-            },
-            fills: state_fills2,
-            data: fillKeys
-        });
     });
 
-        // if ($('.selector').attr('id') == 'sel-2') {
-        //     console.log('clicked: sel-2')
-        // }
-
-        // if ($('.selector').attr('id') == 'sel-3') {
-        //     console.log('clicked: sel-3')
-        // }
-    
-
-
-
-
-})
+});

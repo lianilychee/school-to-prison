@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<!-- Template Usage Instructions: Make sure to include the scrolling-nav.js, jquery.easing.min.js, and scrolling-nav.css files. To make a link smooth scroll to another section on the page, give the link the .page-scroll class and set the link target to a corresponding ID on the page. -->
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>About</title>
+
+    <!-- JS libraries -->
+    <script src="scripts/lib/jquery.js"></script>
+    <script src="scripts/lib/jquery.easing.min.js"></script>
+    <script src="scripts/lib/scrolling-nav.js"></script>
+    <script src="scripts/lib/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+
+
+    <!-- CSS libraries-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--     <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- STPP CSS -->
+    <link href="css/splash.css" rel="stylesheet">
+    <link href="css/about.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a id="logo" class="navbar-brand page-scroll" href="/" style='color: #F7F7F7'>Suspended, not Supported: Disability in the School to Prison Pipeline</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul id="right-navbar" class="nav navbar-nav navbar-right">
+                    <!-- Hidden li included to remove active class from hook1 link when scrolled up past hook1 section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a href="#" style='color: #BE1E2D; font-weight: bold;'>About</a>
+                    </li>
+                    <li>
+                        <a href="/context" style='color: #F7F7F7'>Context</a>
+                    </li>
+                    <li>
+                        <a href="/aboutdata" style='color: #F7F7F7'>About the Data and Other Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Introduction Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">About Us
+                    <small>The Project</small>
+                </h1>
+                
+                <div class="col-lg-8">
+                    <img class="img-responsive img-center" src="images/team_photo.jpg" alt="">
+                </div>
+
+                <div class="col-lg-4">
+                    <p>We are a team of <a href='www.olin.edu'>Olin College</a> undergraduates students enrolled in <a href='http://ablersite.org/investigating-normal/'>Investigating Normal</a>, which reexamines the medical and social paradigms of disability.  This webapp is our culminating assignment, a data-driven illustration of the role disability plays in the <a href='https://www.aclu.org/fact-sheet/what-school-prison-pipeline'>school-to-prison pipeline</a>. Over the eight weeks, we were advised by <a href="http://www.fathom.io/">Fathom</a>, an information design firm based in Cambridge, MA.</p>
+
+                    <p>By no means was this solely a software development project. From the beginning, we aimed to put the human face of <a href='aboutdata.html'>our data</a> front and center. Yet without hard numbers, untangling the messy societal factors affecting disabled minority students is well nigh impossible. After diving into politics, anthropology, and sociology, we realized even we can’t understand the whole picture.</p>
+
+                    <p>This project aims to weave the data with its context in an accessible way, to give you the opportunity to decide for yourself to what extent disability plays a role in the school-to-prison pipeline. As you navigate our webapp, you can explore large data sets showing suspension data across disability status, race, and geography.</p>
+                </div>
+
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>More about our course, Investigating Normal:</small>
+                    </h1>
+
+                    <p>Taught by <a href='http://ablersite.org/'>Sara Hendren</a>, Investigating Normal looks at medical as well as cultural tools that investigate the “normal” body and mind. Through readings, site visits, guest speakers, and projects, we investigate both traditional and unusual prosthetics and assistive technologies. We talk to end-users, engineers, industrial designers, artists, and any whose technologies assist with visible and invisible needs, externalize hidden dynamics, and create capacities beyond ordinary functionality. From our acquired context, we then design our own devices — high-tech, low-tech, digital or analog. </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Members Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Our Team</h2>
+            </div>
+            <div class="col-lg-4 col-sm-6 text-center">
+                <img class="img-circle img-responsive img-center" src="images/liani.jpg" alt="">
+                <h3><a href='http://lianilychee.github.io' target='_blank'>Liani Lye</a></h3>
+                <p>Robotics engineer, self-taught hairdresser, pop-up street artist.</p>
+            </div>
+            <div class="col-lg-4 col-sm-6 text-center">
+                <img class="img-circle img-responsive img-center" src="images/john.jpg" alt="">
+                <h3><a href='http://bonelinephotography.com/' target='_blank'>John Sakamoto</a></h3>
+                <p>John Sakamoto is a fourth-year student majoring in mechanical engineering and interested in working in the automotive industry upon graduation. He has some background in graphic design, and this is his first project working on data visualization and software.</p>
+            </div>
+            <div class="col-lg-4 col-sm-6 text-center">
+                <img class="img-circle img-responsive img-center" src="images/brendan.jpg" alt="">
+                <h3><a href='https://github.com/bren525' target='_blank'>Brendan Caporaletti</a></h3>
+                <p>Brendan is a software engineer excited to be graduating this year. He had fun developing this full stack data visualization web application, and plans on pursuing a career in back-end web development.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-lg-4 col-sm-6 text-center">
+                <img class="img-circle img-responsive img-center" src="images/shrinidhi.jpg" alt="">
+                <h3><a href='https://twitter.com/cherishscraps' target='_blank'>Shrinidhi Thirumalai</a></h3>
+                <p>Shrinidhi is a junior studying computing, and passionate about design engineering. She is a DIY youtube blogger during her free time.</p>
+            </div>
+            <div class="col-lg-4 col-sm-6 text-center">
+                <img class="img-circle img-responsive img-center" src="images/claire.jpg" alt="">
+                <h3><a href='http://diehl.tech' target='_blank'>Claire Diehl</a></h3>
+                <p>Claire is a senior majoring in Engineering:Robotics where she spends time investigating her interests in design and robotics. She also dabbles in art and swinging fire around her head.</p>
+            </div>
+            <div class="col-lg-4 col-sm-6 text-center">
+                <img class="img-circle img-responsive img-center" src="images/mitch.jpg" alt="">
+                <h3><a href='https://twitter.com/mitchcieminski' target='_blank'>Mitch Cieminski</a></h3>
+                <p>Mitch Cieminski is a super junior, studying electrical and computer engineering. He provided some assistance with the datavis, some assistance with the design, and some assistance with understanding what the heck was going on with the project. He's really passionate about justice in education.
+            </div>
+        </div>
+
+        <hr>
+
+</body>
+
+</html>
