@@ -88,6 +88,10 @@ svg {
 #bg-stats h2{
 	text-align: left;
 }
+#detail-text{
+	margin-top: 40%;
+	font-size: 20px;	
+}
 
 /******** BULLSEYE ********/
 
