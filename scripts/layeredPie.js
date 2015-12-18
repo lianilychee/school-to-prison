@@ -149,16 +149,6 @@ function layeredPie(csv_data){
         .style("fill","#323232");
 
 
-
-    var detail_text = svg.append("foreignObject")
-        .attr("transform", "translate(" + width * (11/16)+ "," + height * (1/7) + ")")
-        .append("xhtml:p")
-            .style("margin", 0)
-            .style("font-size", 18 + "px")
-            .style("color", "black")
-            .style("width", width * (5/16) + "px")
-            .html("");
-
     var back_rad = 7;
     var back_size = inner_radius / 3;
     var back_button = svg.append("g")
@@ -362,7 +352,7 @@ function layeredPie(csv_data){
     }
     function updateDetailText(d){
         if (!d){
-            detail_text.html("");
+            d3.select("#detail-text").html("");
             d3.select("#districts-sub-title").html("for all students");
         }else{
             var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br/>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
@@ -371,7 +361,7 @@ function layeredPie(csv_data){
             detail_string += "<span style='font-size:25px'><strong>" + risk_factor + "X</strong></span>"
             detail_string += (risk_factor > 1 ? " times more likely " : " times as likely ");
             detail_string += "to be suspended than the average student."
-            detail_text.html(detail_string)
+            d3.select("#detail-text").html(detail_string)
 
 
             var districts_title_strings = "for "+(d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students": d.data.label + " " + magicText[pie_state].text + " students")
