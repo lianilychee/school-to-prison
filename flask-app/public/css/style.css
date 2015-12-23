@@ -104,6 +104,10 @@ svg {
 	font-size: 20px;	
 }
 
+#intro-next {
+	cursor: pointer;
+}
+
 /******** BULLSEYE ********/
 
 #pie {
