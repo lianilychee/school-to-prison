@@ -384,7 +384,7 @@ function layeredPie(csv_data){
     }
     function updateDetailText(d){
         if (!d){
-            d3.select("#detail-text").html("Select sections to compare suspension risk across districts, double-click to break down sections by race.");
+            d3.select("#detail-text").html("<h2 style='display:inline' class='dark-blue bold'>Select Sections</h1>' to compare suspension risk across districts, double-click to break down sections by race.");
             d3.select("#districts-sub-title").html("for all students");
         }else{
             //add place
