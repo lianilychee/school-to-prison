@@ -31,6 +31,10 @@ img {
 	max-height: 100%;
 }
 
+.page-content{
+	padding-top: 50px;
+}
+
 /******** NAVBAR STUFF ********/
 
 .navbar{
