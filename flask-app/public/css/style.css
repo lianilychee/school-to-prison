@@ -58,6 +58,8 @@ body{
 	font-family: 'open-sans';
 /*	overflow: hidden;*/
 	background-color: #ECECEC;
+	margin: 0;
+	position: relative;
 /*	color: #323232;*/
 }
 
@@ -66,8 +68,18 @@ img {
 	max-height: 100%;
 }
 
+.container {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+/*	border-style: dotted;
+	border-color: purple;*/
+}
+
 .page-content{
-	padding-top: 50px;
+	position: relative;
+	width: 80%;
+	padding-top: 30px;
 }
 
 /******** NAVBAR STUFF ********/
