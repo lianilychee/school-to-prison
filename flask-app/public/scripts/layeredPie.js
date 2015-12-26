@@ -387,12 +387,17 @@ function layeredPie(csv_data){
             d3.select("#detail-text").html("Select sections to compare suspension risk across districts, double-click to break down sections by race.");
             d3.select("#districts-sub-title").html("for all students");
         }else{
+            //add place
             var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
-            detail_string += (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students are <br>": d.data.label + " " + magicText[pie_state].text + " students <br/> are ")
+            //add student type
+            var student_type = (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label : d.data.label + " " + magicText[pie_state].text)
+            detail_string += "<span class='dark-blue bold' style='font-size:28px;'><strong>" + student_type + "</strong></span>" + " students are "
+            //add risk factor
             var risk_factor = ((d.data.susp*100)/REGIONS.natAvg).toFixed(1); 
-            detail_string += "<span style='font-size:25px'><strong>" + risk_factor + "X</strong></span>"
+            detail_string += "<span class='red bold' style='font-size:28px;'><strong>" + risk_factor + " X</strong></span>"
             detail_string += (risk_factor > 1 ? " times more likely " : " times as likely ");
             detail_string += "to be suspended than the average student."
+            //update
             d3.select("#detail-text").html(detail_string)
 
 
