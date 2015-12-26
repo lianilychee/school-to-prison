@@ -89,10 +89,10 @@
                     <div id = "post-intro" style="display:none">
                         <p id = "detail-text"></p>
                         <div id = "bg-stats">
-                            <h2>Student Population: <span id = "enrollment"></span></h2>
-                            <br><h2>English Learner Enrollment: <span id = "english"></span></h2>
-                            <br><h2>Students in Poverty: <span id = "poverty"></span></h2>
-                            <br><h2>Juvenile Arrest Rate: <span id = "arrests"></span></h2>
+                            <p style = "font-size:12pt;">Student Population: <span id = "enrollment"></span></p>
+                            <p style = "font-size:12pt;">English Learner Enrollment: <span id = "english"></span></p>
+                            <p style = "font-size:12pt;">Students in Poverty: <span id = "poverty"></span></p>
+                            <p style = "font-size:12pt;">Juvenile Arrest Rate: <span id = "arrests"></span></p>
                         </div>
                     </div>
                 </div>
@@ -118,14 +118,14 @@
             <!-- Right Panel: Regions sidebar -->
             <div class = "col-lg-3">
                 <div class='container' id='right-panel'>
-                    <div><h2>compared risk of suspension</h2></div>
-                    <div><h1>BY DISTRICT</h1></div>
-                    <div><h2 id = "districts-sub-title">for all students</h2></div><br>
-                    Sort by, descending:
-                    <button type='button' id='poverty'>Poverty level</button>
-                    <button type='button' id='arrests'>County arrest rates</button>
-                    <button type='button' id='enrollment'>District student body size</button>
-                    <button type='button' id='english'>English learner representation</button>
+                    <div><h1 class = "dark-blue">Select a District:</h1></div>
+<!--                <div><h1>BY DISTRICT</h1></div>
+                    <div><h2 id = "districts-sub-title">for all students</h2></div><br> -->
+                    <p class = "dark-blue">Sort By, descending:</p>
+                    <button type='button' id='poverty'>Poverty<div id = "subtitle">Poverty Level</div></button>
+                    <button type='button' id='arrests'>Arrest<div id = "subtitle">County Arrest Rates</div></button>
+                    <button type='button' id='enrollment'>Size<div id = "subtitle">District Student Body Size</div></button>
+                    <button type='button' id='english'>ESL<div id = "subtitle">English learner representation</div></button>
                     <br><br>
 
                     <div id='reg-comparison'></div>
