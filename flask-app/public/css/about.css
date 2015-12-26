@@ -4,9 +4,6 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-body {
-    /*padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-}
 
 .img-center {
 	margin: 0 auto;
@@ -15,3 +12,12 @@ body {
 footer {
     margin: 50px 0;
 }
+
+.pf-pic{
+	width: 300px;
+	height: 300px;
+}
+/*.page-content {
+	margin-left: 0;
+	margin-right: 0;
+}*/
