@@ -401,14 +401,23 @@ function layeredPie(csv_data){
         }
     }
     function updateTitle(pie_state){
-        var titleString = ""
-        titleString += csv_data[row_number]["District Name"] == "Total" ? " in the United States" : " in " + csv_data[row_number]["District Name"];
+        // var titleString = ""
+        // titleString += csv_data[row_number]["District Name"] == "Total" ? " in the United States" : " in " + csv_data[row_number]["District Name"];
+        // if(pie_state == "default"){
+        //     titleString += ", by disability status";
+        // }else{
+        //     titleString += " for "+(pie_state == "WD" ? "disabled" : "non-disabled")+" students, by race";
+        // }
+        // d3.select("#pie-subtitle").html(titleString);
+
+        var place = csv_data[row_number]["District Name"] == "Total" ? "The United States" : "" + csv_data[row_number]["District Name"];
         if(pie_state == "default"){
-            titleString += ", by disability status";
+            var type = ", by disability status";
         }else{
-            titleString += " for "+(pie_state == "WD" ? "disabled" : "non-disabled")+" students, by race";
+            var type = "for "+(pie_state == "WD" ? "disabled" : "non-disabled")+" students, by race";
         }
-        d3.select("#pie-subtitle").html(titleString);
+        d3.select("#pie-subtitle-place").html(place);
+        d3.select("#pie-subtitle-type").html(type);
     }
 
     function arcTween(d, i, a) {
