@@ -71,57 +71,65 @@
                 </ul>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
-    <div class='container' id='overarching'>
+    <div class='container'>
+        <div class = "row row-eq-height">
 
-        <div style='margin-top: 50px; padding-top: 35px; text-align: left;'>
-            <div style='font-family: "open-sans"; font-size: 18pt; font-weight: bold; padding-left: 250px;'>RISK OF SUSPENSION</h1></div>
-            <div id = "pie-subtitle" style='font-family: "open-sans"; font-size: 10pt; font-weight: bold; padding-left: 250px;'>in the United States, by disability status</div>
-        </div>
-        <div class='container' id='context'>
-            <div id = "intro-div">
-                <p id = "intro-text"></p>
-                <br><span id = "intro-next" style='color:white;border-style:solid;border-color:white;font-size:18px;padding:5px'></span>
-            </div>
-            <div id = "post-intro" style="display:none">
-                <p id = "detail-text"></p>
-                <div id = "bg-stats">
-                    <h2>Student Population: <span id = "enrollment"></span></h2>
-                    <br><h2>English Learner Enrollment: <span id = "english"></span></h2>
-                    <br><h2>Students in Poverty: <span id = "poverty"></span></h2>
-                    <br><h2>Juvenile Arrest Rate: <span id = "arrests"></span></h2>
+            <!-- Left Panel -->
+            <div class = "col-lg-3" id='context'>
+                <div class='container' id='context'>
+                    <!-- Slides -->
+                    <div id = "intro-div">
+                        <p id = "intro-text"></p>
+                        <br><span id = "intro-next" style='color:white;border-style:solid;border-color:white;font-size:18px;padding:5px'></span>
+                    </div>
+                    <!-- Exploring the Data -->
+                    <div id = "post-intro" style="display:none">
+                        <p id = "detail-text"></p>
+                        <div id = "bg-stats">
+                            <h2>Student Population: <span id = "enrollment"></span></h2>
+                            <br><h2>English Learner Enrollment: <span id = "english"></span></h2>
+                            <br><h2>Students in Poverty: <span id = "poverty"></span></h2>
+                            <br><h2>Juvenile Arrest Rate: <span id = "arrests"></span></h2>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Middle Panel -->
+            <div class="col-lg-6">
+                <!-- Title -->   
+                <div style='margin-top: 50px; padding-top: 35px; text-align: left;'>
+                    <div style='font-family: "open-sans"; font-size: 18pt; font-weight: bold; padding-left: 250px;'>RISK OF SUSPENSION</h1></div>
+                    <div id = "pie-subtitle" style='font-family: "open-sans"; font-size: 10pt; font-weight: bold; padding-left: 250px;'>in the United States, by disability status</div>
+                </div>
+
+                <div style = 'text-align: center'>
+                    <div class='container' id='pie'> </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Regions sidebar -->
+            <div class = "col-lg-3">
+                <div class='container' id='right-panel'>
+                    <div><h2>compared risk of suspension</h2></div>
+                    <div><h1>BY DISTRICT</h1></div>
+                    <div><h2 id = "districts-sub-title">for all students</h2></div><br>
+                    Sort by, descending:
+                    <button type='button' id='poverty'>Poverty level</button>
+                    <button type='button' id='arrests'>County arrest rates</button>
+                    <button type='button' id='enrollment'>District student body size</button>
+                    <button type='button' id='english'>English learner representation</button>
+                    <br><br>
+
+                    <div id='reg-comparison'></div>
+                </div>
+            </div>
+
         </div>
-
-        <div class='container' id='pie'> </div>
-
     </div>
-
-        <div class='container' id='right-panel'>
-            <div><h2>compared risk of suspension</h2></div>
-            <div><h1>BY DISTRICT</h1></div>
-            <div><h2 id = "districts-sub-title">for all students</h2></div><br>
-
-<!--             Compared to the national average, how much more likely are students from the selected district to be suspended? <br> <br> -->
-
-            Sort by, descending:
-            <button type='button' id='poverty'>Poverty level</button>
-            <button type='button' id='arrests'>County arrest rates</button>
-            <button type='button' id='enrollment'>District student body size</button>
-            <button type='button' id='english'>English learner representation</button>
-            <br><br>
-
-            <div id='reg-comparison'></div>
-
-        </div>
-
-
-
-
 
 
 </body>
