@@ -34,6 +34,18 @@ p{
 	font-size: 20px;
 }
 
+h1 small{
+	color: #231F20;
+	padding-bottom: 5px;
+	font-weight: bold;
+}
+
+h2 small{
+	color: #231F20;
+	padding-bottom: 5px;
+	font-weight: bold;
+}
+
 /******** Formatting Helpers ********/
 .bold {
 	font-weight:bold;
@@ -78,7 +90,7 @@ img {
 
 .page-content{
 	position: relative;
-	width: 80%;
+/*	width: 80%;*/
 	padding-top: 30px;
 }
 
