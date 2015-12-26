@@ -6,27 +6,14 @@ red: BE1E2D
 dark-blue: 03273D
 light-blue: 1E88BE*/
 
-/******** OVERARCHING ********/
-h1 {
-	font-family: 'open-sans';
-	text-align: center;
-	font-size: 18pt;
-	font-weight: bold;
-	margin: 0px;
-}
-
-h2 {
-	font-family: 'open-sans';
-	text-align: center;
-	font-size: 10pt;
-	margin: 0px;
-	font-weight: bold;
+.page-content {
+	width:100%;
 }
 
 /******** CONTEXT PANEL ********/
 
 #context {
-	margin-top: 80px;
+	margin-top: 5%;
 	padding-left: 2%;
 	padding-right: 0px;
 }
@@ -51,10 +38,14 @@ h2 {
 }
 
 #context-link {
-	margin-top: 40%;
+	margin-top: 30%;
 }
 
 /******** BULLSEYE ********/
+#title{
+	padding-top: 35px;
+	text-align: center;
+}
 #pie {
 	height: 725px;
 	padding: 0px;
@@ -112,7 +103,7 @@ button:active {
 
 #right-panel {
 	background-color: #E4E2E1;
-	margin-top: 50px;
+/*	margin-top: 50px;*/
 	overflow: hidden;
 	padding-top: 35px;
 }

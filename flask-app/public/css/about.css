@@ -1,3 +1,6 @@
+.page-content {
+	width:80%;
+}
 
 p {
 	font-size: 14pt;
@@ -18,8 +21,4 @@ footer {
 .pf-pic{
 	width: 300px;
 	height: 300px;
-}
-
-.page-content {
-	size:80%;
 }
