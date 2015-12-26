@@ -1,3 +1,11 @@
+/*Color Scheme:
+lightest-gray: ECECEC
+light-gray: E4E2E1
+dark-gray: 231F20
+red: BE1E2D
+dark-blue: 03273D
+light-blue: 1E88BE*/
+
 
 /******** TEXT STYLES ********/
 
@@ -12,18 +20,45 @@ text {
 	font-family: 'open-sans';
 }
 
+h1 {
+	color: #BE1E2D;
+}
+
+h2, h3, h4, h5, h6{
+	color: #03273D;
+}
+
+p{
+	font-family: 'open-sans';
+	color: black;
+	font-size: 20px;
+}
+
+/******** Formatting Helpers ********/
+.bold {
+	font-weight:bold;
+}
+
+.red {
+	color:#BE1E2D;
+}
+
+.dark-blue {
+	color: #03273D;
+}
+
+.light-blue {
+	color: #1E88BE;
+
+}
 
 /******** OVERARCHING HANDLING ********/
 
 body{
 	font-family: 'open-sans';
 /*	overflow: hidden;*/
-	background-color: #C8C8C8;
+	background-color: #ECECEC;
 /*	color: #323232;*/
-}
-
-nav {
-	padding: 0px;
 }
 
 img {
@@ -38,11 +73,12 @@ img {
 /******** NAVBAR STUFF ********/
 
 .navbar{
-    background: rgb(50,50,50);
+    background: #231F20;
 }
 
 .navbar .navbar-nav, .navbar .nav > li > a{
     color: #FFFFFF;
+    font-size: 20px;
 }
 
 .navbar .navbar-nav > li > a:hover, .navbar .nav > li > a:focus{
@@ -53,11 +89,11 @@ img {
 .navbar .navbar-brand, .navbar .nav .logo > li > a{
     color: white;
     font-weight: bold;
-    text-transform: uppercase;
+    font-size: 16px;
 }
 
 /******** FOR DEBUGGING ONLY ********/
 div {
-	border-style: dotted;
-	border-color: green;
+/*	border-style: dotted;
+	border-color: green;*/
 }

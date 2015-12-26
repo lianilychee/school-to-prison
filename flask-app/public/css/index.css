@@ -1,3 +1,11 @@
+/*Color Scheme:
+lightest-gray: ECECEC
+light-gray: E4E2E1
+dark-gray: 231F20
+red: BE1E2D
+dark-blue: 03273D
+light-blue: 1E88BE*/
+
 /******** OVERARCHING ********/
 h1 {
 	font-family: 'open-sans';
@@ -104,7 +112,7 @@ button:active {
 }
 
 #right-panel {
-	background-color: gray;
+	background-color: #E4E2E1;
 	margin-top: 50px;
 	overflow: hidden;
 	padding-top: 35px;
