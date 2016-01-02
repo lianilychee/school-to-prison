@@ -128,14 +128,13 @@ function disabilityArcInfo(csv_data,pie_state){
 /** Build the layered pie. **/
 function layeredPie(csv_data){
 
-    var outer_radius = 500
-    var inner_radius = 100
-
-
     // dimensions of the svg
     var bbox = d3.select("#pie").node().getBoundingClientRect()
     var height = bbox.height;
     var width = bbox.width;
+
+    var outer_radius = .6*width;
+    var inner_radius = 100;
 
     var pie_center = {
         x:width * (1/2),
