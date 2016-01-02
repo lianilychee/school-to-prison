@@ -1,14 +1,14 @@
 introText = {
 	stage1:{
-		text:"<span style='color:#BE1E2D;font-size:32px;font-weight:bold'>A disabled student is <br></span><span style='color:#03273D;font-size:32px;font-weight:bold'>twice as likely <br></span><span style='color:black;font-size:18px'>to be suspended than a non-disabled student.<br></span>",
+		text:"<span style='color:#BE1E2D;font-size:32px;font-weight:bold'>A disabled student is </span><span style='color:#03273D;font-size:32px;font-weight:bold'>twice as likely </span><span style='color:black;font-size:18px'>to be suspended than a non-disabled student.<br></span>",
 		button:"next"
 	},
 	stage2:{
-		text:"<span style='color:#BE1E2D;font-size:32px;font-weight:bold'>Suspension leads to <br></span><span style='color:#03273D;font-size:32px;font-weight:bold'>incarceration. <br></span><span style='color:black;font-size:18px'>A suspended student is 3 times more likely to drop out, and 80% of inmates do not have a diploma.<br></span>",
+		text:"<span style='color:#BE1E2D;font-size:32px;font-weight:bold'>Suspension leads to </span><span style='color:#03273D;font-size:32px;font-weight:bold'>incarceration. </span><span style='color:black;font-size:18px'>A suspended student is 3 times more likely to drop out, and 80% of inmates do not have a diploma.<br></span>",
 		button:"next"
 	},
 	stage3:{
-		text:"<span style='color:#BE1E2D;font-size:32px;font-weight:bold'>Disability <br></span><span style='color:#03273D;font-size:32px;font-weight:bold'>& race <br></span><span style='color:black;font-size:18px'>are compounding factors in the school to prison pipeline.<br></span>",
+		text:"<span style='color:#BE1E2D;font-size:32px;font-weight:bold'>Disability </span><span style='color:#03273D;font-size:32px;font-weight:bold'>& race </span><span style='color:black;font-size:18px'>are compounding factors in the school to prison pipeline.<br></span>",
 		button:"explore"
 	}
 }

@@ -7,8 +7,12 @@ dark-blue: 03273D
 light-blue: 1E88BE*/
 
 .page-content {
-	width:100%;
+	margin: 10px 10px 10px 10px;
+	position: relative;
+/*	width: 80%;*/
+	margin-top: 50px;
 }
+
 
 /******** CONTEXT PANEL ********/
 
@@ -16,6 +20,7 @@ light-blue: 1E88BE*/
 	padding-left: 2%;
 	padding-right: 0px;
 	margin-bottom: 20px;
+	padding-top: 35px;
 }
 
 #bg-stats {
@@ -33,15 +38,7 @@ light-blue: 1E88BE*/
 }
 
 #intro-next {
-	cursor: pointer;
-}
-
-#context-link {
-	margin-top: 30%;
-}
-
-#context-spacer {
-	margin-top: 20%;
+	font-size: 16pt;
 }
 
 /******** BULLSEYE ********/

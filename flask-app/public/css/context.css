@@ -1,22 +1,20 @@
-blockquote.left {
-   width: 350px;
+blockquote {
+  width: 350px;
    margin: 15px 25px 15px 0;
    padding: 5px;
    border: 3px double #aaa;
    border-width: 3px 0;
+   border-color: #BE1E2D;;
    font-size: 1.7em;
-   text-align: center; 
+   text-align: center;
+   font-style: italic; 
+}
+
+blockquote.left { 
    float: left;
 }
 
 blockquote.right {
-   width: 350px;
-   margin: 15px 0 15px 25px;
-   padding: 5px;
-   border: 3px double #aaa;
-   border-width: 3px 0;
-   font-size: 1.7em;
-   text-align: center; 
    float: right;
 }
 
