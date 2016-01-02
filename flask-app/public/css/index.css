@@ -13,9 +13,9 @@ light-blue: 1E88BE*/
 /******** CONTEXT PANEL ********/
 
 #context {
-	margin-top: 5%;
 	padding-left: 2%;
 	padding-right: 0px;
+	margin-bottom: 20px;
 }
 
 #bg-stats {
@@ -38,6 +38,10 @@ light-blue: 1E88BE*/
 
 #context-link {
 	margin-top: 30%;
+}
+
+#context-spacer {
+	margin-top: 20%;
 }
 
 /******** BULLSEYE ********/
