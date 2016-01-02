@@ -115,10 +115,10 @@ img {
     font-weight: bold;
 }
 
-.navbar .navbar-brand, .navbar .nav .logo > li > a{
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
+#logo {
+	max-width: 300px;
+	padding-top: 10px;
+	padding-bottom: 5px;
 }
 
 /******** FOR DEBUGGING ONLY ********/
