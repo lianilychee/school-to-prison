@@ -7,15 +7,20 @@ dark-blue: 03273D
 light-blue: 1E88BE*/
 
 .page-content {
-	width:100%;
+	margin: 10px 10px 10px 10px;
+	position: relative;
+/*	width: 80%;*/
+	margin-top: 50px;
 }
+
 
 /******** CONTEXT PANEL ********/
 
 #context {
-	margin-top: 5%;
 	padding-left: 2%;
 	padding-right: 0px;
+	margin-bottom: 20px;
+	padding-top: 35px;
 }
 
 #bg-stats {
@@ -28,17 +33,12 @@ light-blue: 1E88BE*/
 	text-align: left;
 }
 
-
 #detail-text{
 	font-size: 20px;	
 }
 
 #intro-next {
-	cursor: pointer;
-}
-
-#context-link {
-	margin-top: 30%;
+	font-size: 16pt;
 }
 
 /******** BULLSEYE ********/
@@ -46,9 +46,17 @@ light-blue: 1E88BE*/
 	padding-top: 35px;
 	text-align: center;
 }
+#pie-container {
+	display: inline-block;
+    position: relative;
+    width: 100%;
+}
+#pie-spacer {
+	margin-top: 100%;
+}
 #pie {
-	height: 725px;
-	padding: 0px;
+	position: absolute;
+    top: 0;bottom: 0;left: 0;right: 0;
 	overflow: visible;
 	background-color: none;
 }

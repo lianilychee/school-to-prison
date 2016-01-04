@@ -128,14 +128,13 @@ function disabilityArcInfo(csv_data,pie_state){
 /** Build the layered pie. **/
 function layeredPie(csv_data){
 
-    var outer_radius = 500
-    var inner_radius = 100
-
-
     // dimensions of the svg
     var bbox = d3.select("#pie").node().getBoundingClientRect()
     var height = bbox.height;
     var width = bbox.width;
+
+    var outer_radius = .6*width;
+    var inner_radius = 100;
 
     var pie_center = {
         x:width * (1/2),
@@ -342,13 +341,15 @@ function layeredPie(csv_data){
             pieG.selectAll(".arc-label").style("fill-opacity",1);
         }
 
-        //Add the diagram last so its always on top
-        var scale = .3;
-        svg.append("svg:image")
-            .attr("transform","translate(" + width * (7/10) +" "+ -50 +")")
-            .attr('width', scale*888)
-            .attr('height', scale*501)
-            .attr("xlink:href","images/diagram.png")
+        //Add the diagram last so its always on top (if it's a large enough screen)
+        if ($(window).width() >= 768) {
+            var scale = .3;
+            svg.append("svg:image")
+                .attr("transform","translate(" + width * (7/10) +" "+ -50 +")")
+                .attr('width', scale*888)
+                .attr('height', scale*501)
+                .attr("xlink:href","images/diagram-red.png")
+        }
     }
 
     function selectArc(d){
@@ -384,11 +385,11 @@ function layeredPie(csv_data){
     }
     function updateDetailText(d){
         if (!d){
-            d3.select("#detail-text").html("<h2 style='display:inline' class='dark-blue bold'>Select Sections</h1>' to compare suspension risk across districts, double-click to break down sections by race.");
+            d3.select("#detail-text").html("<h2 style='display:inline' class='dark-blue bold'>Select Sections</h1> to compare suspension risk across districts, double-click to break down sections by race.");
             d3.select("#districts-sub-title").html("for all students");
         }else{
             //add place
-            var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
+            var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally, " : ("In " + csv_data[row_number]["District Name"] + ", "));
             //add student type
             var student_type = (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label : d.data.label + " " + magicText[pie_state].text)
             detail_string += "<span class='dark-blue bold' style='font-size:28px;'><strong>" + student_type + "</strong></span>" + " students are "
@@ -423,6 +424,7 @@ function layeredPie(csv_data){
         }
         d3.select("#pie-subtitle-place").html(place);
         d3.select("#pie-subtitle-type").html(type);
+        d3.select("#mini-title").html(place);
     }
 
     function arcTween(d, i, a) {

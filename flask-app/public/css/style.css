@@ -50,7 +50,9 @@ h2 small{
 .bold {
 	font-weight:bold;
 }
-
+.pad-bottom{
+	padding-bottom: 10px;
+}
 .red {
 	color:#BE1E2D;
 }
@@ -62,6 +64,9 @@ h2 small{
 .light-blue {
 	color: #1E88BE;
 
+}
+.dark-gray{
+	color: #231F20
 }
 
 /******** OVERARCHING HANDLING ********/
@@ -110,10 +115,10 @@ img {
     font-weight: bold;
 }
 
-.navbar .navbar-brand, .navbar .nav .logo > li > a{
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
+#logo {
+	max-width: 300px;
+	padding-top: 10px;
+	padding-bottom: 5px;
 }
 
 /******** FOR DEBUGGING ONLY ********/

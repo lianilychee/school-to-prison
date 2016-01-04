@@ -49,13 +49,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a id="logo" class="navbar-brand page-scroll" href="/">Suspended, not Supported: Disability in the School to Prison Pipeline</a>
+
+                <a href="/" class="pull-left" id= "logo"><img src="images/logo-white.png"></a>
+
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="right-navbar" class="nav navbar-nav navbar-right">
-                    <!-- Hidden li included to remove active class from hook1 link when scrolled up past hook1 section -->
                     <li class="hidden">
                         <a class="page-scroll" href="#page-top"></a>
                     </li>
@@ -74,13 +75,42 @@
     </nav>
 
 
-    <div class='page-content container'>
+    <div class='page-content'>
         <div class = "row row-eq-height">
 
+            <!-- Left Panel -->
+            <div class = "col-xs-12 col-md-3" id='context'>
+                <div class='container' id='context'>
+                    <!-- Slides -->
+                    <div id = "intro-div">
+                        <p id = "intro-text"></p>
+                        <button type='button' id='intro-next'></button>
+                    </div>
+                    <!-- Post-Slides -->
+                    <div id = "post-intro" style="display:none">
+                        <!-- Title: hidden on large screens: visible on small:  -->
+                        <div class = "text-center text-uppercase hidden-md-block visible-xs visible-sm pad-bottom" id = "pie-subtitle">
+                            <h2 id = "mini-title" class = "dark-gray bold" style="display:inline">United States</h2>
+                                <h2 style="display:inline;" class = "dark-gray bold">: </h2>
+                            <br>
+                        </div>
+                        <!-- one sentence summary: visible everywhere-->
+                        <p id = "detail-text"></p>
+                        <!-- Stats: hidden on small screens, visible on large -->
+                        <div class = "hidden-xs hidden-sm" id = "bg-stats">
+                            <p style = "font-size:12pt;">Student Population: <span id = "enrollment"></span></p>
+                            <p style = "font-size:12pt;">English Learner Enrollment: <span id = "english"></span></p>
+                            <p style = "font-size:12pt;">Students in Poverty: <span id = "poverty"></span></p>
+                            <p style = "font-size:12pt;">Juvenile Arrest Rate: <span id = "arrests"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Middle Panel -->
-            <div class="col-xs-12 col-md-6 col-md-push-3">
-                <!-- Title -->   
-                <div id = "title">
+            <div class="col-xs-12 col-md-6">
+                <!-- Title: hidden on small screens --> 
+                <div class = "hidden-xs hidden-sm" id = "title">
                     <div><h1 class = "red" >Risk of Suspension</h2></div>
                     <div id = "pie-subtitle">
                         <p style="display:inline">in </p>
@@ -88,40 +118,17 @@
                         <p id = "pie-subtitle-type" style="display:inline">, by Disability Status</p>
                     </div>
                 </div>
-                <!-- pie chart -->
-                <div style = 'text-align: center'>
-                    <div class='container' id='pie'> </div>
-                </div>
-            </div>
 
-            <!-- Left Panel -->
-            <div class = "col-xs-6 col-md-3 col-md-pull-6" id='context'>
-                <div class='container' id='context'>
-                    <!-- Slides -->
-                    <div id = "intro-div">
-                        <p id = "intro-text"></p>
-                        <br><span id = "intro-next" style='color:white;background-color:#1E88BE;font-size:18px;padding:5px'></span>
-                    </div>
-                    <!-- Exploring the Data -->
-                    <div id = "post-intro" style="display:none">
-                        <p id = "detail-text"></p>
-                        <div id = "bg-stats">
-                            <p style = "font-size:12pt;">Student Population: <span id = "enrollment"></span></p>
-                            <p style = "font-size:12pt;">English Learner Enrollment: <span id = "english"></span></p>
-                            <p style = "font-size:12pt;">Students in Poverty: <span id = "poverty"></span></p>
-                            <p style = "font-size:12pt;">Juvenile Arrest Rate: <span id = "arrests"></span></p>
-                        </div>
-                        <div id = "context-link">
-                            <h3 style="display:inline" class="dark-blue bold">Done?</h3>
-                            <p>Read what the experts say:</p>
-                            <a class="btn btn-primary" style = "font-size:12pt;background-color: #1E88BE" href="/context" role="button">Read</a>
-                        </div>
-                    </div>
+                <!-- Pie chart -->
+                <div id = "pie-container">
+                    <div id = "pie-spacer"></div>
+                    <div id='pie'></div>
                 </div>
+
             </div>
 
             <!-- Right Panel: Regions sidebar -->
-            <div class = "col-xs-6 col-md-3">
+            <div class = "col-xs-12 col-md-3">
                 <div class='container' id='right-panel'>
                     <div><h1 class = "dark-blue">Select a District:</h1></div>
 <!--                <div><h1>BY DISTRICT</h1></div>
@@ -134,7 +141,16 @@
                     <br><br>
 
                     <div id='reg-comparison'></div>
+
+                    <!-- Done with the data? -->
+                    <div id = "context-link" class = "pad-bottom">
+                        <h1 style="display:inline" class="dark-blue">Done?</h3>
+                        <p>Read what the experts say:</p>
+                        <a class="btn btn-primary" style = "font-size:12pt;background-color: #1E88BE" href="/context" role="button">Read</a>
+                    </div>
                 </div>
+
+
             </div>
 
         </div>
