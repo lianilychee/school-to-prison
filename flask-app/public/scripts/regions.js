@@ -41,7 +41,7 @@ var REGIONS = {
     render: function(selection, regions_data) {
         d3.select("#reg-comparison").selectAll("svg").remove();
         colorCirc = "#BE1E2D"; // some shade of red
-        colorText = "white";
+        colorText = "black";
         circleRad = 25
 
         var bbox = d3.select("#reg-comparison").node().getBoundingClientRect()

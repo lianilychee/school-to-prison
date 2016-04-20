@@ -31,17 +31,14 @@
     <link href="css/splash.css" rel="stylesheet">
 
     <!-- STPP JS -->
-    <script src="scripts/regions.js"></script>
-    <script src="scripts/main.js"></script>
     <script src="scripts/layeredPie.js"></script>
     <script src="scripts/regions.js"></script>
+    <script src="scripts/introSeq.js"></script>
+    <script src="scripts/main.js"></script>
 
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
-
-
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a id="logo" class="navbar-brand page-scroll" href="#page-top">Disability in the School to Prison Pipeline</a>
+                <a id="logo" class="navbar-brand page-scroll" href="index.html" style='color: #F7F7F7'>Suspended, not Supported: Disability in the School to Prison Pipeline</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,45 +61,66 @@
                         <a class="page-scroll" href="#page-top"></a>
                     </li>
                     <li>
-                        <a href="#">About</a>
+                        <a href="about.html" style='color: #F7F7F7'>About</a>
                     </li>
                     <li>
-                        <a href="#">Context</a>
+                        <a href="context.html" style='color: #F7F7F7'>Context</a>
                     </li>
                     <li>
-                        <a href="#">Resources</a>
+                        <a href="aboutdata.html" style='color: #F7F7F7'>About the Data and Other Resources</a>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
 
-    <div class='container'>
+    <div class='container' id='overarching'>
 
-        <div class='container' id='context'>context panel</div>
+        <div style='margin-top: 50px; padding-top: 35px; text-align: left;'>
+            <div style='font-family: "open-sans"; font-size: 18pt; font-weight: bold; padding-left: 250px;'>RISK OF SUSPENSION</h1></div>
+            <div id = "pie-subtitle" style='font-family: "open-sans"; font-size: 10pt; font-weight: bold; padding-left: 250px;'>in the United States, by disability status</div>
+        </div>
 
-        <div class='container' id='pie'></div>
+        <div class='container' id='context'>
+            <div id = "intro-div">
+                <p id = "intro-text"></p>
+                <div id = "intro-next"></div>
+            </div>
+            <div id = "post-intro" style="display:none">
+                <p id = "detail-text"></p>
+                <div id = "bg-stats">
+                    <h2>Student Population: <span id = "enrollment"></span></h2>
+                    <br><h2>English Learner Enrollment: <span id = "english"></span></h2>
+                    <br><h2>Students in Poverty: <span id = "poverty"></span></h2>
+                    <br><h2>Juvenile Arrest Rate: <span id = "arrests"></span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class='container' id='pie'> </div>
+
+    </div>
 
         <div class='container' id='right-panel'>
-            risk of suspension <br>
-            COMPARED TO DISTRICT <br> <br>
+            <div><h2>compared risk of suspension</h2></div>
+            <div><h1>BY DISTRICT</h1></div>
+            <div><h2 id = "districts-sub-title">for all students</h2></div><br>
 
-            Compared to the national average, how much more likely is the selected student to be suspended? <br> <br>
+<!--             Compared to the national average, how much more likely are students from the selected district to be suspended? <br> <br> -->
 
             Sort by, descending:
             <button type='button' id='poverty'>Poverty level</button>
-            <button type='button' id='english'>English learner representation</button>
             <button type='button' id='arrests'>County arrest rates</button>
-            <button type='button' id='enrollment'>District enrollment</button>
-
-
-            <div id='nat-comparison'></div>
+            <button type='button' id='enrollment'>District student body size</button>
+            <button type='button' id='english'>English learner representation</button>
+            <br><br>
 
             <div id='reg-comparison'></div>
 
         </div>
-    </div>
+
 
 
 

@@ -16,7 +16,7 @@ html {
 
 @media(min-width:767px) {
     .navbar {
-        padding: 20px 0;
+        /*padding: 20px 0;*/
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
@@ -33,7 +33,7 @@ of those sections to manage the look and feel of the site. */
 
 /*Text formatting*/
 .highlight-red {
-    color: rgb(191,30,46);
+    color: white;
 }
 
 .highlight-white {
@@ -62,12 +62,12 @@ of those sections to manage the look and feel of the site. */
 }
 
 .navbar .navbar-nav > li > a:hover, .navbar .nav > li > a:focus{
-    color: rgb(191,30,46);
+    color: white;
     font-weight: bold;
 }
 
 .navbar .navbar-brand, .navbar .nav .logo > li > a{
-    color: rgb(191,30,46);
+    color: white;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -81,21 +81,9 @@ of those sections to manage the look and feel of the site. */
     background: rgb(175,175,175);
 }
 
-.intro-section {
-
-}
-
 .intro-image img{
     max-height: 50%;
     max-width:50%;
-}
-
-.hook1-section {
-
-}
-
-.hook2-section {
-
 }
 
 .go-next {

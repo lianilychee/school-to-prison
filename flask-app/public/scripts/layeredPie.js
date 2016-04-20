@@ -128,14 +128,13 @@ function disabilityArcInfo(csv_data,pie_state){
 /** Build the layered pie. **/
 function layeredPie(csv_data){
 
-    var outer_radius = 500
-    var inner_radius = 100
-
-
     // dimensions of the svg
     var bbox = d3.select("#pie").node().getBoundingClientRect()
     var height = bbox.height;
     var width = bbox.width;
+
+    var outer_radius = .6*width;
+    var inner_radius = 100;
 
     var pie_center = {
         x:width * (1/2),
@@ -147,7 +146,8 @@ function layeredPie(csv_data){
     var svg = d3.select("#pie").append("svg")
         .attr("width", width)
         .attr("height", height)
-        .style("fill","#323232");
+        .style("fill","#323232")
+        .style("overflow","visible");
 
 
     var back_rad = 6;
@@ -225,6 +225,7 @@ function layeredPie(csv_data){
         var dataset = buildDataset(csv_data, row_number, pie_state);
         pieG.selectAll("g").remove();
         pieG.selectAll(".arc-label").remove();
+        svg.selectAll("image").remove();
         var g = pieG.selectAll(".arc")
             .data(pie(dataset))
             .enter()
@@ -339,6 +340,16 @@ function layeredPie(csv_data){
         } else {
             pieG.selectAll(".arc-label").style("fill-opacity",1);
         }
+
+        //Add the diagram last so its always on top (if it's a large enough screen)
+        if ($(window).width() >= 768) {
+            var scale = .3;
+            svg.append("svg:image")
+                .attr("transform","translate(" + width * (7/10) +" "+ -50 +")")
+                .attr('width', scale*888)
+                .attr('height', scale*501)
+                .attr("xlink:href","images/diagram-red.png")
+        }
     }
 
     function selectArc(d){
@@ -374,15 +385,20 @@ function layeredPie(csv_data){
     }
     function updateDetailText(d){
         if (!d){
-            d3.select("#detail-text").html("Select sections to compare suspension risk across districts, double-click to break down sections by race.");
+            d3.select("#detail-text").html("<h2 style='display:inline' class='dark-blue bold'>Select Sections</h1> to compare suspension risk across districts, double-click to break down sections by race.");
             d3.select("#districts-sub-title").html("for all students");
         }else{
-            var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally,<br>" : ("In " + csv_data[row_number]["District Name"] + ",<br/>"));
-            detail_string += (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label + " students are <br>": d.data.label + " " + magicText[pie_state].text + " students <br/> are ")
+            //add place
+            var detail_string = (csv_data[row_number]["District Name"] == "Total" ? "Nationally, " : ("In " + csv_data[row_number]["District Name"] + ", "));
+            //add student type
+            var student_type = (d.data.id == "WD" || d.data.id == "WOD" ? d.data.label : d.data.label + " " + magicText[pie_state].text)
+            detail_string += "<span class='dark-blue bold' style='font-size:28px;'><strong>" + student_type + "</strong></span>" + " students are "
+            //add risk factor
             var risk_factor = ((d.data.susp*100)/REGIONS.natAvg).toFixed(1); 
-            detail_string += "<span style='font-size:25px'><strong>" + risk_factor + "X</strong></span>"
+            detail_string += "<span class='red bold' style='font-size:28px;'><strong>" + risk_factor + " X</strong></span>"
             detail_string += (risk_factor > 1 ? " times more likely " : " times as likely ");
             detail_string += "to be suspended than the average student."
+            //update
             d3.select("#detail-text").html(detail_string)
 
 
@@ -391,14 +407,24 @@ function layeredPie(csv_data){
         }
     }
     function updateTitle(pie_state){
-        var titleString = ""
-        titleString += csv_data[row_number]["District Name"] == "Total" ? " in the United States" : " in " + csv_data[row_number]["District Name"];
+        // var titleString = ""
+        // titleString += csv_data[row_number]["District Name"] == "Total" ? " in the United States" : " in " + csv_data[row_number]["District Name"];
+        // if(pie_state == "default"){
+        //     titleString += ", by disability status";
+        // }else{
+        //     titleString += " for "+(pie_state == "WD" ? "disabled" : "non-disabled")+" students, by race";
+        // }
+        // d3.select("#pie-subtitle").html(titleString);
+
+        var place = csv_data[row_number]["District Name"] == "Total" ? "The United States" : "" + csv_data[row_number]["District Name"];
         if(pie_state == "default"){
-            titleString += ", by disability status";
+            var type = ", by disability status";
         }else{
-            titleString += " for "+(pie_state == "WD" ? "disabled" : "non-disabled")+" students, by race";
+            var type = "for "+(pie_state == "WD" ? "disabled" : "non-disabled")+" students, by race";
         }
-        d3.select("#pie-subtitle").html(titleString);
+        d3.select("#pie-subtitle-place").html(place);
+        d3.select("#pie-subtitle-type").html(type);
+        d3.select("#mini-title").html(place);
     }
 
     function arcTween(d, i, a) {
