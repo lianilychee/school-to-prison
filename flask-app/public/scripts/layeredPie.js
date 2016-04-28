@@ -302,6 +302,18 @@ function layeredPie(csv_data){
                 // update(csv_data);
             });
 
+            back_button.on("mouseover", function() {
+                back_button.style('stroke', 'white');back_button.style('stroke-width', 3);back_button.style('stroke-alignment', 'inner');
+                back_button.style('cursor', 'pointer');
+                infog.style("visibility", "visible");
+                info_text.line1.text("Go Back");info_text.line2.text("");info_text.line3.text("");
+            });
+
+            back_button.on("mouseout", function() {
+                back_button.style('stroke-width', 0);
+                infog.style("visibility", "hidden");
+            });
+
         }
 
         var labels = []
