@@ -1,21 +1,22 @@
 blockquote {
   width: 350px;
-   margin: 15px 25px 15px 0;
-   padding: 5px;
-   border: 3px double #aaa;
-   border-width: 3px 0;
-   border-color: #BE1E2D;;
-   font-size: 1.7em;
-   text-align: center;
-   font-style: italic; 
+  padding: 5px;
+  border: 3px double #aaa;
+  border-width: 3px 0;
+  border-color: #BE1E2D;;
+  font-size: 1.7em;
+  text-align: center;
+/*  font-style: italic;*/
 }
 
 blockquote.left { 
    float: left;
+   margin: 15px 15px 15px 0px; /*top, right, bottom, left(clockwise)*/
 }
 
 blockquote.right {
    float: right;
+   margin: 15px 0px 15px 15px; /*top, right, bottom, left(clockwise)*/
 }
 
 .quotes-container p {
@@ -24,6 +25,11 @@ blockquote.right {
 
 .quote {
   padding: 10px;
+}
+
+.summary {
+  padding: 10px;
+  font-style: italic;
 }
 
 .img-center {
