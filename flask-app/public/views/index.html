@@ -1,33 +1,161 @@
-<html>
+<!DOCTYPE html>
+
+<!-- Template Usage Instructions: Make sure to include the scrolling-nav.js, jquery.easing.min.js, and scrolling-nav.css files. To make a link smooth scroll to another section on the page, give the link the .page-scroll class and set the link target to a corresponding ID on the page. -->
+
+<html lang="en">
 
 <head>
-    
-    <title>STPP Viz</title>
 
-    <!-- LIBRARY SCRIPTS -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Disability in the School to Prison Pipeline</title>
+
+    <!-- JS libraries -->
+    <script src="scripts/lib/jquery.js"></script>
+    <script src="scripts/lib/jquery.easing.min.js"></script>
+    <script src="scripts/lib/scrolling-nav.js"></script>
+    <script src="scripts/lib/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src='scripts/lib/datamaps.all.min.js'></script>
 
-    <!-- STPP SCRIPTS -->
+
+    <!-- CSS libraries-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- STPP CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- STPP JS -->
+    <script src="scripts/layeredPie.js"></script>
+    <script src="scripts/regions.js"></script>
+    <script src="scripts/introSeq.js"></script>
     <script src="scripts/main.js"></script>
-    <!-- // <script src="scripts/disabilityGapMap.js"></script> -->
-    <script src="scripts/map.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
 
 </head>
 
-<body>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-    <div>
-        <a href='javascript:void(0)' class='selector' id='sel-1'>SELECTOR 1</a>
-        <a href='javascript:void(0)' class='selector' id='sel-2'>SELECTOR 2</a>
-        <a href='javascript:void(0)' class='selector' id='sel-3'>SELECTOR 3</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a href="/" class="pull-left" id= "logo"><img src="images/logo-white.png"></a>
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul id="right-navbar" class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a href="/about" style='color: #F7F7F7'>About Us</a>
+                    </li>
+                    <li>
+                        <a href="/context" style='color: #F7F7F7'>What Experts Say</a>
+                    </li>
+                    <li>
+                        <a href="/aboutdata" style='color: #F7F7F7'>More Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class='page-content'>
+        <div class = "row row-eq-height">
+
+            <!-- Left Panel -->
+            <div class = "col-xs-12 col-md-3" id='context'>
+                <div class='container' id='context'>
+                    <!-- Slides -->
+                    <div id = "intro-div">
+                        <p id = "intro-text"></p>
+                        <button type='button' id='intro-next'></button>
+                    </div>
+                    <!-- Post-Slides -->
+                    <div id = "post-intro" style="display:none">
+                        <!-- Title: hidden on large screens: visible on small:  -->
+                        <div class = "text-center text-uppercase hidden-md-block visible-xs visible-sm pad-bottom" id = "pie-subtitle">
+                            <h2 id = "mini-title" class = "dark-gray bold" style="display:inline">United States</h2>
+                                <h2 style="display:inline;" class = "dark-gray bold">: </h2>
+                            <br>
+                        </div>
+                        <!-- one sentence summary: visible everywhere-->
+                        <p id = "detail-text"></p>
+                        <!-- Stats: hidden on small screens, visible on large -->
+                        <div class = "hidden-xs hidden-sm" id = "bg-stats">
+                            <p style = "font-size:12pt;">Student Population: <span id = "enrollment"></span></p>
+                            <p style = "font-size:12pt;">English Learner Enrollment: <span id = "english"></span></p>
+                            <p style = "font-size:12pt;">Students in Poverty: <span id = "poverty"></span></p>
+                            <p style = "font-size:12pt;">Juvenile Arrest Rate: <span id = "arrests"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Panel -->
+            <div class="col-xs-12 col-md-6">
+                <!-- Title: hidden on small screens --> 
+                <div class = "hidden-xs hidden-sm" id = "title">
+                    <div><h1 class = "red" >Risk of Suspension</h2></div>
+                    <div id = "pie-subtitle">
+                        <p style="display:inline">in </p>
+                        <h1 id = "pie-subtitle-place" class = "dark-blue bold" style="display:inline;font-size:32px">United States </h1>
+                        <p id = "pie-subtitle-type" style="display:inline">, by Disability Status</p>
+                    </div>
+                </div>
+
+                <!-- Pie chart -->
+                <div id = "pie-container">
+                    <div id = "pie-spacer"></div>
+                    <div id='pie'></div>
+                </div>
+
+            </div>
+
+            <!-- Right Panel: Regions sidebar -->
+            <div class = "col-xs-12 col-md-3">
+                <div class='container' id='right-panel'>
+                    <div><h1 class = "dark-blue">Select a District:</h1></div>
+<!--                <div><h1>BY DISTRICT</h1></div>
+                    <div><h2 id = "districts-sub-title">for all students</h2></div><br> -->
+                    <p class = "dark-blue">Sort By, descending:</p>
+                    <button type='button' id='poverty'>Poverty<div id = "subtitle">Poverty Level</div></button>
+                    <button type='button' id='arrests'>Arrest<div id = "subtitle">County Arrest Rates</div></button>
+                    <button type='button' id='enrollment'>Size<div id = "subtitle">District Student Body Size</div></button>
+                    <button type='button' id='english'>ESL<div id = "subtitle">English learner representation</div></button>
+                    <br><br>
+
+                    <div id='reg-comparison'></div>
+
+                    <!-- Done with the data? -->
+                    <div id = "context-link" class = "pad-bottom">
+                        <h1 style="display:inline" class="dark-blue">Done?</h3>
+                        <p>Read what the experts say:</p>
+                        <a class="btn btn-primary" style = "font-size:12pt;background-color: #1E88BE" href="/context" role="button">Read</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
     </div>
 
-    <div id="map" style="position: relative; width: 750px; height: 450px;">
-    </div>
 
 </body>
 

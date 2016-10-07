@@ -1,0 +1,172 @@
+/*Color Scheme:
+lightest-gray: ECECEC
+light-gray: E4E2E1
+dark-gray: 231F20
+red: BE1E2D
+dark-blue: 03273D
+light-blue: 1E88BE*/
+
+
+/******** TEXT STYLES ********/
+
+@charset 'UTF-8';
+
+@font-face {
+	font-family: 'open-sans';
+	src: url('OpenSans-Regular.ttf');
+}
+
+text {
+	font-family: 'open-sans';
+}
+
+h1 {
+	color: #BE1E2D;
+}
+
+h2, h3, h4, h5, h6{
+	color: #03273D;
+}
+
+p{
+	font-family: 'open-sans';
+	color: black;
+	font-size: 20px;
+}
+
+h1 small{
+	color: #231F20;
+	padding-bottom: 5px;
+	font-weight: bold;
+}
+
+h2 small{
+	color: #231F20;
+	padding-bottom: 5px;
+	font-weight: bold;
+}
+
+/******** Formatting Helpers ********/
+.bold {
+	font-weight:bold;
+}
+.pad-bottom{
+	padding-bottom: 10px;
+}
+.red {
+	color:#BE1E2D;
+}
+
+.dark-blue {
+	color: #03273D;
+}
+
+.light-blue {
+	color: #1E88BE;
+
+}
+.dark-gray{
+	color: #231F20
+}
+
+/******** OVERARCHING HANDLING ********/
+
+body{
+	font-family: 'open-sans';
+/*	overflow: hidden;*/
+	background-color: #ECECEC;
+	margin: 0;
+	position: relative;
+/*	color: #323232;*/
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.container {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+/*	border-style: dotted;
+	border-color: purple;*/
+}
+
+.page-content{
+	position: relative;
+/*	width: 80%;*/
+	margin-top: 50px;
+}
+
+/******** NAVBAR STUFF ********/
+
+.navbar{
+    background: #231F20;
+}
+
+.navbar .navbar-nav, .navbar .nav > li > a{
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.navbar .navbar-nav > li > a:hover, .navbar .nav > li > a:focus{
+    color: white;
+    font-weight: bold;
+}
+
+#logo {
+	max-width: 300px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+button {
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font-family: "open-sans";
+	font-size: 12pt;
+	padding: .3em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	color: white;
+	background: #1E88BE;
+}
+
+button #subtitle {
+	font-size: 6pt;
+}
+
+button:hover {
+	text-decoration: none;
+	background: #231F20;
+}
+
+button:active {
+	position: relative;
+	top: 1px;
+	background: #231F20;
+}
+
+/*button:focus {
+	position: relative;
+	top: 1px;
+	background: #231F20;
+}*/
+
+.activebutton {
+	background: #231F20;
+}
+/******** FOR DEBUGGING ONLY ********/
+div {
+/*	border-style: dotted;
+	border-color: green;*/
+}

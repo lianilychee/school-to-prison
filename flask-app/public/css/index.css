@@ -1,0 +1,93 @@
+/*Color Scheme:
+lightest-gray: ECECEC
+light-gray: E4E2E1
+dark-gray: 231F20
+red: BE1E2D
+dark-blue: 03273D
+light-blue: 1E88BE*/
+
+.page-content {
+	margin: 10px 10px 10px 10px;
+	position: relative;
+/*	width: 80%;*/
+	margin-top: 50px;
+}
+
+
+/******** CONTEXT PANEL ********/
+
+#context {
+	padding-left: 2%;
+	padding-right: 0px;
+	margin-bottom: 20px;
+	padding-top: 35px;
+}
+
+#bg-stats {
+	margin-top: 10%;
+}
+#bg-stats h1{
+	text-align: left;
+}
+#bg-stats h2{
+	text-align: left;
+}
+
+#detail-text{
+	font-size: 20px;	
+}
+
+#intro-next {
+	font-size: 16pt;
+}
+
+/******** BULLSEYE ********/
+#title{
+	padding-top: 35px;
+	text-align: center;
+}
+#pie-container {
+	display: inline-block;
+    position: relative;
+    width: 100%;
+}
+#pie-spacer {
+	margin-top: 100%;
+}
+#pie {
+	position: absolute;
+    top: 0;bottom: 0;left: 0;right: 0;
+	overflow: visible;
+	background-color: none;
+}
+
+.back-button {
+	position: fixed;
+	bottom: -.5em;
+	left: 0px;
+	font-size: 20px;
+	font-family: sans-serif;
+}
+
+.arc {
+	cursor: pointer;
+}
+
+
+/********  REGIONS PANEL ********/
+
+#right-panel {
+	background-color: #E4E2E1;
+/*	margin-top: 50px;*/
+	overflow: hidden;
+	padding-top: 35px;
+}
+
+#reg-comparison{
+	padding: 0px;
+	height: 560px;
+}
+
+.region {
+	cursor: pointer;
+}
