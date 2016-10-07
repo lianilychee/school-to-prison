@@ -1,5 +1,11 @@
 var disability = "";
 var race = "";
+var buttonIDs = {
+    "% 5-17 under poverty line": "button#poverty",
+    "Juvenile Arrest Rate": "button#arrests",
+    "All Students Enrollment": "button#enrollment",
+    "% EL": "button#english"
+}
 
 // basically all my helper functions
 var REGIONS = {
@@ -11,6 +17,8 @@ var REGIONS = {
     sortCleanData: [],  // cleanData sorted by the button click
 
     natAvg: 10.08,
+
+
 
     /** updates the dataset, to be reflected in cleanData.    Assume state input is GLOBAL.selectionState. **/
     update: function(selection, bar, sort) {
@@ -35,10 +43,14 @@ var REGIONS = {
         REGIONS.sortCleanData = REGIONS.cleanData.sort( function(a,b) { return b['sort_column'] - a['sort_column'] });
         REGIONS.sortCleanData.unshift(natData);
         REGIONS.render(selection,REGIONS.sortCleanData);
+
+        $("button").removeClass("activebutton");
+        $(buttonIDs[sort]).addClass("activebutton");
     },
 
     /** renders the national comparison.    Renders the regional comparison. **/
     render: function(selection, regions_data) {
+
         d3.select("#reg-comparison").selectAll("svg").remove();
         colorCirc = "#BE1E2D"; // some shade of red
         colorText = "black";
@@ -157,15 +169,15 @@ function regions(regions_data) {
         // Percentage of students are suspended, regardless of disability status
 
         defaultSelection = 'All Students Rates';
-
+        
         // update the data to be passed into render function
         REGIONS.update(defaultSelection, REGIONS.natlAvg, REGIONS.sortBy);
         updateBackgroundStats(0);
 
         // upon sortBy click, update REGIONS.sortBy
         $("button").click( function() {
-            id = $(this).attr("id")
-
+            // update
+            id = $(this).attr("id");
             if (id == "poverty") { REGIONS.sortBy = "% 5-17 under poverty line"; };
 
             if (id == "english") { REGIONS.sortBy = "% EL"; };
@@ -173,8 +185,6 @@ function regions(regions_data) {
             if (id == "arrests") { REGIONS.sortBy = "Juvenile Arrest Rate"; };
 
             if (id == "enrollment") { REGIONS.sortBy = "All Students Enrollment"; };
-
-            // console.log(REGIONS.sortBy);
 
             REGIONS.update(defaultSelection, REGIONS.natlAvg, REGIONS.sortBy);
         });

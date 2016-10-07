@@ -128,7 +128,7 @@ function disabilityArcInfo(csv_data,pie_state){
 /** Build the layered pie. **/
 function layeredPie(csv_data){
 
-    // dimensions of the svg
+    // SVG dimensions
     var bbox = d3.select("#pie").node().getBoundingClientRect()
     var height = bbox.height;
     var width = bbox.width;
@@ -149,7 +149,7 @@ function layeredPie(csv_data){
         .style("fill","#323232")
         .style("overflow","visible");
 
-
+    //back button settings (little black arrow at position 0 on pie chart)
     var back_rad = 6;
     var back_size = inner_radius / 3;
     var back_button = svg.append("g")
@@ -169,6 +169,7 @@ function layeredPie(csv_data){
             .style("font-size", back_rad * 2)
             .style("color", "#C8C8C8");
 
+    //initialize text on top of pie slice (on hover)
     var infog = svg.append("g")
         .attr("transform", "translate(" + pie_center.x + "," + pie_center.y + ")")
         .style("text-anchor", "middle")
@@ -184,23 +185,23 @@ function layeredPie(csv_data){
                 .style("font-size",14),
         }
       
-
+    //initialize pie chart
     var pieG = svg.append("g")
         .attr("transform", "translate(" + pie_center.x + "," + pie_center.y + ")");
-
-    // initialize pie chart
     var pie = d3.layout.pie()
         .sort(null)
         .value(function(d) { return d.pop; });
 
-    // initialize the outer slice
+    //initialize the outer slice
     var arc = d3.svg.arc()
         .outerRadius(outer_radius)
         .innerRadius(inner_radius);
 
+    //set maximum radius dimensions
     var max_susp_r = 0;
     var absolute_max = 280;
 
+    //return size of suspended student pie slice
     var suspArcSize = function(d){
             // console.log(d.data.susp);
             var r = Math.sqrt(d.data.susp*(Math.pow(outer_radius,2) - Math.pow(inner_radius,2)) + Math.pow(inner_radius,2));
@@ -229,7 +230,7 @@ function layeredPie(csv_data){
         var g = pieG.selectAll(".arc")
             .data(pie(dataset))
             .enter()
-            .append("g")
+            .append("g") //
             .attr("class", "arc")
             .on("click", non_interactive ? null : selectArc)
             .on("mouseover", non_interactive ? null : setInfog)
@@ -250,7 +251,7 @@ function layeredPie(csv_data){
             .style("fill", function(d,i) { return d3.rgb(d.data.color).darker(1); }) // LIANI control the inner color
             .each(function(d) { this._current = d });
 
-        //Select state if state was selected on previous data
+        //Select state if state was selected in previous data
         if(selection_state != ""){
             if(pie_state != "default" && (selection_state == "WD" || selection_state == "WOD")){
                 updateDetailText({data:disabilityArcInfo(csv_data,pie_state)});
@@ -269,6 +270,7 @@ function layeredPie(csv_data){
             updateDetailText(null);
         }
 
+        //if nothing is selected
         if (pie_state != "default") {
             REGIONS.update("All Students Rates");
             var pieSwoosh = d3.layout.pie()
@@ -279,17 +281,18 @@ function layeredPie(csv_data){
                     return d.id == (pie_state == "WD"?"WOD":"WD") ? 0 : d.pop;
 
                 });
+
+            //swoosh transition
             g = g.data(pieSwoosh(dataset));
             g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
             g.selectAll(".susp_arc").transition().duration(750).attrTween("d", arcTween);
             back_button.style("visibility", non_interactive ? "hidden" : "visible");
 
+            //sets behavior for back button (on click, mouseover, mouseout)
             back_button.on("click", function() {
                 selection_state = "";
                 updateDetailText(null);
-
                 back_button.style("visibility", "hidden");
-
                 pieG.selectAll(".arc-label").transition().duration(750).style("fill-opacity",0);
                 g = g.data(pie(dataset));
                 g.selectAll(".whole_arc").transition().duration(750).attrTween("d", arcTween);
@@ -301,14 +304,12 @@ function layeredPie(csv_data){
                 }, 750);
                 // update(csv_data);
             });
-
             back_button.on("mouseover", function() {
                 back_button.style('stroke', 'white');back_button.style('stroke-width', 3);back_button.style('stroke-alignment', 'inner');
                 back_button.style('cursor', 'pointer');
                 infog.style("visibility", "visible");
                 info_text.line1.text("Go Back");info_text.line2.text("");info_text.line3.text("");
             });
-
             back_button.on("mouseout", function() {
                 back_button.style('stroke-width', 0);
                 infog.style("visibility", "hidden");
@@ -316,6 +317,7 @@ function layeredPie(csv_data){
 
         }
 
+        //creates labels (finds positions, and text)
         var labels = []
         g.each(function(d,i){
             var label = {};
@@ -346,14 +348,16 @@ function layeredPie(csv_data){
             }
                 
         });
+        //creates labels on pie
         arrangeLabels();
+        //
         if (pie_state != "default"){
             pieG.selectAll(".arc-label").transition().delay(700).duration(500).style("fill-opacity",1);
         } else {
             pieG.selectAll(".arc-label").style("fill-opacity",1);
         }
 
-        //Add the diagram last so its always on top (if it's a large enough screen)
+        //Add john's how-to diagram last so its always on top (if it's a large enough screen)
         if ($(window).width() >= 768) {
             var scale = .3;
             svg.append("svg:image")
@@ -419,15 +423,6 @@ function layeredPie(csv_data){
         }
     }
     function updateTitle(pie_state){
-        // var titleString = ""
-        // titleString += csv_data[row_number]["District Name"] == "Total" ? " in the United States" : " in " + csv_data[row_number]["District Name"];
-        // if(pie_state == "default"){
-        //     titleString += ", by disability status";
-        // }else{
-        //     titleString += " for "+(pie_state == "WD" ? "disabled" : "non-disabled")+" students, by race";
-        // }
-        // d3.select("#pie-subtitle").html(titleString);
-
         var place = csv_data[row_number]["District Name"] == "Total" ? "The United States" : "" + csv_data[row_number]["District Name"];
         if(pie_state == "default"){
             var type = ", by disability status";
